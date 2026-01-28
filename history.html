@@ -1,0 +1,1956 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Подключаем необходимые библиотеки -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<div class="history-container">
+    <!-- Cosmic Header -->
+    <div class="history-header cosmic-bg">
+        <div class="cosmic-particles" id="particles-js"></div>
+        <div class="header-content">
+            <div class="title-wrapper">
+                <h1 class="typewriter-title">
+                    <span class="gradient-text">История солнечной энергетики</span>
+                    <i class="fas fa-history cosmic-icon"></i>
+                </h1>
+                <p class="history-subtitle">Путешествие длиной в 200 лет: от первых открытий к энергетической революции</p>
+            </div>
+            
+            <!-- Animated Stats Counter -->
+            <div class="history-stats">
+                <div class="stat-card animate-stat" data-delay="0">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number counter" data-target="200">0</div>
+                        <div class="stat-label">Лет развития</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card animate-stat" data-delay="100">
+                    <div class="stat-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number counter" data-target="1200">0</div>
+                        <div class="stat-label">ТВт установлено</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card animate-stat" data-delay="200">
+                    <div class="stat-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number counter" data-target="47.1" data-decimal="1">0</div>
+                        <div class="stat-label">Рекордный КПД</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card animate-stat" data-delay="300">
+                    <div class="stat-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number counter" data-target="25">0</div>
+                        <div class="stat-label">Рост ежегодно</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Timeline Navigation -->
+        <div class="timeline-navigation-wrapper">
+            <div class="timeline-progress-container">
+                <div class="timeline-progress">
+                    <div class="progress-line">
+                        <div class="progress-fill" id="timelineProgress"></div>
+                    </div>
+                    <div class="timeline-marker" data-year="1839">
+                        <div class="marker-dot"></div>
+                        <div class="marker-label">1839</div>
+                    </div>
+                    <div class="timeline-marker" data-year="1954">
+                        <div class="marker-dot"></div>
+                        <div class="marker-label">1954</div>
+                    </div>
+                    <div class="timeline-marker" data-year="1970">
+                        <div class="marker-dot"></div>
+                        <div class="marker-label">1970</div>
+                    </div>
+                    <div class="timeline-marker" data-year="2000">
+                        <div class="marker-dot"></div>
+                        <div class="marker-label">2000</div>
+                    </div>
+                    <div class="timeline-marker active" data-year="2024">
+                        <div class="marker-dot"></div>
+                        <div class="marker-label">Сейчас</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="history-content">
+        <!-- Interactive Timeline -->
+        <section class="main-timeline-section glass-section">
+            <div class="section-header">
+                <h2><i class="fas fa-hourglass-half"></i> <span class="gradient-text">Хронология развития</span></h2>
+                <p class="section-subtitle">Исследуйте ключевые моменты в истории солнечной энергетики</p>
+            </div>
+            
+            <div class="timeline-controls">
+                <div class="timeline-search">
+                    <input type="text" id="timelineSearch" placeholder="Поиск события...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            
+            <div class="interactive-timeline">
+                <div class="timeline-container" id="timelineContainer">
+                    <!-- Timeline items will be added here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Evolution Chart -->
+        <section class="evolution-section glass-section">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-line"></i> <span class="gradient-text">Эволюция эффективности</span></h2>
+                <p class="section-subtitle">Как рос КПД солнечных элементов за 200 лет</p>
+            </div>
+            
+            <div class="evolution-chart-container">
+                <div class="chart-wrapper">
+                    <canvas id="efficiencyChart"></canvas>
+                </div>
+                
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <span class="legend-color lab"></span>
+                        <span>Лабораторные рекорды</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color commercial"></span>
+                        <span>Коммерческие панели</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- World Map Section -->
+        <section class="world-map-section glass-section">
+            <div class="section-header">
+                <h2><i class="fas fa-globe-americas"></i> <span class="gradient-text">Глобальное развитие</span></h2>
+                <p class="section-subtitle">Лидеры солнечной энергетики по всему миру</p>
+            </div>
+            
+            <div class="map-container">
+                <div class="world-map" id="worldMap">
+                    <!-- Map will be created with JavaScript -->
+                </div>
+                
+                <div class="map-info-panel" id="mapInfoPanel">
+                    <div class="panel-header">
+                        <h4>Информация о стране</h4>
+                        <button class="panel-close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="panel-content">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Russia Section -->
+        <section class="russia-section glass-section">
+            <div class="section-header">
+                <h2><i class="fas fa-map-marked-alt"></i> <span class="gradient-text">Развитие в России</span></h2>
+                <p class="section-subtitle">Достижения и перспективы солнечной энергетики в РФ</p>
+            </div>
+            
+            <div class="russia-timeline">
+                <div class="russia-phase active" data-year="2013">
+                    <div class="phase-visual">
+                        <div class="phase-year">2013</div>
+                        <div class="phase-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                    </div>
+                    <div class="phase-content">
+                        <h4>Начало программы поддержки ВИЭ</h4>
+                        <p>Запуск государственной программы поддержки возобновляемой энергетики</p>
+                        <div class="phase-stats">
+                            <div class="stat">
+                                <span class="stat-label">Мощность:</span>
+                                <span class="stat-value">5 МВт</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Инвестиции:</span>
+                                <span class="stat-value">$15 млн</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="russia-phase" data-year="2018">
+                    <div class="phase-visual">
+                        <div class="phase-year">2018</div>
+                        <div class="phase-icon">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                    </div>
+                    <div class="phase-content">
+                        <h4>Запуск завода "Хевел"</h4>
+                        <p>Начало полного цикла производства солнечных панелей</p>
+                        <div class="phase-stats">
+                            <div class="stat">
+                                <span class="stat-label">Мощность завода:</span>
+                                <span class="stat-value">260 МВт/год</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Локализация:</span>
+                                <span class="stat-value">70%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="russia-phase" data-year="2023">
+                    <div class="phase-visual">
+                        <div class="phase-year">2023</div>
+                        <div class="phase-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                    </div>
+                    <div class="phase-content">
+                        <h4>Достижение целей развития</h4>
+                        <p>Установленная мощность превысила 1 ГВт</p>
+                        <div class="phase-stats">
+                            <div class="stat">
+                                <span class="stat-label">Общая мощность:</span>
+                                <span class="stat-value">1.2 ГВт</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Проектов:</span>
+                                <span class="stat-value">50+</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Future Section -->
+        <section class="future-section cosmic-bg">
+            <div class="future-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-crystal-ball"></i> <span class="gradient-text">Будущее солнечной энергетики</span></h2>
+                    <p class="section-subtitle">Прогнозы и тенденции на следующие 10 лет</p>
+                </div>
+                
+                <div class="predictions">
+                    <div class="prediction-card">
+                        <div class="prediction-year">2025</div>
+                        <h4>Гигаваттные проекты</h4>
+                        <p>Массовое строительство СЭС мощностью 1+ ГВт</p>
+                        <div class="prediction-stats">
+                            <span class="stat"><i class="fas fa-sun"></i> $0.01/кВт·ч</span>
+                            <span class="stat"><i class="fas fa-bolt"></i> 1+ ГВт</span>
+                        </div>
+                    </div>
+                    
+                    <div class="prediction-card">
+                        <div class="prediction-year">2030</div>
+                        <h4>Доминирование ВИЭ</h4>
+                        <p>Солнечная энергия - основной источник электричества</p>
+                        <div class="prediction-stats">
+                            <span class="stat"><i class="fas fa-home"></i> 50% крыш</span>
+                            <span class="stat"><i class="fas fa-water"></i> Водород</span>
+                        </div>
+                    </div>
+                    
+                    <div class="prediction-card">
+                        <div class="prediction-year">2035</div>
+                        <h4>Энергетическая революция</h4>
+                        <p>Полный переход на возобновляемые источники</p>
+                        <div class="prediction-stats">
+                            <span class="stat"><i class="fas fa-globe"></i> Основной источник</span>
+                            <span class="stat"><i class="fas fa-industry"></i> Полная замена</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="detail-modal-overlay" id="detailModal">
+    <div class="detail-modal">
+        <div class="modal-header">
+            <h3 id="modalTitle"></h3>
+            <button class="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <!-- Content will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<style>
+/* ===== VARIABLES ===== */
+:root {
+    --cosmic-blue: #0f172a;
+    --cosmic-purple: #7c3aed;
+    --cosmic-cyan: #06b6d4;
+    --cosmic-pink: #ec4899;
+    --neon-green: #22c55e;
+    --neon-yellow: #f59e0b;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    --gradient-secondary: linear-gradient(135deg, #f59e0b, #ec4899);
+    --gradient-success: linear-gradient(135deg, #10b981, #22c55e);
+}
+
+/* ===== HISTORY CONTAINER ===== */
+.history-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: var(--cosmic-blue);
+    color: white;
+    min-height: 100vh;
+}
+
+/* ===== COSMIC HEADER ===== */
+.history-header {
+    position: relative;
+    padding: 6rem 2rem 4rem;
+    background: linear-gradient(180deg, #000428 0%, #004e92 100%);
+    overflow: hidden;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.title-wrapper {
+    margin-bottom: 4rem;
+}
+
+.typewriter-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, var(--cosmic-cyan), var(--cosmic-purple), var(--cosmic-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 3s ease infinite;
+}
+
+.cosmic-icon {
+    font-size: 3rem;
+    color: var(--cosmic-cyan);
+    animation: float 6s ease-in-out infinite;
+}
+
+.history-subtitle {
+    font-size: 1.4rem;
+    opacity: 0.9;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ===== ANIMATED STATS ===== */
+.history-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin: 4rem auto;
+    flex-wrap: wrap;
+    max-width: 1200px;
+}
+
+.stat-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2rem;
+    min-width: 180px;
+    text-align: center;
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.stat-card.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.stat-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--cosmic-cyan);
+}
+
+.stat-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    font-family: 'Arial', sans-serif;
+}
+
+.stat-label {
+    font-size: 1rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ===== TIMELINE NAVIGATION ===== */
+.timeline-navigation-wrapper {
+    position: relative;
+    z-index: 2;
+    margin-top: 4rem;
+}
+
+.timeline-progress-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.timeline-progress {
+    position: relative;
+    height: 100px;
+}
+
+.progress-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    transform: translateY(-50%);
+}
+
+.progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, var(--cosmic-cyan), var(--cosmic-purple));
+    border-radius: 3px;
+    transform-origin: left;
+    transition: transform 0.5s ease;
+}
+
+.timeline-marker {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.timeline-marker:hover {
+    transform: translateY(-50%) scale(1.2);
+}
+
+.timeline-marker.active .marker-dot {
+    background: var(--neon-green);
+    box-shadow: 0 0 20px var(--neon-green);
+}
+
+.marker-dot {
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.marker-label {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.8);
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    white-space: nowrap;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.timeline-marker:hover .marker-label {
+    opacity: 1;
+}
+
+.timeline-marker[data-year="1839"] { left: 0%; }
+.timeline-marker[data-year="1954"] { left: 25%; }
+.timeline-marker[data-year="1970"] { left: 50%; }
+.timeline-marker[data-year="2000"] { left: 75%; }
+.timeline-marker[data-year="2024"] { left: 100%; }
+
+/* ===== GLASS SECTIONS ===== */
+.glass-section {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+    margin: 3rem 2rem;
+    padding: 3rem;
+    box-shadow: var(--glass-shadow);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== INTERACTIVE TIMELINE ===== */
+.timeline-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.timeline-search {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+.timeline-search input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 3rem;
+    border-radius: 24px;
+    border: 2px solid var(--glass-border);
+    background: rgba(0,0,0,0.3);
+    color: white;
+    font-size: 1rem;
+}
+
+.timeline-search i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--cosmic-cyan);
+}
+
+.interactive-timeline {
+    position: relative;
+    min-height: 800px;
+}
+
+.timeline-container {
+    position: relative;
+    padding-left: 100px;
+}
+
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 50px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--cosmic-cyan), var(--cosmic-purple));
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 4rem;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.timeline-item:hover {
+    opacity: 1;
+}
+
+.timeline-item.active {
+    opacity: 1;
+}
+
+.timeline-marker-small {
+    position: absolute;
+    left: -100px;
+    top: 0;
+    display: flex;
+    align-items: center;
+}
+
+.marker-circle-small {
+    width: 20px;
+    height: 20px;
+    background: var(--cosmic-cyan);
+    border-radius: 50%;
+    border: 4px solid var(--cosmic-blue);
+    box-shadow: 0 0 0 4px var(--cosmic-cyan);
+    z-index: 2;
+}
+
+.marker-line-small {
+    width: 40px;
+    height: 2px;
+    background: var(--cosmic-cyan);
+    margin-left: -2px;
+}
+
+.timeline-content {
+    background: rgba(0,0,0,0.5);
+    padding: 2rem;
+    border-radius: 20px;
+    border-left: 4px solid var(--cosmic-cyan);
+    transition: all 0.3s ease;
+    max-width: 600px;
+}
+
+.timeline-content:hover {
+    transform: translateX(10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.content-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.year-badge {
+    background: var(--cosmic-cyan);
+    color: var(--cosmic-blue);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.content-header h3 {
+    font-size: 1.5rem;
+    color: white;
+    margin: 0;
+}
+
+.content-body p {
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.content-details {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+}
+
+.detail-item i {
+    color: var(--cosmic-cyan);
+}
+
+.btn-more {
+    background: transparent;
+    border: 2px solid var(--cosmic-cyan);
+    color: var(--cosmic-cyan);
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-more:hover {
+    background: var(--cosmic-cyan);
+    color: var(--cosmic-blue);
+}
+
+/* ===== EVOLUTION CHART ===== */
+.evolution-chart-container {
+    margin: 3rem 0;
+}
+
+.chart-wrapper {
+    position: relative;
+    height: 400px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 20px;
+    padding: 2rem;
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.legend-color {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+}
+
+.legend-color.lab {
+    background: var(--cosmic-cyan);
+}
+
+.legend-color.commercial {
+    background: var(--neon-yellow);
+}
+
+/* ===== WORLD MAP ===== */
+.map-container {
+    position: relative;
+    height: 500px;
+    margin: 3rem 0;
+    background: rgba(0,0,0,0.3);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.world-map {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+}
+
+.map-country {
+    position: absolute;
+    padding: 1rem;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    background: rgba(6, 182, 212, 0.7);
+    color: white;
+    font-weight: 600;
+    min-width: 120px;
+    text-align: center;
+    animation: country-pulse 3s ease-in-out infinite;
+}
+
+.map-country:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    z-index: 10;
+}
+
+.map-country.china {
+    top: 30%;
+    left: 70%;
+    background: rgba(37, 99, 235, 0.8);
+}
+
+.map-country.usa {
+    top: 35%;
+    left: 20%;
+    background: rgba(245, 158, 11, 0.8);
+}
+
+.map-country.japan {
+    top: 30%;
+    left: 80%;
+    background: rgba(16, 185, 129, 0.8);
+}
+
+.map-country.germany {
+    top: 25%;
+    left: 48%;
+    background: rgba(239, 68, 68, 0.8);
+}
+
+.map-country.india {
+    top: 40%;
+    left: 65%;
+    background: rgba(139, 92, 246, 0.8);
+}
+
+.map-info-panel {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 300px;
+    background: rgba(0,0,0,0.9);
+    border-radius: 20px;
+    padding: 1.5rem;
+    display: none;
+    z-index: 100;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.panel-close {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.panel-close:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+/* ===== RUSSIA SECTION ===== */
+.russia-timeline {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 3rem 0;
+    flex-wrap: wrap;
+}
+
+.russia-phase {
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    text-align: center;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.russia-phase.active {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.phase-visual {
+    margin-bottom: 1.5rem;
+}
+
+.phase-year {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--cosmic-cyan);
+    margin-bottom: 1rem;
+}
+
+.phase-icon {
+    font-size: 4rem;
+    color: var(--cosmic-purple);
+}
+
+.phase-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.phase-stats .stat {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 0.25rem;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--neon-green);
+}
+
+/* ===== FUTURE SECTION ===== */
+.future-section {
+    position: relative;
+    padding: 6rem 2rem;
+    margin: 3rem 2rem;
+    border-radius: 32px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+}
+
+.predictions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.prediction-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.prediction-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-10px);
+    border-color: var(--neon-yellow);
+}
+
+.prediction-year {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--neon-yellow);
+    margin-bottom: 0.5rem;
+}
+
+.prediction-card h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.prediction-card p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.prediction-stats {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.prediction-stats .stat {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ===== DETAIL MODAL ===== */
+.detail-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 2rem;
+}
+
+.detail-modal {
+    background: var(--cosmic-blue);
+    border-radius: 32px;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow: hidden;
+    border: 2px solid var(--cosmic-cyan);
+    animation: modal-appear 0.5s ease;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.modal-body {
+    padding: 2rem;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes country-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes modal-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1200px) {
+    .typewriter-title {
+        font-size: 3rem;
+    }
+    
+    .history-stats {
+        gap: 1.5rem;
+    }
+    
+    .stat-card {
+        min-width: 160px;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .history-header {
+        padding: 4rem 1rem;
+    }
+    
+    .typewriter-title {
+        font-size: 2.5rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .cosmic-icon {
+        font-size: 2.5rem;
+    }
+    
+    .glass-section {
+        margin: 2rem 1rem;
+        padding: 2rem;
+    }
+    
+    .future-section {
+        margin: 2rem 1rem;
+        padding: 4rem 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .history-stats {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stat-card {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .timeline-progress {
+        height: 80px;
+    }
+    
+    .timeline-marker {
+        transform: translateY(-50%) scale(0.8);
+    }
+    
+    .timeline-container {
+        padding-left: 60px;
+    }
+    
+    .timeline-container::before {
+        left: 30px;
+    }
+    
+    .timeline-marker-small {
+        left: -60px;
+    }
+    
+    .russia-timeline {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .russia-phase {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .typewriter-title {
+        font-size: 2rem;
+    }
+    
+    .history-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .section-header h2 {
+        font-size: 2rem;
+        flex-direction: column;
+    }
+    
+    .predictions {
+        grid-template-columns: 1fr;
+    }
+    
+    .map-country {
+        min-width: 100px;
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .map-info-panel {
+        width: 250px;
+        padding: 1rem;
+    }
+}
+</style>
+
+<script>
+// Полностью рабочее приложение истории
+class WorkingHistoryApp {
+    constructor() {
+        this.currentYear = 1839;
+        this.timelineData = this.getTimelineData();
+        this.currentDetailIndex = 0;
+        this.init();
+    }
+
+    init() {
+        this.initParticles();
+        this.initAnimatedCounters();
+        this.initTimeline();
+        this.initChart();
+        this.initWorldMap();
+        this.initRussiaTimeline();
+        this.initDetailModal();
+        this.bindEvents();
+        this.animateOnScroll();
+    }
+
+    getTimelineData() {
+        return [
+            {
+                year: 1839,
+                title: "Открытие фотоэффекта",
+                description: "Александр Эдмон Беккерель обнаружил фотоэлектрический эффект в электролите при освещении",
+                icon: "fa-flask",
+                color: "#3b82f6",
+                details: {
+                    "Ученый": "Александр Беккерель",
+                    "Страна": "Франция",
+                    "Тип": "Эксперимент"
+                }
+            },
+            {
+                year: 1873,
+                title: "Селеновые элементы",
+                description: "Уиллоуби Смит открыл фотопроводимость селена, что привело к созданию первых фотоэлементов",
+                icon: "fa-lightbulb",
+                color: "#8b5cf6",
+                details: {
+                    "Ученый": "Уиллоуби Смит",
+                    "Материал": "Селен",
+                    "Значение": "Первые фотоэлементы"
+                }
+            },
+            {
+                year: 1954,
+                title: "Первый кремниевый элемент",
+                description: "Bell Laboratories создали первый практический солнечный элемент с КПД 6%",
+                icon: "fa-solar-panel",
+                color: "#10b981",
+                details: {
+                    "Компания": "Bell Laboratories",
+                    "КПД": "6%",
+                    "Материал": "Кремний"
+                }
+            },
+            {
+                year: 1958,
+                title: "Солнечная энергия в космосе",
+                description: "Спутник Vanguard I - первый космический аппарат с солнечными батареями",
+                icon: "fa-satellite",
+                color: "#f59e0b",
+                details: {
+                    "Спутник": "Vanguard I",
+                    "Сфера": "Космос",
+                    "Надежность": "Доказана"
+                }
+            },
+            {
+                year: 1970,
+                title: "Нефтяной кризис и развитие",
+                description: "Энергетический кризис стимулировал исследования в области солнечной энергетики",
+                icon: "fa-gas-pump",
+                color: "#ec4899",
+                details: {
+                    "Событие": "Нефтяной кризис",
+                    "Результат": "Ускорение исследований",
+                    "Применение": "Наземное"
+                }
+            },
+            {
+                year: 1990,
+                title: "Массовое производство",
+                description: "Снижение стоимости производства и увеличение КПД солнечных элементов до 15-17%",
+                icon: "fa-industry",
+                color: "#06b6d4",
+                details: {
+                    "КПД": "15-17%",
+                    "Тенденция": "Снижение стоимости",
+                    "Рынок": "Глобализация"
+                }
+            },
+            {
+                year: 2000,
+                title: "Солнечный бум",
+                description: "Быстрый рост установленной мощности по всему миру",
+                icon: "fa-chart-line",
+                color: "#f97316",
+                details: {
+                    "Рост": "Экспоненциальный",
+                    "Технология": "Тонкопленочные",
+                    "Масштаб": "Глобальный"
+                }
+            },
+            {
+                year: 2010,
+                title: "Гигаваттные проекты",
+                description: "Строительство солнечных электростанций мощностью сотни мегаватт и гигаватт",
+                icon: "fa-charging-station",
+                color: "#8b5cf6",
+                details: {
+                    "Масштаб": "Гигаватты",
+                    "Инвестиции": "Массивные",
+                    "Влияние": "Изменение энергобаланса"
+                }
+            },
+            {
+                year: 2020,
+                title: "Рекорды эффективности",
+                description: "КПД лабораторных элементов превысил 47%, массовое производство панелей с КПД 22-24%",
+                icon: "fa-trophy",
+                color: "#22c55e",
+                details: {
+                    "Рекорд": "47.1%",
+                    "Технология": "Тандемные",
+                    "Будущее": "Нанотехнологии"
+                }
+            }
+        ];
+    }
+
+    initParticles() {
+        if (typeof particlesJS !== 'undefined') {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 40, density: { enable: true, value_area: 800 } },
+                    color: { value: "#06b6d4" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#06b6d4",
+                        opacity: 0.2,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out"
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "repulse" },
+                        onclick: { enable: true, mode: "push" }
+                    }
+                }
+            });
+        }
+    }
+
+    initAnimatedCounters() {
+        const counters = document.querySelectorAll('.counter');
+        
+        counters.forEach(counter => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        this.animateCounter(counter);
+                        observer.unobserve(counter);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(counter);
+        });
+
+        // Анимация карточек статистики
+        const statCards = document.querySelectorAll('.animate-stat');
+        statCards.forEach((card, index) => {
+            const delay = parseInt(card.getAttribute('data-delay'));
+            setTimeout(() => {
+                card.classList.add('animated');
+            }, 500 + delay);
+        });
+    }
+
+    animateCounter(counter) {
+        const target = parseFloat(counter.getAttribute('data-target'));
+        const hasDecimal = counter.hasAttribute('data-decimal');
+        const duration = 2000;
+        const frameDuration = 1000 / 60;
+        const totalFrames = Math.round(duration / frameDuration);
+        let frame = 0;
+        
+        const counterAnimation = setInterval(() => {
+            frame++;
+            const progress = frame / totalFrames;
+            const currentValue = progress * target;
+            
+            if (hasDecimal) {
+                counter.textContent = currentValue.toFixed(1);
+            } else {
+                counter.textContent = Math.floor(currentValue);
+            }
+            
+            if (frame === totalFrames) {
+                clearInterval(counterAnimation);
+                if (hasDecimal) {
+                    counter.textContent = target.toFixed(1);
+                } else {
+                    counter.textContent = target;
+                }
+            }
+        }, frameDuration);
+    }
+
+    initTimeline() {
+        const container = document.getElementById('timelineContainer');
+        
+        this.timelineData.forEach((item, index) => {
+            const timelineItem = document.createElement('div');
+            timelineItem.className = 'timeline-item';
+            timelineItem.setAttribute('data-year', item.year);
+            
+            timelineItem.innerHTML = `
+                <div class="timeline-marker-small">
+                    <div class="marker-circle-small"></div>
+                    <div class="marker-line-small"></div>
+                </div>
+                <div class="timeline-content">
+                    <div class="content-header">
+                        <div class="year-badge">${item.year}</div>
+                        <h3>${item.title}</h3>
+                    </div>
+                    <div class="content-body">
+                        <p>${item.description}</p>
+                        <div class="content-details">
+                            ${Object.entries(item.details).map(([key, value]) => `
+                                <div class="detail-item">
+                                    <i class="fas fa-${this.getDetailIcon(key)}"></i>
+                                    <span>${value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="btn-more" data-index="${index}">Подробнее</button>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(timelineItem);
+            
+            // Добавляем обработчик клика
+            timelineItem.addEventListener('click', () => {
+                this.showDetail(index);
+            });
+            
+            // Добавляем обработчик для кнопки
+            timelineItem.querySelector('.btn-more').addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.showDetail(index);
+            });
+        });
+
+        // Инициализация поиска
+        this.initSearch();
+    }
+
+    getDetailIcon(key) {
+        const icons = {
+            "Ученый": "user",
+            "Страна": "map-marker-alt",
+            "Тип": "flask",
+            "Материал": "atom",
+            "Значение": "lightbulb",
+            "Компания": "users",
+            "КПД": "percentage",
+            "Спутник": "satellite",
+            "Сфера": "rocket",
+            "Надежность": "battery-full",
+            "Событие": "gas-pump",
+            "Результат": "industry",
+            "Применение": "home",
+            "Тенденция": "chart-line",
+            "Рынок": "globe",
+            "Рост": "bolt",
+            "Технология": "film",
+            "Масштаб": "solar-panel",
+            "Инвестиции": "dollar-sign",
+            "Влияние": "city",
+            "Рекорд": "trophy",
+            "Будущее": "microchip"
+        };
+        
+        return icons[key] || "info-circle";
+    }
+
+    initSearch() {
+        const searchInput = document.getElementById('timelineSearch');
+        
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const items = document.querySelectorAll('.timeline-item');
+            
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (query === '' || text.includes(query)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    initChart() {
+        const ctx = document.getElementById('efficiencyChart').getContext('2d');
+        
+        const years = [1839, 1873, 1954, 1958, 1970, 1990, 2000, 2010, 2020, 2024];
+        const labRecords = [1, 2, 6, 8, 12, 17, 20, 25, 35, 47.1];
+        const commercial = [null, null, 6, 8, 10, 15, 17, 20, 22, 24];
+        
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [
+                    {
+                        label: 'Лабораторные рекорды',
+                        data: labRecords,
+                        borderColor: '#06b6d4',
+                        backgroundColor: 'rgba(6, 182, 212, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#06b6d4',
+                        pointRadius: 6,
+                        pointHoverRadius: 10
+                    },
+                    {
+                        label: 'Коммерческие панели',
+                        data: commercial,
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#f59e0b',
+                        pointRadius: 6,
+                        pointHoverRadius: 10
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: 'white',
+                        bodyColor: 'white',
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.y}%`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: 'white'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: 'white',
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    initWorldMap() {
+        const worldMap = document.getElementById('worldMap');
+        const infoPanel = document.getElementById('mapInfoPanel');
+        const panelContent = infoPanel.querySelector('.panel-content');
+        const panelClose = infoPanel.querySelector('.panel-close');
+        
+        const countries = [
+            {
+                id: 'china',
+                name: 'Китай',
+                power: 392,
+                growth: 28,
+                share: 32.7,
+                color: 'china',
+                details: {
+                    "Мощность": "392 ГВт",
+                    "Доля рынка": "32.7%",
+                    "Год лидерства": "2015",
+                    "Инвестиции": "$45 млрд"
+                }
+            },
+            {
+                id: 'usa',
+                name: 'США',
+                power: 142,
+                growth: 24,
+                share: 11.8,
+                color: 'usa',
+                details: {
+                    "Мощность": "142 ГВт",
+                    "Доля рынка": "11.8%",
+                    "Инвестиции": "$35 млрд",
+                    "Проектов": "12,000+"
+                }
+            },
+            {
+                id: 'japan',
+                name: 'Япония',
+                power: 84,
+                growth: 15,
+                share: 7.0,
+                color: 'japan',
+                details: {
+                    "Мощность": "84 ГВт",
+                    "Доля рынка": "7.0%",
+                    "На душу": "660 Вт",
+                    "Крышные системы": "60%"
+                }
+            },
+            {
+                id: 'germany',
+                name: 'Германия',
+                power: 67,
+                growth: 8,
+                share: 5.6,
+                color: 'germany',
+                details: {
+                    "Мощность": "67 ГВт",
+                    "Доля рынка": "5.6%",
+                    "На душу": "810 Вт",
+                    "Рекорд в сети": "54%"
+                }
+            },
+            {
+                id: 'india',
+                name: 'Индия',
+                power: 63,
+                growth: 32,
+                share: 5.3,
+                color: 'india',
+                details: {
+                    "Мощность": "63 ГВт",
+                    "Доля рынка": "5.3%",
+                    "Рост": "32% в год",
+                    "Цель 2030": "280 ГВт"
+                }
+            }
+        ];
+        
+        // Создаем страны на карте
+        countries.forEach(country => {
+            const countryElement = document.createElement('div');
+            countryElement.className = `map-country ${country.color}`;
+            countryElement.innerHTML = `
+                <div class="country-name">${country.name}</div>
+                <div class="country-power">${country.power} ГВт</div>
+            `;
+            
+            countryElement.addEventListener('mouseenter', () => {
+                this.showCountryInfo(country, panelContent);
+                infoPanel.style.display = 'block';
+            });
+            
+            worldMap.appendChild(countryElement);
+        });
+        
+        // Закрытие панели
+        panelClose.addEventListener('click', () => {
+            infoPanel.style.display = 'none';
+        });
+        
+        // Закрытие при клике вне панели
+        worldMap.addEventListener('click', (e) => {
+            if (!infoPanel.contains(e.target) && !e.target.closest('.map-country')) {
+                infoPanel.style.display = 'none';
+            }
+        });
+    }
+
+    showCountryInfo(country, panelContent) {
+        panelContent.innerHTML = `
+            <h5>${country.name}</h5>
+            <div class="country-info">
+                ${Object.entries(country.details).map(([key, value]) => `
+                    <div class="info-row">
+                        <span class="info-label">${key}:</span>
+                        <span class="info-value">${value}</span>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="country-stats">
+                <div class="stat">
+                    <div class="stat-label">Годовой рост</div>
+                    <div class="stat-value">+${country.growth}%</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Доля рынка</div>
+                    <div class="stat-value">${country.share}%</div>
+                </div>
+            </div>
+        `;
+    }
+
+    initRussiaTimeline() {
+        const phases = document.querySelectorAll('.russia-phase');
+        
+        phases.forEach(phase => {
+            phase.addEventListener('click', () => {
+                phases.forEach(p => p.classList.remove('active'));
+                phase.classList.add('active');
+                
+                const year = phase.getAttribute('data-year');
+                this.showRussiaDetail(year);
+            });
+        });
+    }
+
+    showRussiaDetail(year) {
+        const details = {
+            "2013": {
+                title: "2013 - Начало программы поддержки ВИЭ",
+                content: `
+                    <p>В 2013 году в России была запущена государственная программа поддержки возобновляемой энергетики, которая стала отправной точкой для развития солнечной энергетики в стране.</p>
+                    <h4>Основные мероприятия:</h4>
+                    <ul>
+                        <li>Утверждение механизма поддержки ВИЭ</li>
+                        <li>Первые конкурсы на строительство СЭС</li>
+                        <li>Привлечение инвестиций в отрасль</li>
+                    </ul>
+                    <h4>Результаты:</h4>
+                    <p>Были заложены основы для будущего развития солнечной энергетики в России.</p>
+                `
+            },
+            "2018": {
+                title: "2018 - Запуск завода 'Хевел'",
+                content: `
+                    <p>В 2018 году в Новочебоксарске был запущен завод полного цикла по производству солнечных панелей компании "Хевел".</p>
+                    <h4>Технологические особенности:</h4>
+                    <ul>
+                        <li>Гетероструктурная технология</li>
+                        <li>Мощность завода: 260 МВт в год</li>
+                        <li>Локализация производства: 70%</li>
+                    </ul>
+                    <h4>Значение:</h4>
+                    <p>Завод стал первым в России предприятием полного цикла производства солнечных панелей.</p>
+                `
+            },
+            "2023": {
+                title: "2023 - Достижение целей развития",
+                content: `
+                    <p>К 2023 году установленная мощность солнечных электростанций в России превысила 1.2 ГВт.</p>
+                    <h4>Ключевые достижения:</h4>
+                    <ul>
+                        <li>Более 50 солнечных электростанций</li>
+                        <li>Развитие микрогенерации</li>
+                        <li>Реализация программы "Зеленый тариф"</li>
+                    </ul>
+                    <h4>Перспективы:</h4>
+                    <p>Планы по достижению 1.5 ГВт установленной мощности к 2025 году.</p>
+                `
+            }
+        };
+        
+        if (details[year]) {
+            this.showDetailModal(details[year].title, details[year].content);
+        }
+    }
+
+    initDetailModal() {
+        this.modal = document.getElementById('detailModal');
+        this.modalTitle = document.getElementById('modalTitle');
+        this.modalBody = document.getElementById('modalBody');
+        this.modalClose = this.modal.querySelector('.modal-close');
+        
+        this.modalClose.addEventListener('click', () => {
+            this.hideDetailModal();
+        });
+        
+        this.modal.addEventListener('click', (e) => {
+            if (e.target === this.modal) {
+                this.hideDetailModal();
+            }
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.modal.style.display === 'flex') {
+                this.hideDetailModal();
+            }
+        });
+    }
+
+    showDetail(index) {
+        const item = this.timelineData[index];
+        this.currentDetailIndex = index;
+        
+        let detailsHTML = '<div class="detail-grid">';
+        detailsHTML += '<div class="detail-main">';
+        detailsHTML += `<h4>${item.title}</h4>`;
+        detailsHTML += `<p>${item.description}</p>`;
+        detailsHTML += '</div>';
+        
+        detailsHTML += '<div class="detail-sidebar">';
+        detailsHTML += '<h5>Детали события:</h5>';
+        detailsHTML += '<ul class="detail-list">';
+        
+        Object.entries(item.details).forEach(([key, value]) => {
+            detailsHTML += `
+                <li>
+                    <span class="detail-key">${key}:</span>
+                    <span class="detail-value">${value}</span>
+                </li>
+            `;
+        });
+        
+        detailsHTML += '</ul>';
+        detailsHTML += '</div>';
+        detailsHTML += '</div>';
+        
+        this.showDetailModal(`${item.year} - ${item.title}`, detailsHTML);
+    }
+
+    showDetailModal(title, content) {
+        this.modalTitle.textContent = title;
+        this.modalBody.innerHTML = content;
+        this.modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    hideDetailModal() {
+        this.modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    bindEvents() {
+        // Маркеры временной шкалы
+        document.querySelectorAll('.timeline-marker').forEach(marker => {
+            marker.addEventListener('click', () => {
+                const year = marker.getAttribute('data-year');
+                this.goToYear(year);
+            });
+        });
+        
+        // Обновление прогресса при скролле
+        window.addEventListener('scroll', () => {
+            this.updateTimelineProgress();
+        });
+    }
+
+    goToYear(year) {
+        this.currentYear = parseInt(year);
+        
+        // Обновляем активный маркер
+        document.querySelectorAll('.timeline-marker').forEach(marker => {
+            marker.classList.remove('active');
+            if (marker.getAttribute('data-year') == year) {
+                marker.classList.add('active');
+            }
+        });
+        
+        // Прокручиваем к соответствующему элементу
+        const timelineItem = document.querySelector(`.timeline-item[data-year="${year}"]`);
+        if (timelineItem) {
+            timelineItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        this.updateTimelineProgress();
+    }
+
+    updateTimelineProgress() {
+        const progress = ((this.currentYear - 1839) / (2024 - 1839)) * 100;
+        const progressFill = document.getElementById('timelineProgress');
+        if (progressFill) {
+            progressFill.style.transform = `scaleX(${progress / 100})`;
+        }
+    }
+
+    animateOnScroll() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+    }
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    window.historyApp = new WorkingHistoryApp();
+});
+</script>
+{% endblock %}

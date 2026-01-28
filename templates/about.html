@@ -1,0 +1,1425 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="about-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-bg-particles"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="project-badge">
+                    <span class="badge-icon">🎓</span>
+                    <span class="badge-text">ШКОЛЬНЫЙ ПРОЕКТ</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-gradient">SolarCalc Pro</span>
+                    <span class="title-sub">Профессиональный калькулятор солнечной энергии</span>
+                </h1>
+                <p class="hero-description">
+                    <strong>100% бесплатный</strong> инструмент для расчёта солнечных электростанций. 
+                    Создан школьником для всех, кто интересуется возобновляемой энергетикой!
+                </p>
+                
+                <div class="hero-features">
+                    <div class="feature">
+                        <i class="fas fa-unlock-alt"></i>
+                        <span>Бесплатно</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-bolt"></i>
+                        <span>Точные расчёты</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-user-friends"></i>
+                        <span>Простота</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-leaf"></i>
+                        <span>Экология</span>
+                    </div>
+                </div>
+                
+                <div class="hero-cta">
+                    <a href="/calculator" class="cta-button primary pulse">
+                        <i class="fas fa-calculator"></i>
+                        Бесплатный расчёт
+                    </a>
+                    <a href="#features" class="cta-button secondary">
+                        <i class="fas fa-info-circle"></i>
+                        Узнать больше
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="solar-visualization">
+                    <div class="sun-center">
+                        <div class="sun-glow"></div>
+                    </div>
+                    <div class="planet orbit-1"></div>
+                    <div class="planet orbit-2"></div>
+                    <div class="planet orbit-3"></div>
+                    <div class="energy-waves">
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-down">
+            <span>Исследуйте возможности</span>
+            <i class="fas fa-chevron-down bounce"></i>
+        </div>
+    </section>
+
+    <!-- Why SolarCalc -->
+    <section class="why-section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-sun"></i> Почему SolarCalc Pro?</h2>
+                <p class="section-subtitle">Школьный проект с профессиональными возможностями</p>
+            </div>
+            
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="why-content">
+                        <h3>Абсолютно бесплатно</h3>
+                        <p>Никаких подписок или скрытых платежей. Полный доступ ко всем функциям навсегда.</p>
+                        <div class="why-badge">БЕСПЛАТНО</div>
+                    </div>
+                </div>
+                
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="why-content">
+                        <h3>Создан школьником</h3>
+                        <p>Проект разработан учеником 9 класса, что делает его особенно понятным для всех.</p>
+                        <div class="why-badge">ДОСТУПНО</div>
+                    </div>
+                </div>
+                
+                <div class="why-card">
+                    <div class="why-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="why-content">
+                        <h3>Профессиональная точность</h3>
+                        <p>Алгоритмы с точностью до 98.7%, сравнимой с коммерческими решениями.</p>
+                        <div class="why-badge">ТОЧНО</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header center">
+                <h2><i class="fas fa-star"></i> Основные возможности</h2>
+                <p class="section-subtitle">Всё, что нужно для расчёта солнечной электростанции</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Географический анализ</h3>
+                    <p>Автоматическое определение солнечной активности в вашем регионе</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Подробные графики</h3>
+                    <p>Визуализация производства энергии и экономии</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Экономический расчёт</h3>
+                    <p>Расчёт окупаемости и прибыли от инвестиций</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>Отчёты в PDF</h3>
+                    <p>Готовые отчёты для презентаций и планирования</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-play-circle"></i> Как работает?</h2>
+                <p class="section-subtitle">Простота использования — наша фишка</p>
+            </div>
+            
+            <div class="how-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Введите данные</h3>
+                        <p>Местоположение, потребление энергии, параметры крыши</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Выберите оборудование</h3>
+                        <p>Солнечные панели, инверторы, аккумуляторы</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Получите результат</h3>
+                        <p>Подробный расчёт и рекомендации</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="demo-box">
+                <div class="demo-content">
+                    <h3>Попробуйте сейчас!</h3>
+                    <p>Наш калькулятор настолько прост, что справится даже новичок</p>
+                    <div class="demo-buttons">
+                        <a href="/calculator" class="demo-button primary">
+                            <i class="fas fa-play"></i>
+                            Быстрый старт
+                        </a>
+                        <a href="https://energypedia.info/wiki/Solar_Power_Calculations" target="_blank" class="demo-button secondary">
+                            <i class="fas fa-book"></i>
+                            Об основах солнечной энергии
+                        </a>
+                    </div>
+                </div>
+                <div class="demo-visual">
+                    <div class="calculator-animation">
+                        <div class="calc-screen">
+                            <div class="calc-display">Результат: ~15,000 ₽/месяц</div>
+                        </div>
+                        <div class="calc-buttons">
+                            <div class="calc-btn"></div>
+                            <div class="calc-btn"></div>
+                            <div class="calc-btn"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Creator -->
+    <section class="creator-section">
+        <div class="container">
+            <div class="section-header center">
+                <h2><i class="fas fa-user-graduate"></i> Создатель проекта</h2>
+                <p class="section-subtitle">Школьник, который создал будущее</p>
+            </div>
+            
+            <div class="creator-card">
+                <div class="creator-avatar">
+                    <div class="avatar-circle">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                </div>
+                <div class="creator-info">
+                    <h3>Глеб Лубков</h3>
+                    <p class="creator-role">9 класс, разработчик</p>
+                    <p class="creator-desc">
+                        Ученик 9 класса, увлекающийся программированием и возобновляемой энергетикой. 
+                        Создал SolarCalc Pro как школьный проект, чтобы помочь людям понять преимущества солнечной энергии.
+                    </p>
+                    <div class="creator-stats">
+                        <div class="stat">
+                            <span class="stat-number">5</span>
+                            <span class="stat-label">месяцев работы</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">10K+</span>
+                            <span class="stat-label">строк кода</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">98.7%</span>
+                            <span class="stat-label">точность</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Feedback -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="section-header center">
+                <h2><i class="fas fa-comments"></i> Обратная связь</h2>
+                <p class="section-subtitle">Ваше мнение помогает сделать проект лучше</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <h3>Telegram</h3>
+                    <p>Напишите мне в Telegram для обратной связи, вопросов или предложений</p>
+                    <a href="https://t.me/gleblub1" target="_blank" class="contact-button telegram">
+                        <i class="fab fa-telegram"></i>
+                        @gleblub1
+                    </a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>Пишите на почту для подробных вопросов или сотрудничества</p>
+                    <a href="mailto:glubkov2020@gmail.com" class="contact-button email">
+                        <i class="fas fa-envelope"></i>
+                        glubkov2020@gmail.com
+                    </a>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Предложить идею</h3>
+                    <p>Есть идея для улучшения? Делитесь своими предложениями!</p>
+                    <a href="https://t.me/gleblub1" target="_blank" class="contact-button idea">
+                        <i class="fas fa-lightbulb"></i>
+                        Предложить идею
+                    </a>
+                </div>
+            </div>
+            
+            <div class="feedback-cta">
+                <h3>Проект развивается благодаря вам!</h3>
+                <p>Каждый отзыв помогает сделать SolarCalc Pro лучше. Не стесняйтесь делиться мнением!</p>
+                <div class="feedback-buttons">
+                    <a href="https://t.me/gleblub1" target="_blank" class="feedback-button primary">
+                        <i class="fab fa-telegram"></i>
+                        Оставить отзыв в Telegram
+                    </a>
+                    <a href="/calculator" class="feedback-button secondary">
+                        <i class="fas fa-calculator"></i>
+                        Попробовать калькулятор
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="final-content">
+                <h2>Начните бесплатный расчёт прямо сейчас</h2>
+                <p>Проектируйте солнечную электростанцию за считанные минуты. Никаких сложностей — только результат!</p>
+                <div class="final-buttons">
+                    <a href="/calculator" class="final-button primary">
+                        <i class="fas fa-bolt"></i>
+                        Начать расчёт
+                    </a>
+                    <a href="https://www.energy.gov/eere/solar/homeowners-guide-going-solar" target="_blank" class="final-button secondary">
+                        <i class="fas fa-graduation-cap"></i>
+                        Руководство по солнечной энергии
+                    </a>
+                </div>
+                <div class="final-note">
+                    <i class="fas fa-heart"></i>
+                    <span>Создано с любовью к технологиям и экологии. Бесплатно навсегда.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+// Simple particle background
+document.addEventListener('DOMContentLoaded', function() {
+    // Particle background
+    const particleBg = document.querySelector('.hero-bg-particles');
+    if (particleBg) {
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.cssText = `
+                position: absolute;
+                width: ${Math.random() * 3 + 1}px;
+                height: ${Math.random() * 3 + 1}px;
+                background: rgba(255, 255, 255, ${Math.random() * 0.3 + 0.1});
+                border-radius: 50%;
+                top: ${Math.random() * 100}%;
+                left: ${Math.random() * 100}%;
+                animation: float ${Math.random() * 20 + 10}s linear infinite;
+            `;
+            particleBg.appendChild(particle);
+        }
+    }
+
+    // Animate calculator
+    function animateCalculator() {
+        const calcDisplay = document.querySelector('.calc-display');
+        if (calcDisplay) {
+            const time = Date.now() * 0.001;
+            const value = 15000 + Math.sin(time) * 1000;
+            calcDisplay.textContent = `Результат: ~${Math.round(value).toLocaleString('ru-RU')} ₽/месяц`;
+        }
+        requestAnimationFrame(animateCalculator);
+    }
+    animateCalculator();
+
+    // Add hover effects
+    const cards = document.querySelectorAll('.why-card, .feature-card, .contact-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-10px)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+        });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+</script>
+
+<style>
+.about-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: #0a1929;
+    color: #ffffff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: hidden;
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #0c2461 0%, #1e3799 50%, #4a69bd 100%);
+    overflow: hidden;
+}
+
+.hero-bg-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.hero-text {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.project-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.title-gradient {
+    background: linear-gradient(45deg, #00dbde, #fc00ff, #00dbde);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+}
+
+.title-sub {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 0.5rem;
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 15px;
+    border-left: 4px solid #00dbde;
+}
+
+.hero-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.feature:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+}
+
+.feature i {
+    color: #00dbde;
+    font-size: 1.2rem;
+}
+
+/* Improved CTA Buttons */
+.hero-cta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.1rem 2.2rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.cta-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.cta-button.primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.cta-button.primary:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+}
+
+.cta-button.secondary {
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cta-button.secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Solar Visualization */
+.solar-visualization {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+}
+
+.sun-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 30% 30%, #ff9a00, #ff2400);
+    border-radius: 50%;
+    box-shadow: 0 0 60px rgba(255, 154, 0, 0.6);
+    animation: sun-pulse 3s ease-in-out infinite;
+}
+
+.sun-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 154, 0, 0.3) 0%, transparent 70%);
+    animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.planet {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform-origin: 0 0;
+}
+
+.orbit-1 {
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(45deg, #4A90E2, #1E3A8A);
+    animation: orbit-rotate 15s linear infinite;
+}
+
+.orbit-2 {
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(45deg, #00dbde, #0093E9);
+    animation: orbit-rotate 20s linear infinite reverse;
+}
+
+.orbit-3 {
+    width: 25px;
+    height: 25px;
+    background: linear-gradient(45deg, #ff9a00, #ff2400);
+    animation: orbit-rotate 25s linear infinite;
+}
+
+.energy-waves {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.wave {
+    position: absolute;
+    border: 1px solid rgba(0, 219, 222, 0.3);
+    border-radius: 50%;
+    animation: wave-expand 3s ease-out infinite;
+}
+
+.wave:nth-child(2) { animation-delay: 1s; }
+.wave:nth-child(3) { animation-delay: 2s; }
+
+.scroll-down {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 2;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Why Section */
+.why-section {
+    padding: 6rem 2rem;
+    background: linear-gradient(180deg, #0a1929 0%, #111827 100%);
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.why-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.why-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(0, 219, 222, 0.3);
+}
+
+.why-icon {
+    font-size: 3rem;
+    color: #00dbde;
+    margin-bottom: 1.5rem;
+}
+
+.why-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.why-content p {
+    color: #a0aec0;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.why-badge {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: linear-gradient(45deg, #00dbde, #0093E9);
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Features Section */
+.features-section {
+    padding: 6rem 2rem;
+    background: #111827;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: #00dbde;
+    margin-bottom: 1.5rem;
+}
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+/* How Section */
+.how-section {
+    padding: 6rem 2rem;
+    background: linear-gradient(180deg, #111827 0%, #0a1929 100%);
+}
+
+.how-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, #00dbde, #0093E9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+}
+
+.demo-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-top: 4rem;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.demo-content h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.demo-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* Enhanced Demo Buttons */
+.demo-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.8rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+}
+
+.demo-button.primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.demo-button.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.demo-button.secondary {
+    background: transparent;
+    color: #00dbde;
+    border-color: #00dbde;
+}
+
+.demo-button.secondary:hover {
+    background: rgba(0, 219, 222, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 219, 222, 0.3);
+}
+
+/* Creator Section */
+.creator-section {
+    padding: 6rem 2rem;
+    background: linear-gradient(180deg, #0a1929 0%, #111827 100%);
+}
+
+.creator-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3rem;
+    align-items: center;
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.creator-avatar {
+    position: relative;
+}
+
+.avatar-circle {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: white;
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+}
+
+.creator-info h3 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.creator-role {
+    color: #00dbde;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.creator-desc {
+    color: #a0aec0;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.creator-stats {
+    display: flex;
+    gap: 2rem;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, #00dbde, #fc00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #a0aec0;
+    margin-top: 0.25rem;
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 6rem 2rem;
+    background: #111827;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.contact-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(0, 219, 222, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.contact-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-card:nth-child(1) .contact-icon { color: #0088cc; } /* Telegram */
+.contact-card:nth-child(2) .contact-icon { color: #ea4335; } /* Email */
+.contact-card:nth-child(3) .contact-icon { color: #fbbc05; } /* Idea */
+
+.contact-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.contact-card p {
+    color: #a0aec0;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+/* Enhanced Contact Buttons */
+.contact-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    width: 100%;
+}
+
+.contact-button.telegram {
+    background: #0088cc;
+    color: white;
+}
+
+.contact-button.telegram:hover {
+    background: #0077b5;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 136, 204, 0.4);
+}
+
+.contact-button.email {
+    background: #ea4335;
+    color: white;
+}
+
+.contact-button.email:hover {
+    background: #d33426;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(234, 67, 53, 0.4);
+}
+
+.contact-button.idea {
+    background: linear-gradient(45deg, #00dbde, #0093E9);
+    color: white;
+}
+
+.contact-button.idea:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 219, 222, 0.4);
+}
+
+.feedback-cta {
+    text-align: center;
+    margin-top: 4rem;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feedback-cta h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.feedback-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.feedback-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feedback-button.primary {
+    background: #0088cc;
+    color: white;
+}
+
+.feedback-button.primary:hover {
+    background: #0077b5;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 136, 204, 0.4);
+}
+
+.feedback-button.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.feedback-button.secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Final CTA */
+.final-cta {
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%);
+    text-align: center;
+}
+
+.final-content h2 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(45deg, #00dbde, #fc00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.final-content p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+}
+
+.final-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+/* Final Enhanced Buttons */
+.final-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.2rem 2.5rem;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    border: none;
+}
+
+.final-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.final-button:hover::after {
+    width: 400px;
+    height: 400px;
+}
+
+.final-button.primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+}
+
+.final-button.primary:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 20px 45px rgba(102, 126, 234, 0.6);
+}
+
+.final-button.secondary {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.final-button.secondary:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.final-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    margin-top: 3rem;
+}
+
+.final-note i {
+    color: #fc00ff;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.section-header h2 i {
+    background: linear-gradient(45deg, #00dbde, #fc00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: #a0aec0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.section-header.center h2 {
+    text-align: center;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes sun-pulse {
+    0%, 100% { box-shadow: 0 0 60px rgba(255, 154, 0, 0.6); }
+    50% { box-shadow: 0 0 90px rgba(255, 154, 0, 0.9); }
+}
+
+@keyframes glow-pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
+}
+
+@keyframes orbit-rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg) translateX(150px) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg) translateX(150px) rotate(-360deg); }
+}
+
+@keyframes wave-expand {
+    0% { width: 0; height: 0; opacity: 1; }
+    100% { width: 400px; height: 400px; opacity: 0; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .hero-title {
+        font-size: 2.8rem;
+    }
+    
+    .solar-visualization {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .creator-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .title-sub {
+        font-size: 1.2rem;
+    }
+    
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .hero-features {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-cta, .demo-buttons, .feedback-buttons, .final-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .why-grid, .features-grid, .contact-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .how-steps {
+        grid-template-columns: 1fr;
+    }
+    
+    .demo-box {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .creator-card {
+        padding: 2rem;
+    }
+    
+    .creator-info h3 {
+        font-size: 2rem;
+    }
+    
+    .creator-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        padding: 1rem;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .title-sub {
+        font-size: 1rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    .solar-visualization {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .cta-button, .demo-button, .contact-button, .feedback-button, .final-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+</style>
+{% endblock %}

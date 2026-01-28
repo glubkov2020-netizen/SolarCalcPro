@@ -1,0 +1,600 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="calculator-container">
+    <div class="calculator-header">
+        <h1><i class="fas fa-chart-line"></i> Продвинутый расчет солнечной станции</h1>
+        <p>Расчет с учетом всех параметров: тип панелей, инверторов, аккумуляторов и экономики</p>
+    </div>
+
+    <div class="calculator-layout">
+        <div class="input-section">
+            <form id="advancedSolarForm" class="solar-form">
+                <div class="form-section">
+                    <h3><i class="fas fa-solar-panel"></i> Солнечные панели</h3>
+                    <div class="form-group">
+                        <label for="panel_type">Тип панелей</label>
+                        <select id="panel_type" name="panel_type" class="form-select">
+                            <option value="mono">Монокристаллические (КПД 22%)</option>
+                            <option value="poly">Поликристаллические (КПД 18%)</option>
+                            <option value="thin_film">Тонкопленочные (КПД 15%)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="panel_power">Мощность одной панели (Вт)</label>
+                        <input type="range" id="panel_power" name="panel_power" min="100" max="700" value="450" class="form-range">
+                        <div class="range-value"><span id="panel_power_value">450</span> Вт</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="panel_count">Количество панелей</label>
+                        <input type="number" id="panel_count" name="panel_count" value="20" min="1" max="1000" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-bolt"></i> Инвертор и аккумуляторы</h3>
+                    <div class="form-group">
+                        <label for="inverter_type">Тип инвертора</label>
+                        <select id="inverter_type" name="inverter_type" class="form-select">
+                            <option value="string">Стринговый (КПД 97%)</option>
+                            <option value="micro">Микроинверторы (КПД 98.5%)</option>
+                            <option value="hybrid">Гибридный (КПД 96%)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="battery_type">Тип аккумуляторов</label>
+                        <select id="battery_type" name="battery_type" class="form-select">
+                            <option value="lifepo4">LiFePO4 (3000 циклов)</option>
+                            <option value="li_ion">Li-Ion (2000 циклов)</option>
+                            <option value="lead_acid">Свинцово-кислотные (500 циклов)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="battery_capacity">Емкость аккумуляторов (кВт·ч)</label>
+                        <input type="number" id="battery_capacity" name="battery_capacity" value="10" min="0" max="100" step="1" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-map-marker-alt"></i> Расположение и монтаж</h3>
+                    <div class="form-group">
+                        <label for="region">Регион</label>
+                        <select id="region" name="region" class="form-select">
+                            <option value="Москва">Москва</option>
+                            <option value="Сочи">Сочи</option>
+                            <option value="Краснодар">Краснодар</option>
+                            <option value="Ростов-на-Дону">Ростов-на-Дону</option>
+                            <option value="Волгоград">Волгоград</option>
+                            <option value="Екатеринбург">Екатеринбург</option>
+                            <option value="Новосибирск">Новосибирск</option>
+                            <option value="Владивосток">Владивосток</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="roof_angle">Угол наклона крыши (°)</label>
+                        <input type="range" id="roof_angle" name="roof_angle" min="0" max="90" value="35" class="form-range">
+                        <div class="range-value"><span id="roof_angle_value">35</span>°</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="azimuth">Азимут (0° - юг)</label>
+                        <input type="range" id="azimuth" name="azimuth" min="-180" max="180" value="0" class="form-range">
+                        <div class="range-value"><span id="azimuth_value">0</span>°</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-ruble-sign"></i> Экономические параметры</h3>
+                    <div class="form-group">
+                        <label for="electricity_price">Стоимость электроэнергии (руб/кВт·ч)</label>
+                        <input type="number" id="electricity_price" name="electricity_price" value="5.0" step="0.1" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="installation_cost">Стоимость монтажа (руб)</label>
+                        <input type="number" id="installation_cost" name="installation_cost" value="50000" step="1000" class="form-input">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-calculate pulse">
+                    <i class="fas fa-calculator"></i> Выполнить продвинутый расчет
+                </button>
+            </form>
+        </div>
+
+        <div class="results-section">
+            <div id="loading" class="loading" style="display: none;">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Выполняем комплексные расчеты...</p>
+                </div>
+            </div>
+
+            <div id="results" class="results" style="display: none;">
+                <h3><i class="fas fa-chart-bar"></i> Результаты продвинутого расчета</h3>
+                
+                <div class="results-tabs">
+                    <button class="tab-button active" data-tab="technical">Технические</button>
+                    <button class="tab-button" data-tab="economic">Экономические</button>
+                    <button class="tab-button" data-tab="environmental">Экологические</button>
+                    <button class="tab-button" data-tab="equipment">Оборудование</button>
+                </div>
+
+                <div id="technical-tab" class="tab-content active">
+                    <div class="results-grid">
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="result-value" id="total-power">0</div>
+                            <div class="result-label">Общая мощность</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <div class="result-value" id="annual-generation">0</div>
+                            <div class="result-label">Годовая выработка</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="result-value" id="system-efficiency">0%</div>
+                            <div class="result-label">КПД системы</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-battery-full"></i>
+                            </div>
+                            <div class="result-value" id="backup-hours">0</div>
+                            <div class="result-label">Резерв (часов)</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </div>
+
+                <div id="economic-tab" class="tab-content">
+                    <div class="results-grid">
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-ruble-sign"></i>
+                            </div>
+                            <div class="result-value" id="total-cost">0</div>
+                            <div class="result-label">Общая стоимость</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-piggy-bank"></i>
+                            </div>
+                            <div class="result-value" id="annual-savings">0</div>
+                            <div class="result-label">Годовая экономия</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="result-value" id="payback-years">0</div>
+                            <div class="result-label">Окупаемость (лет)</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <div class="result-value" id="roi-25years">0%</div>
+                            <div class="result-label">ROI за 25 лет</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="economicChart"></canvas>
+                    </div>
+                </div>
+
+                <div id="environmental-tab" class="tab-content">
+                    <div class="results-grid">
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                            <div class="result-value" id="co2-saved">0</div>
+                            <div class="result-label">CO2 сэкономлено (кг/год)</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <div class="result-value" id="trees-equivalent">0</div>
+                            <div class="result-label">Эквивалент деревьев</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="result-value" id="co2-25years">0</div>
+                            <div class="result-label">CO2 за 25 лет (тонн)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="equipment-tab" class="tab-content">
+                    <div class="equipment-details">
+                        <h4>Рекомендуемое оборудование:</h4>
+                        <div class="equipment-list">
+                            <div class="equipment-item">
+                                <i class="fas fa-solar-panel"></i>
+                                <div>
+                                    <strong>Солнечные панели:</strong>
+                                    <span id="panel-recommendation">Монокристаллические 450Вт</span>
+                                </div>
+                            </div>
+                            <div class="equipment-item">
+                                <i class="fas fa-bolt"></i>
+                                <div>
+                                    <strong>Инвертор:</strong>
+                                    <span id="inverter-recommendation">Стринговый</span>
+                                </div>
+                            </div>
+                            <div class="equipment-item">
+                                <i class="fas fa-battery-full"></i>
+                                <div>
+                                    <strong>Аккумуляторы:</strong>
+                                    <span id="battery-recommendation">LiFePO4 10 кВт·ч</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="saveAdvancedCalculation()">
+                        <i class="fas fa-save"></i> Сохранить расчет
+                    </button>
+                    <button class="btn btn-outline" onclick="exportAdvancedCalculation()">
+                        <i class="fas fa-download"></i> Экспорт отчета
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Advanced Calculator JavaScript
+class AdvancedSolarCalculator {
+    constructor() {
+        this.currentChart = null;
+        this.economicChart = null;
+        this.currentCalculationId = null;
+        this.initEventListeners();
+        this.initRangeInputs();
+        this.initTabs();
+    }
+
+    initEventListeners() {
+        const form = document.getElementById('advancedSolarForm');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.calculateAdvanced();
+            });
+        }
+    }
+
+    initRangeInputs() {
+        const rangeInputs = document.querySelectorAll('input[type="range"]');
+        rangeInputs.forEach(input => {
+            const valueDisplay = input.nextElementSibling?.querySelector('span');
+            if (valueDisplay) {
+                valueDisplay.textContent = input.value;
+                
+                input.addEventListener('input', () => {
+                    valueDisplay.textContent = input.value;
+                });
+            }
+        });
+    }
+
+    initTabs() {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                button.classList.add('active');
+                const tabName = button.getAttribute('data-tab');
+                const tabContent = document.getElementById(`${tabName}-tab`);
+                if (tabContent) {
+                    tabContent.classList.add('active');
+                }
+            });
+        });
+    }
+
+    async calculateAdvanced() {
+        const form = document.getElementById('advancedSolarForm');
+        if (!form) {
+            console.error('Форма не найдена');
+            return;
+        }
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        
+        this.showLoading();
+        
+        try {
+            const response = await fetch('/api/calculate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                this.currentCalculationId = result.calculation_id;
+                this.displayAdvancedResults(result.data);
+            } else {
+                this.showError('Ошибка расчета: ' + (result.error || 'Неизвестная ошибка'));
+            }
+        } catch (error) {
+            console.error('Calculation error:', error);
+            this.showError('Ошибка соединения: ' + error.message);
+        } finally {
+            this.hideLoading();
+        }
+    }
+
+    displayAdvancedResults(data) {
+        if (!data || !data.technical) {
+            this.showError('Некорректные данные от сервера');
+            return;
+        }
+
+        // Технические показатели
+        this.setElementText('total-power', data.technical.total_power + ' Вт');
+        this.setElementText('annual-generation', this.formatNumber(data.technical.annual_generation) + ' кВт·ч');
+        this.setElementText('system-efficiency', data.technical.system_efficiency + '%');
+        this.setElementText('backup-hours', data.technical.battery_backup_hours);
+
+        // Экономические показатели
+        this.setElementText('total-cost', this.formatNumber(data.economic.total_cost) + ' руб');
+        this.setElementText('annual-savings', this.formatNumber(data.economic.annual_savings) + ' руб');
+        this.setElementText('payback-years', data.economic.payback_years);
+        this.setElementText('roi-25years', data.economic.roi_25years + '%');
+
+        // Экологические показатели
+        this.setElementText('co2-saved', this.formatNumber(data.environmental.co2_saved_annual) + ' кг');
+        this.setElementText('trees-equivalent', this.formatNumber(data.environmental.trees_equivalent));
+        this.setElementText('co2-25years', this.formatNumber(data.environmental.co2_saved_25years / 1000) + ' т');
+
+        // Рекомендации по оборудованию
+        this.displayEquipmentRecommendations();
+
+        // Графики
+        if (data.monthly_generation) {
+            this.renderMonthlyChart(data.monthly_generation);
+        }
+        if (data.economic) {
+            this.renderEconomicChart(data.economic);
+        }
+        
+        this.showResults();
+    }
+
+    setElementText(id, text) {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = text;
+        }
+    }
+
+    displayEquipmentRecommendations() {
+        const panelType = document.getElementById('panel_type').value;
+        const inverterType = document.getElementById('inverter_type').value;
+        const batteryType = document.getElementById('battery_type').value;
+        const batteryCapacity = document.getElementById('battery_capacity').value;
+
+        const panelNames = {
+            'mono': 'Монокристаллические 450Вт',
+            'poly': 'Поликристаллические 400Вт', 
+            'thin_film': 'Тонкопленочные 350Вт'
+        };
+
+        const inverterNames = {
+            'string': 'Стринговый инвертор',
+            'micro': 'Микроинверторы',
+            'hybrid': 'Гибридный инвертор'
+        };
+
+        const batteryNames = {
+            'lifepo4': 'LiFePO4',
+            'li_ion': 'Li-Ion',
+            'lead_acid': 'Свинцово-кислотные'
+        };
+
+        this.setElementText('panel-recommendation', panelNames[panelType]);
+        this.setElementText('inverter-recommendation', inverterNames[inverterType]);
+        this.setElementText('battery-recommendation', `${batteryNames[batteryType]} ${batteryCapacity} кВт·ч`);
+    }
+
+    renderMonthlyChart(monthlyData) {
+        const ctx = document.getElementById('monthlyChart');
+        if (!ctx) return;
+        
+        const canvasCtx = ctx.getContext('2d');
+        if (!canvasCtx) return;
+        
+        if (this.currentChart) {
+            this.currentChart.destroy();
+        }
+        
+        const months = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+        
+        this.currentChart = new Chart(canvasCtx, {
+            type: 'bar',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: 'Выработка (кВт·ч)',
+                    data: monthlyData,
+                    backgroundColor: 'rgba(255, 193, 7, 0.8)',
+                    borderColor: 'rgba(255, 193, 7, 1)',
+                    borderWidth: 1,
+                    borderRadius: 8,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Выработка электроэнергии по месяцам',
+                        font: {
+                            size: 16
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'кВт·ч'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    renderEconomicChart(economicData) {
+        const ctx = document.getElementById('economicChart');
+        if (!ctx) return;
+        
+        const canvasCtx = ctx.getContext('2d');
+        if (!canvasCtx) return;
+        
+        if (this.economicChart) {
+            this.economicChart.destroy();
+        }
+
+        // Генерация данных для графика денежных потоков
+        const years = Array.from({length: 25}, (_, i) => i + 1);
+        const cashFlow = years.map(year => {
+            const savings = economicData.annual_savings * Math.pow(1.03, year - 1); // 3% инфляция
+            return Math.round(savings * year - economicData.total_cost);
+        });
+
+        this.economicChart = new Chart(canvasCtx, {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: 'Накопленная экономия (руб)',
+                    data: cashFlow,
+                    borderColor: 'rgba(37, 99, 235, 1)',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Экономика проекта за 25 лет',
+                        font: {
+                            size: 16
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Рубли'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Годы'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    showLoading() {
+        const loading = document.getElementById('loading');
+        const results = document.getElementById('results');
+        if (loading) loading.style.display = 'block';
+        if (results) results.style.display = 'none';
+    }
+
+    hideLoading() {
+        const loading = document.getElementById('loading');
+        if (loading) loading.style.display = 'none';
+    }
+
+    showResults() {
+        const results = document.getElementById('results');
+        if (results) {
+            results.style.display = 'block';
+            results.classList.add('slide-in-left');
+        }
+    }
+
+    showError(message) {
+        alert(message);
+        console.error('AdvancedSolarCalculator Error:', message);
+    }
+
+    formatNumber(num) {
+        return new Intl.NumberFormat('ru-RU').format(Math.round(num));
+    }
+}
+
+// Глобальные функции для продвинутого калькулятора
+function saveAdvancedCalculation() {
+    if (!window.advancedSolarCalculator?.currentCalculationId) {
+        alert('Сначала выполните расчет!');
+        return;
+    }
+    alert('Продвинутый расчет сохранен в историю! ID: ' + window.advancedSolarCalculator.currentCalculationId);
+}
+
+function exportAdvancedCalculation() {
+    if (!window.advancedSolarCalculator?.currentCalculationId) {
+        alert('Сначала выполните расчет!');
+        return;
+    }
+    window.open(`/api/export-pdf/${window.advancedSolarCalculator.currentCalculationId}`, '_blank');
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    window.advancedSolarCalculator = new AdvancedSolarCalculator();
+});
+</script>
+{% endblock %}

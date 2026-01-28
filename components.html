@@ -1,0 +1,2082 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="components-container">
+    <!-- Enhanced Header -->
+    <div class="components-header cosmic-bg">
+        <div class="header-content">
+            <h1 class="slide-in-left"><i class="fas fa-cogs"></i> Компоненты солнечных электростанций</h1>
+            <p class="components-subtitle">Полное описание всех элементов современной солнечной электростанции с интерактивной 3D визуализацией</p>
+            
+            <div class="components-stats">
+                <div class="stat-card">
+                    <i class="fas fa-microchip"></i>
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Типов компонентов</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-chart-line"></i>
+                    <div class="stat-number">99.3%</div>
+                    <div class="stat-label">Эффективность</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Лет службы</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Interactive Visualization -->
+        <div class="components-visual">
+            <div class="system-3d" id="system3d">
+                <div class="panel-group" id="panelGroup">
+                    <div class="panel-3d" id="panel3d"></div>
+                    <div class="panel-3d" id="panel3d2"></div>
+                    <div class="panel-3d" id="panel3d3"></div>
+                </div>
+                <div class="inverter-3d" id="inverter3d"></div>
+                <div class="battery-3d" id="battery3d"></div>
+                <div class="energy-flow" id="energyFlow"></div>
+                <div class="energy-flow" id="energyFlow2"></div>
+            </div>
+            <div class="visual-controls">
+                <button class="visual-btn active" data-target="panels">
+                    <i class="fas fa-solar-panel"></i> Панели
+                </button>
+                <button class="visual-btn" data-target="inverter">
+                    <i class="fas fa-bolt"></i> Инвертор
+                </button>
+                <button class="visual-btn" data-target="battery">
+                    <i class="fas fa-battery-full"></i> Аккумуляторы
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="components-content">
+        <!-- Солнечные панели - Interactive Section -->
+        <section class="component-section interactive-section">
+            <div class="component-header">
+                <div class="component-icon glow">
+                    <i class="fas fa-solar-panel"></i>
+                </div>
+                <div class="component-title">
+                    <h2 class="gradient-text">Солнечные панели</h2>
+                    <p>Основной элемент, преобразующий солнечный свет в электричество</p>
+                </div>
+            </div>
+
+            <div class="component-types">
+                <div class="type-card hover-3d" data-type="mono">
+                    <div class="type-badge best">Лучший выбор</div>
+                    <div class="type-header">
+                        <div class="type-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3>Монокристаллические</h3>
+                    </div>
+                    <div class="type-specs">
+                        <div class="spec">
+                            <span class="spec-label">КПД:</span>
+                            <span class="spec-value success">20-22%</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Срок службы:</span>
+                            <span class="spec-value">25+ лет</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Темп. коэффициент:</span>
+                            <span class="spec-value">-0.3%/°C</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Мощность:</span>
+                            <span class="spec-value">400-550 Вт</span>
+                        </div>
+                    </div>
+                    <p class="type-description">Высокая эффективность, занимают меньше площади, лучшая производительность при слабом освещении</p>
+                    
+                    <div class="type-interactive">
+                        <div class="efficiency-demo">
+                            <div class="efficiency-bar" style="width: 92%">
+                                <span>Высокая эффективность</span>
+                            </div>
+                        </div>
+                        <div class="price-section">
+                            <span class="price-label">Стоимость:</span>
+                            <span class="type-price">35-45 руб/Вт</span>
+                        </div>
+                    </div>
+                    
+                    <div class="type-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Для крыш</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Высокий КПД</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Долговечность</span>
+                    </div>
+                </div>
+
+                <div class="type-card hover-3d" data-type="poly">
+                    <div class="type-badge value">Лучшее соотношение</div>
+                    <div class="type-header">
+                        <div class="type-icon">
+                            <i class="fas fa-th-large"></i>
+                        </div>
+                        <h3>Поликристаллические</h3>
+                    </div>
+                    <div class="type-specs">
+                        <div class="spec">
+                            <span class="spec-label">КПД:</span>
+                            <span class="spec-value warning">15-18%</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Срок службы:</span>
+                            <span class="spec-value">20-25 лет</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Темп. коэффициент:</span>
+                            <span class="spec-value">-0.4%/°C</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Мощность:</span>
+                            <span class="spec-value">350-450 Вт</span>
+                        </div>
+                    </div>
+                    <p class="type-description">Хорошее соотношение цена/качество, синий оттенок, немного менее эффективны</p>
+                    
+                    <div class="type-interactive">
+                        <div class="efficiency-demo">
+                            <div class="efficiency-bar" style="width: 78%">
+                                <span>Средняя эффективность</span>
+                            </div>
+                        </div>
+                        <div class="price-section">
+                            <span class="price-label">Стоимость:</span>
+                            <span class="type-price">28-35 руб/Вт</span>
+                        </div>
+                    </div>
+                    
+                    <div class="type-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Бюджетный вариант</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Стабильность</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Проверено временем</span>
+                    </div>
+                </div>
+
+                <div class="type-card hover-3d" data-type="thin">
+                    <div class="type-badge special">Специальное применение</div>
+                    <div class="type-header">
+                        <div class="type-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <h3>Тонкопленочные</h3>
+                    </div>
+                    <div class="type-specs">
+                        <div class="spec">
+                            <span class="spec-label">КПД:</span>
+                            <span class="spec-value">10-15%</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Срок службы:</span>
+                            <span class="spec-value">15-20 лет</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Темп. коэффициент:</span>
+                            <span class="spec-value success">-0.2%/°C</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Мощность:</span>
+                            <span class="spec-value">100-200 Вт</span>
+                        </div>
+                    </div>
+                    <p class="type-description">Гибкие, легкие, лучше работают при высоких температурах, низкая эффективность</p>
+                    
+                    <div class="type-interactive">
+                        <div class="efficiency-demo">
+                            <div class="efficiency-bar" style="width: 65%">
+                                <span>Низкая эффективность</span>
+                            </div>
+                        </div>
+                        <div class="price-section">
+                            <span class="price-label">Стоимость:</span>
+                            <span class="type-price">25-30 руб/Вт</span>
+                        </div>
+                    </div>
+                    
+                    <div class="type-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Гибкие</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Легкие</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Для кривых поверхностей</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Panel Comparison -->
+            <div class="comparison-section">
+                <h3><i class="fas fa-balance-scale"></i> Сравнение типов панелей</h3>
+                <div class="comparison-chart">
+                    <div class="comparison-item">
+                        <span class="comparison-label">КПД</span>
+                        <div class="comparison-bars">
+                            <div class="bar mono" style="width: 90%">22%</div>
+                            <div class="bar poly" style="width: 72%">18%</div>
+                            <div class="bar thin" style="width: 60%">15%</div>
+                        </div>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-label">Стоимость</span>
+                        <div class="comparison-bars">
+                            <div class="bar mono" style="width: 80%">Высокая</div>
+                            <div class="bar poly" style="width: 60%">Средняя</div>
+                            <div class="bar thin" style="width: 50%">Низкая</div>
+                        </div>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-label">Долговечность</span>
+                        <div class="comparison-bars">
+                            <div class="bar mono" style="width: 95%">25+ лет</div>
+                            <div class="bar poly" style="width: 85%">20-25 лет</div>
+                            <div class="bar thin" style="width: 70%">15-20 лет</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Инверторы - Interactive Section -->
+        <section class="component-section interactive-section">
+            <div class="component-header">
+                <div class="component-icon glow">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="component-title">
+                    <h2 class="gradient-text">Инверторы</h2>
+                    <p>Преобразуют постоянный ток от панелей в переменный для дома</p>
+                </div>
+            </div>
+
+            <div class="component-types">
+                <div class="type-card hover-3d" data-inverter="string">
+                    <div class="type-badge popular">Популярный выбор</div>
+                    <div class="type-header">
+                        <div class="type-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <h3>Стринговые инверторы</h3>
+                    </div>
+                    <div class="type-specs">
+                        <div class="spec">
+                            <span class="spec-label">КПД:</span>
+                            <span class="spec-value success">96-98%</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Срок службы:</span>
+                            <span class="spec-value">10-12 лет</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Мощность:</span>
+                            <span class="spec-value">1-100 кВт</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Цена за кВт:</span>
+                            <span class="spec-value">~15 000 руб</span>
+                        </div>
+                    </div>
+                    <p class="type-description">Централизованное преобразование, экономичные, простая установка</p>
+                    
+                    <div class="type-interactive">
+                        <div class="power-flow">
+                            <div class="power-item">DC →</div>
+                            <div class="power-icon"><i class="fas fa-sync-alt"></i></div>
+                            <div class="power-item">→ AC</div>
+                        </div>
+                    </div>
+                    
+                    <div class="type-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Экономичные</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Масштабируемые</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Простая установка</span>
+                    </div>
+                </div>
+
+                <div class="type-card hover-3d" data-inverter="micro">
+                    <div class="type-badge premium">Премиум</div>
+                    <div class="type-header">
+                        <div class="type-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <h3>Микроинверторы</h3>
+                    </div>
+                    <div class="type-specs">
+                        <div class="spec">
+                            <span class="spec-label">КПД:</span>
+                            <span class="spec-value success">98-99%</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Срок службы:</span>
+                            <span class="spec-value">25 лет</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Мощность:</span>
+                            <span class="spec-value">250-800 Вт</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Цена за кВт:</span>
+                            <span class="spec-value">~20 000 руб</span>
+                        </div>
+                    </div>
+                    <p class="type-description">Индивидуальное преобразование на каждой панели, максимальная эффективность</p>
+                    
+                    <div class="type-interactive">
+                        <div class="power-flow micro">
+                            <div class="power-item">DC → AC</div>
+                            <div class="power-icon small"><i class="fas fa-microchip"></i></div>
+                            <div class="power-item">DC → AC</div>
+                        </div>
+                    </div>
+                    
+                    <div class="type-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Макс. эффективность</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Индивидуальный контроль</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Безопасность</span>
+                    </div>
+                </div>
+
+                <div class="type-card hover-3d" data-inverter="hybrid">
+                    <div class="type-badge advanced">Продвинутый</div>
+                    <div class="type-header">
+                        <div class="type-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3>Гибридные инверторы</h3>
+                    </div>
+                    <div class="type-specs">
+                        <div class="spec">
+                            <span class="spec-label">КПД:</span>
+                            <span class="spec-value">94-96%</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Срок службы:</span>
+                            <span class="spec-value">15 лет</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Мощность:</span>
+                            <span class="spec-value">3-15 кВт</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Цена за кВт:</span>
+                            <span class="spec-value">~25 000 руб</span>
+                        </div>
+                    </div>
+                    <p class="type-description">Работа с аккумуляторами, резервное питание, сложная электроника</p>
+                    
+                    <div class="type-interactive">
+                        <div class="power-flow hybrid">
+                            <div class="power-item">DC</div>
+                            <div class="power-icon"><i class="fas fa-exchange-alt"></i></div>
+                            <div class="power-item">AC ↔ Battery</div>
+                        </div>
+                    </div>
+                    
+                    <div class="type-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Резервное питание</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Работа с аккумуляторами</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Автономность</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Аккумуляторы - Interactive Section -->
+        <section class="component-section interactive-section">
+            <div class="component-header">
+                <div class="component-icon glow">
+                    <i class="fas fa-battery-full"></i>
+                </div>
+                <div class="component-title">
+                    <h2 class="gradient-text">Аккумуляторы</h2>
+                    <p>Накопление энергии для использования в темное время суток</p>
+                </div>
+            </div>
+
+            <div class="component-types">
+                <div class="type-card hover-3d" data-battery="lifepo4">
+                    <div class="type-badge best">Лучший выбор</div>
+                    <div class="type-header">
+                        <div class="type-icon">
+                            <i class="fas fa-battery-three-quarters"></i>
+                        </div>
+                        <h3>LiFePO4</h3>
+                    </div>
+                    <div class="type-specs">
+                        <div class="spec">
+                            <span class="spec-label">Циклы:</span>
+                            <span class="spec-value success">3000-6000</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">КПД:</span>
+                            <span class="spec-value">95-98%</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Срок службы:</span>
+                            <span class="spec-value">10-15 лет</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Цена за кВт·ч:</span>
+                            <span class="spec-value">~15 000 руб</span>
+                        </div>
+                    </div>
+                    <p class="type-description">Безопасные, долгий срок службы, стабильное напряжение, тяжелые</p>
+                    
+                    <div class="type-interactive">
+                        <div class="cycle-demo">
+                            <div class="cycle-count">3000+ циклов</div>
+                            <div class="cycle-bar">
+                                <div class="cycle-fill" style="width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="type-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Безопасность</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Долговечность</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Стабильность</span>
+                    </div>
+                </div>
+
+                <div class="type-card hover-3d" data-battery="lion">
+                    <div class="type-badge compact">Компактные</div>
+                    <div class="type-header">
+                        <div class="type-icon">
+                            <i class="fas fa-battery-half"></i>
+                        </div>
+                        <h3>Литий-ионные</h3>
+                    </div>
+                    <div class="type-specs">
+                        <div class="spec">
+                            <span class="spec-label">Циклы:</span>
+                            <span class="spec-value">2000-3000</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">КПД:</span>
+                            <span class="spec-value">90-95%</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Срок службы:</span>
+                            <span class="spec-value">8-12 лет</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Цена за кВт·ч:</span>
+                            <span class="spec-value">~12 000 руб</span>
+                        </div>
+                    </div>
+                    <p class="type-description">Высокая плотность энергии, легкие, требуют BMS</p>
+                    
+                    <div class="type-interactive">
+                        <div class="cycle-demo">
+                            <div class="cycle-count">2000+ циклов</div>
+                            <div class="cycle-bar">
+                                <div class="cycle-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="type-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Легкие</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Высокая плотность</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Компактные</span>
+                    </div>
+                </div>
+
+                <div class="type-card hover-3d" data-battery="lead">
+                    <div class="type-badge budget">Бюджетные</div>
+                    <div class="type-header">
+                        <div class="type-icon">
+                            <i class="fas fa-battery-quarter"></i>
+                        </div>
+                        <h3>Свинцово-кислотные</h3>
+                    </div>
+                    <div class="type-specs">
+                        <div class="spec">
+                            <span class="spec-label">Циклы:</span>
+                            <span class="spec-value">500-1000</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">КПД:</span>
+                            <span class="spec-value">80-85%</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Срок службы:</span>
+                            <span class="spec-value">3-5 лет</span>
+                        </div>
+                        <div class="spec">
+                            <span class="spec-label">Цена за кВт·ч:</span>
+                            <span class="spec-value">~8 000 руб</span>
+                        </div>
+                    </div>
+                    <p class="type-description">Недорогие, проверенная технология, требуют обслуживания</p>
+                    
+                    <div class="type-interactive">
+                        <div class="cycle-demo">
+                            <div class="cycle-count">500+ циклов</div>
+                            <div class="cycle-bar">
+                                <div class="cycle-fill" style="width: 40%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="type-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Низкая цена</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Проверено временем</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Доступность</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Battery Life Comparison -->
+            <div class="life-comparison">
+                <h4><i class="fas fa-chart-line"></i> Сравнение срока службы аккумуляторов</h4>
+                <div class="life-chart">
+                    <div class="life-item">
+                        <span class="life-type">LiFePO4</span>
+                        <div class="life-bar">
+                            <div class="life-fill lifepo4" style="width: 95%">10-15 лет</div>
+                        </div>
+                    </div>
+                    <div class="life-item">
+                        <span class="life-type">Li-Ion</span>
+                        <div class="life-bar">
+                            <div class="life-fill lion" style="width: 75%">8-12 лет</div>
+                        </div>
+                    </div>
+                    <div class="life-item">
+                        <span class="life-type">Свинцовые</span>
+                        <div class="life-bar">
+                            <div class="life-fill lead" style="width: 40%">3-5 лет</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive System Builder -->
+        <section class="system-builder">
+            <h2><i class="fas fa-tools"></i> Конструктор системы</h2>
+            <p>Соберите идеальную систему для ваших нужд</p>
+            
+            <div class="builder-container">
+                <div class="builder-steps">
+                    <div class="step active" data-step="1">
+                        <span class="step-number">1</span>
+                        <span class="step-label">Выберите панели</span>
+                    </div>
+                    <div class="step" data-step="2">
+                        <span class="step-number">2</span>
+                        <span class="step-label">Выберите инвертор</span>
+                    </div>
+                    <div class="step" data-step="3">
+                        <span class="step-number">3</span>
+                        <span class="step-label">Выберите аккумуляторы</span>
+                    </div>
+                    <div class="step" data-step="4">
+                        <span class="step-number">4</span>
+                        <span class="step-label">Результат</span>
+                    </div>
+                </div>
+                
+                <div class="builder-content">
+                    <div class="builder-step active" id="step1">
+                        <h4>Шаг 1: Выбор солнечных панелей</h4>
+                        <div class="builder-options">
+                            <div class="builder-option" data-value="mono">
+                                <input type="radio" name="panel" id="panel-mono">
+                                <label for="panel-mono">
+                                    <i class="fas fa-gem"></i>
+                                    <span>Монокристаллические</span>
+                                    <span class="option-price">35 руб/Вт</span>
+                                </label>
+                            </div>
+                            <div class="builder-option" data-value="poly">
+                                <input type="radio" name="panel" id="panel-poly">
+                                <label for="panel-poly">
+                                    <i class="fas fa-th-large"></i>
+                                    <span>Поликристаллические</span>
+                                    <span class="option-price">28 руб/Вт</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="builder-step" id="step2">
+                        <h4>Шаг 2: Выбор инвертора</h4>
+                        <div class="builder-options">
+                            <div class="builder-option" data-value="string">
+                                <input type="radio" name="inverter" id="inverter-string">
+                                <label for="inverter-string">
+                                    <i class="fas fa-link"></i>
+                                    <span>Стринговый</span>
+                                    <span class="option-price">15 000 руб/кВт</span>
+                                </label>
+                            </div>
+                            <div class="builder-option" data-value="micro">
+                                <input type="radio" name="inverter" id="inverter-micro">
+                                <label for="inverter-micro">
+                                    <i class="fas fa-microchip"></i>
+                                    <span>Микроинверторы</span>
+                                    <span class="option-price">20 000 руб/кВт</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="builder-step" id="step3">
+                        <h4>Шаг 3: Выбор аккумуляторов</h4>
+                        <div class="builder-options">
+                            <div class="builder-option" data-value="lifepo4">
+                                <input type="radio" name="battery" id="battery-lifepo4">
+                                <label for="battery-lifepo4">
+                                    <i class="fas fa-battery-three-quarters"></i>
+                                    <span>LiFePO4</span>
+                                    <span class="option-price">15 000 руб/кВт·ч</span>
+                                </label>
+                            </div>
+                            <div class="builder-option" data-value="lion">
+                                <input type="radio" name="battery" id="battery-lion">
+                                <label for="battery-lion">
+                                    <i class="fas fa-battery-half"></i>
+                                    <span>Li-Ion</span>
+                                    <span class="option-price">12 000 руб/кВт·ч</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="builder-step" id="step4">
+                        <h4>Ваша система готова!</h4>
+                        <div class="builder-results">
+                            <div class="result-summary">
+                                <h5>Сводка системы:</h5>
+                                <div class="result-item">
+                                    <span>Солнечные панели:</span>
+                                    <span id="result-panel">Монокристаллические</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Инвертор:</span>
+                                    <span id="result-inverter">Стринговый</span>
+                                </div>
+                                <div class="result-item">
+                                    <span>Аккумуляторы:</span>
+                                    <span id="result-battery">LiFePO4</span>
+                                </div>
+                            </div>
+                            <div class="result-cost">
+                                <h5>Примерная стоимость:</h5>
+                                <div class="total-cost" id="total-cost">0 руб</div>
+                                <p>Для системы мощностью 5 кВт с аккумуляторами 10 кВт·ч</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="builder-nav">
+                    <button class="btn btn-outline" id="prev-step">Назад</button>
+                    <button class="btn btn-primary" id="next-step">Далее</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Дополнительное оборудование -->
+        <section class="additional-equipment-section">
+            <div class="component-header">
+                <div class="component-icon glow">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="component-title">
+                    <h2 class="gradient-text">Дополнительное оборудование</h2>
+                    <p>Вспомогательные системы для эффективной работы</p>
+                </div>
+            </div>
+
+            <div class="equipment-grid">
+                <div class="equipment-card hover-lift">
+                    <div class="equipment-icon">
+                        <i class="fas fa-charging-station"></i>
+                    </div>
+                    <div class="equipment-content">
+                        <h4>Контроллеры заряда MPPT</h4>
+                        <p>Эффективность до 99%, интеллектуальное управление зарядом</p>
+                        <div class="equipment-spec">
+                            <span><i class="fas fa-bolt"></i> До 100А</span>
+                            <span><i class="fas fa-percentage"></i> 99% КПД</span>
+                            <span><i class="fas fa-microchip"></i> Smart</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="equipment-card hover-lift">
+                    <div class="equipment-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="equipment-content">
+                        <h4>Системы мониторинга</h4>
+                        <p>Отслеживание выработки через приложения в реальном времени</p>
+                        <div class="equipment-spec">
+                            <span><i class="fas fa-mobile-alt"></i> Приложение</span>
+                            <span><i class="fas fa-wifi"></i> Wi-Fi</span>
+                            <span><i class="fas fa-chart-bar"></i> Аналитика</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="equipment-card hover-lift">
+                    <div class="equipment-icon">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <div class="equipment-content">
+                        <h4>Монтажные системы</h4>
+                        <p>Алюминиевые конструкции для разных типов крыш и грунта</p>
+                        <div class="equipment-spec">
+                            <span><i class="fas fa-weight"></i> Алюминий</span>
+                            <span><i class="fas fa-compress-arrows-alt"></i> Регулируемые</span>
+                            <span><i class="fas fa-sun"></i> Подвижные</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="equipment-card hover-lift">
+                    <div class="equipment-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="equipment-content">
+                        <h4>Защитное оборудование</h4>
+                        <p>Автоматы, УЗИП, средства защиты от перенапряжения</p>
+                        <div class="equipment-spec">
+                            <span><i class="fas fa-bolt"></i> Защита</span>
+                            <span><i class="fas fa-fire"></i> От КЗ</span>
+                            <span><i class="fas fa-cloud-bolt"></i> От грозы</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<style>
+/* Enhanced Components Styles */
+.components-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Enhanced Header */
+.components-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    padding: 4rem 2rem;
+    border-radius: 25px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--primary-color), #1e40af);
+    color: white;
+}
+
+.components-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle fill="rgba(255,255,255,0.1)" cx="200" cy="200" r="100"/><circle fill="rgba(255,255,255,0.05)" cx="800" cy="300" r="150"/></svg>');
+    animation: morph 20s ease-in-out infinite;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+}
+
+.components-header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+}
+
+.components-subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Stats Cards */
+.components-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: center;
+    min-width: 150px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.stat-card i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Interactive Visualization */
+.components-visual {
+    margin-top: 3rem;
+    position: relative;
+}
+
+.system-3d {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    margin-bottom: 2rem;
+    perspective: 1000px;
+}
+
+.panel-group {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    transform-style: preserve-3d;
+}
+
+.panel-3d {
+    width: 80px;
+    height: 120px;
+    background: linear-gradient(45deg, #374151, #4b5563);
+    transform: rotateX(20deg) rotateY(-10deg);
+    border-radius: 8px;
+    animation: panel-float 4s ease-in-out infinite;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.panel-3d::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
+    animation: surface-shine 3s ease-in-out infinite;
+}
+
+.panel-3d:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.panel-3d:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.inverter-3d {
+    position: absolute;
+    left: 30%;
+    top: 60%;
+    width: 100px;
+    height: 60px;
+    background: linear-gradient(45deg, #1f2937, #374151);
+    border-radius: 10px;
+    transform: rotateX(15deg);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.battery-3d {
+    position: absolute;
+    right: 30%;
+    top: 60%;
+    width: 80px;
+    height: 100px;
+    background: linear-gradient(45deg, #059669, #10b981);
+    border-radius: 15px;
+    transform: rotateX(15deg);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.energy-flow {
+    position: absolute;
+    height: 4px;
+    background: linear-gradient(90deg, #f59e0b, transparent);
+    animation: energy-flow 2s linear infinite;
+    opacity: 0.6;
+}
+
+.energy-flow:nth-child(4) {
+    width: 150px;
+    left: 45%;
+    top: 45%;
+    transform: rotate(30deg);
+}
+
+.energy-flow:nth-child(5) {
+    width: 200px;
+    left: 35%;
+    top: 70%;
+    transform: rotate(0deg);
+    animation-delay: 1s;
+}
+
+.visual-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.visual-btn {
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.visual-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.visual-btn.active {
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
+    box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+}
+
+/* Enhanced Component Sections */
+.component-section {
+    margin-bottom: 5rem;
+    padding: 3rem;
+    background: var(--glass-light);
+    border-radius: 25px;
+    border: 1px solid var(--glass-border);
+    position: relative;
+    overflow: hidden;
+}
+
+.component-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.1), transparent 70%);
+    border-radius: 50%;
+}
+
+.component-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.component-icon {
+    font-size: 4rem;
+    color: var(--primary-color);
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--glass-dark);
+    position: relative;
+}
+
+.component-icon.glow::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.3), transparent 70%);
+    border-radius: 50%;
+    animation: pulse-glow 3s ease-in-out infinite;
+    z-index: -1;
+}
+
+.component-title h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Enhanced Type Cards */
+.component-types {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.type-card {
+    background: var(--glass-dark);
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.type-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-large);
+    border-color: var(--primary-color);
+}
+
+.type-badge {
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.type-badge.best {
+    background: var(--gradient-success);
+    color: white;
+}
+
+.type-badge.value {
+    background: var(--gradient-warning);
+    color: white;
+}
+
+.type-badge.special {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.type-badge.popular {
+    background: linear-gradient(45deg, #8b5cf6, #a78bfa);
+    color: white;
+}
+
+.type-badge.premium {
+    background: linear-gradient(45deg, #f59e0b, #fbbf24);
+    color: white;
+}
+
+.type-badge.advanced {
+    background: linear-gradient(45deg, #10b981, #34d399);
+    color: white;
+}
+
+.type-badge.compact {
+    background: linear-gradient(45deg, #3b82f6, #60a5fa);
+    color: white;
+}
+
+.type-badge.budget {
+    background: linear-gradient(45deg, #6b7280, #9ca3af);
+    color: white;
+}
+
+.type-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.type-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+.type-header h3 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.type-specs {
+    margin-bottom: 1.5rem;
+}
+
+.spec {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.spec-label {
+    font-weight: 600;
+    color: var(--gray-color);
+}
+
+.spec-value {
+    font-weight: 700;
+}
+
+.spec-value.success {
+    color: var(--success-color);
+}
+
+.spec-value.warning {
+    color: var(--secondary-color);
+}
+
+.type-description {
+    font-style: italic;
+    color: var(--gray-color);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.type-interactive {
+    margin-bottom: 1.5rem;
+}
+
+.efficiency-demo {
+    margin-bottom: 1rem;
+}
+
+.efficiency-bar {
+    height: 30px;
+    background: linear-gradient(90deg, var(--success-color), var(--primary-color));
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.price-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--glass-light);
+    border-radius: 12px;
+}
+
+.price-label {
+    font-weight: 600;
+    color: var(--gray-color);
+}
+
+.type-price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--secondary-color);
+}
+
+.type-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.feature-tag {
+    padding: 0.5rem 1rem;
+    background: var(--glass-light);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Power Flow Demo */
+.power-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1rem;
+    background: var(--glass-light);
+    border-radius: 12px;
+}
+
+.power-item {
+    padding: 0.5rem 1rem;
+    background: var(--glass-dark);
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.power-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.power-icon.small {
+    font-size: 1.5rem;
+}
+
+/* Cycle Demo */
+.cycle-demo {
+    text-align: center;
+}
+
+.cycle-count {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.cycle-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--glass-border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.cycle-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success-color), var(--primary-color));
+    border-radius: 10px;
+    transition: width 1s ease;
+}
+
+/* Comparison Sections */
+.comparison-section {
+    background: var(--glass-dark);
+    padding: 2rem;
+    border-radius: 20px;
+    margin-top: 2rem;
+    border: 1px solid var(--glass-border);
+}
+
+.comparison-section h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.comparison-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.comparison-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.comparison-label {
+    min-width: 100px;
+    font-weight: 600;
+}
+
+.comparison-bars {
+    flex: 1;
+    display: flex;
+    gap: 0.5rem;
+    height: 40px;
+    align-items: center;
+}
+
+.bar {
+    height: 30px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: shine 2s infinite;
+}
+
+.bar.mono {
+    background: linear-gradient(90deg, var(--primary-color), #2563eb);
+}
+
+.bar.poly {
+    background: linear-gradient(90deg, var(--secondary-color), #f59e0b);
+}
+
+.bar.thin {
+    background: linear-gradient(90deg, #6b7280, #9ca3af);
+}
+
+/* Life Comparison */
+.life-comparison {
+    background: var(--glass-dark);
+    padding: 2rem;
+    border-radius: 20px;
+    margin-top: 2rem;
+}
+
+.life-comparison h4 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.life-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.life-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.life-type {
+    min-width: 100px;
+    font-weight: 600;
+}
+
+.life-bar {
+    flex: 1;
+    height: 30px;
+    background: var(--glass-border);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.life-fill {
+    height: 100%;
+    color: white;
+    font-weight: 600;
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    transition: width 1s ease;
+}
+
+.life-fill.lifepo4 {
+    background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+.life-fill.lion {
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+}
+
+.life-fill.lead {
+    background: linear-gradient(90deg, #6b7280, #9ca3af);
+}
+
+/* System Builder */
+.system-builder {
+    background: linear-gradient(135deg, var(--glass-light), var(--glass-dark));
+    padding: 4rem;
+    border-radius: 30px;
+    margin: 5rem 0;
+    border: 1px solid var(--glass-border);
+    position: relative;
+    overflow: hidden;
+}
+
+.system-builder::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.1), transparent 50%);
+}
+
+.system-builder h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.system-builder > p {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    color: var(--gray-color);
+}
+
+.builder-steps {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 2;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    min-width: 120px;
+}
+
+.step.active {
+    background: var(--glass-light);
+    border: 2px solid var(--primary-color);
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+    background: var(--primary-color);
+    color: white;
+}
+
+.step-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.builder-content {
+    background: var(--glass-light);
+    padding: 3rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    min-height: 400px;
+    position: relative;
+    z-index: 2;
+}
+
+.builder-step {
+    display: none;
+}
+
+.builder-step.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+.builder-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.builder-option {
+    position: relative;
+}
+
+.builder-option input[type="radio"] {
+    display: none;
+}
+
+.builder-option label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background: var(--glass-dark);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    gap: 1rem;
+}
+
+.builder-option input[type="radio"]:checked + label {
+    border-color: var(--primary-color);
+    background: var(--glass-light);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.builder-option i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.builder-option span {
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.option-price {
+    color: var(--secondary-color);
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.builder-results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.result-summary h5, .result-cost h5 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.result-item span:first-child {
+    font-weight: 600;
+    color: var(--gray-color);
+}
+
+.result-item span:last-child {
+    font-weight: 700;
+    color: var(--dark-color);
+}
+
+.result-cost {
+    text-align: center;
+}
+
+.total-cost {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.builder-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Equipment Grid */
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.equipment-card {
+    background: var(--glass-dark);
+    padding: 2rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.equipment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--primary-color);
+}
+
+.equipment-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.equipment-content h4 {
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.equipment-spec {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.equipment-spec span {
+    padding: 0.25rem 0.75rem;
+    background: var(--glass-light);
+    border-radius: 15px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Animations */
+@keyframes panel-float {
+    0%, 100% { transform: rotateX(20deg) rotateY(-10deg) translateY(0); }
+    50% { transform: rotateX(20deg) rotateY(-10deg) translateY(-10px); }
+}
+
+@keyframes energy-flow {
+    0% { transform: translateX(-100%) rotate(30deg); opacity: 0; }
+    10%, 90% { opacity: 0.6; }
+    100% { transform: translateX(100%) rotate(30deg); opacity: 0; }
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-glow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .component-types {
+        grid-template-columns: 1fr;
+    }
+    
+    .builder-results {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .components-header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .components-stats {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .component-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .system-3d {
+        height: 300px;
+    }
+    
+    .panel-3d {
+        width: 60px;
+        height: 90px;
+    }
+    
+    .builder-steps {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .step {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .builder-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .equipment-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .equipment-spec {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .components-container {
+        padding: 1rem;
+    }
+    
+    .component-section {
+        padding: 1.5rem;
+    }
+    
+    .system-builder {
+        padding: 2rem 1rem;
+    }
+    
+    .total-cost {
+        font-size: 2rem;
+    }
+}
+</style>
+
+<script>
+// Interactive Components Script
+class ComponentsInteractive {
+    constructor() {
+        this.selectedPanel = 'mono';
+        this.selectedInverter = 'string';
+        this.selectedBattery = 'lifepo4';
+        this.currentStep = 1;
+        
+        this.init();
+    }
+    
+    init() {
+        this.initVisualControls();
+        this.initTypeCards();
+        this.initSystemBuilder();
+        this.init3DAnimation();
+    }
+    
+    initVisualControls() {
+        const buttons = document.querySelectorAll('.visual-btn');
+        const system3d = document.getElementById('system3d');
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const target = e.currentTarget.getAttribute('data-target');
+                
+                // Update active button
+                buttons.forEach(btn => btn.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                
+                // Animate the 3D system
+                this.animateSystemTarget(target);
+            });
+        });
+    }
+    
+    animateSystemTarget(target) {
+        const system3d = document.getElementById('system3d');
+        const elements = {
+            panels: ['#panelGroup', '#panel3d', '#panel3d2', '#panel3d3'],
+            inverter: ['#inverter3d'],
+            battery: ['#battery3d']
+        };
+        
+        // Reset all elements
+        system3d.querySelectorAll('*').forEach(el => {
+            el.style.animation = 'none';
+        });
+        
+        // Highlight target elements
+        setTimeout(() => {
+            if (elements[target]) {
+                elements[target].forEach(selector => {
+                    const element = document.querySelector(selector);
+                    if (element) {
+                        element.style.animation = 'pulse 1s ease 3';
+                    }
+                });
+            }
+        }, 100);
+    }
+    
+    initTypeCards() {
+        const cards = document.querySelectorAll('.type-card[data-type]');
+        
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', (e) => {
+                const type = e.currentTarget.getAttribute('data-type');
+                this.highlightComparison(type);
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                this.resetComparison();
+            });
+        });
+    }
+    
+    highlightComparison(type) {
+        const comparisons = document.querySelectorAll('.comparison-bars .bar');
+        const bars = {
+            mono: comparisons[0],
+            poly: comparisons[1],
+            thin: comparisons[2]
+        };
+        
+        // Reset all
+        comparisons.forEach(bar => {
+            bar.style.transform = 'scale(1)';
+            bar.style.opacity = '0.6';
+        });
+        
+        // Highlight selected
+        if (bars[type]) {
+            bars[type].style.transform = 'scale(1.1)';
+            bars[type].style.opacity = '1';
+            bars[type].style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+        }
+    }
+    
+    resetComparison() {
+        const comparisons = document.querySelectorAll('.comparison-bars .bar');
+        comparisons.forEach(bar => {
+            bar.style.transform = 'scale(1)';
+            bar.style.opacity = '1';
+            bar.style.boxShadow = 'none';
+        });
+    }
+    
+    initSystemBuilder() {
+        this.setupBuilderSteps();
+        this.setupRadioButtons();
+        this.setupNavigation();
+        this.calculateTotalCost();
+    }
+    
+    setupBuilderSteps() {
+        const steps = document.querySelectorAll('.step');
+        const stepContents = document.querySelectorAll('.builder-step');
+        
+        steps.forEach(step => {
+            step.addEventListener('click', (e) => {
+                const stepNum = parseInt(e.currentTarget.getAttribute('data-step'));
+                this.goToStep(stepNum);
+            });
+        });
+    }
+    
+    goToStep(stepNum) {
+        // Update steps
+        document.querySelectorAll('.step').forEach(step => {
+            step.classList.remove('active');
+            if (parseInt(step.getAttribute('data-step')) === stepNum) {
+                step.classList.add('active');
+            }
+        });
+        
+        // Update content
+        document.querySelectorAll('.builder-step').forEach(content => {
+            content.classList.remove('active');
+        });
+        document.getElementById(`step${stepNum}`).classList.add('active');
+        
+        this.currentStep = stepNum;
+        this.updateNavigation();
+    }
+    
+    setupRadioButtons() {
+        // Panel selection
+        document.querySelectorAll('input[name="panel"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    this.selectedPanel = e.target.parentElement.getAttribute('data-value');
+                    document.getElementById('result-panel').textContent = 
+                        this.selectedPanel === 'mono' ? 'Монокристаллические' : 'Поликристаллические';
+                    this.calculateTotalCost();
+                }
+            });
+        });
+        
+        // Inverter selection
+        document.querySelectorAll('input[name="inverter"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    this.selectedInverter = e.target.parentElement.getAttribute('data-value');
+                    document.getElementById('result-inverter').textContent = 
+                        this.selectedInverter === 'string' ? 'Стринговый' : 'Микроинверторы';
+                    this.calculateTotalCost();
+                }
+            });
+        });
+        
+        // Battery selection
+        document.querySelectorAll('input[name="battery"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    this.selectedBattery = e.target.parentElement.getAttribute('data-value');
+                    document.getElementById('result-battery').textContent = 
+                        this.selectedBattery === 'lifepo4' ? 'LiFePO4' : 'Li-Ion';
+                    this.calculateTotalCost();
+                }
+            });
+        });
+        
+        // Set defaults
+        document.getElementById('panel-mono').checked = true;
+        document.getElementById('inverter-string').checked = true;
+        document.getElementById('battery-lifepo4').checked = true;
+    }
+    
+    calculateTotalCost() {
+        // Prices per unit
+        const prices = {
+            panel: { mono: 35, poly: 28 },
+            inverter: { string: 15000, micro: 20000 },
+            battery: { lifepo4: 15000, lion: 12000 }
+        };
+        
+        // System specs
+        const systemPower = 5; // kW
+        const batteryCapacity = 10; // kWh
+        
+        // Calculate costs
+        const panelCost = systemPower * 1000 * prices.panel[this.selectedPanel];
+        const inverterCost = systemPower * prices.inverter[this.selectedInverter];
+        const batteryCost = batteryCapacity * prices.battery[this.selectedBattery];
+        
+        const totalCost = panelCost + inverterCost + batteryCost;
+        
+        // Format and display
+        const formattedCost = new Intl.NumberFormat('ru-RU').format(Math.round(totalCost));
+        document.getElementById('total-cost').textContent = `${formattedCost} руб`;
+        
+        // Animate the cost update
+        const costElement = document.getElementById('total-cost');
+        costElement.style.animation = 'pulse 0.6s ease';
+        setTimeout(() => {
+            costElement.style.animation = '';
+        }, 600);
+    }
+    
+    setupNavigation() {
+        document.getElementById('next-step').addEventListener('click', () => {
+            if (this.currentStep < 4) {
+                this.goToStep(this.currentStep + 1);
+            }
+        });
+        
+        document.getElementById('prev-step').addEventListener('click', () => {
+            if (this.currentStep > 1) {
+                this.goToStep(this.currentStep - 1);
+            }
+        });
+    }
+    
+    updateNavigation() {
+        const prevBtn = document.getElementById('prev-step');
+        const nextBtn = document.getElementById('next-step');
+        
+        prevBtn.style.display = this.currentStep === 1 ? 'none' : 'inline-block';
+        nextBtn.textContent = this.currentStep === 4 ? 'Начать заново' : 'Далее';
+        
+        if (this.currentStep === 4) {
+            nextBtn.addEventListener('click', () => {
+                this.goToStep(1);
+                nextBtn.textContent = 'Далее';
+            }, { once: true });
+        }
+    }
+    
+    init3DAnimation() {
+        // Animate energy flow
+        const energyFlows = document.querySelectorAll('.energy-flow');
+        
+        setInterval(() => {
+            energyFlows.forEach(flow => {
+                flow.style.animation = 'none';
+                setTimeout(() => {
+                    flow.style.animation = 'energy-flow 2s linear infinite';
+                }, 10);
+            });
+        }, 4000);
+        
+        // Make panels interactive
+        const panels = document.querySelectorAll('.panel-3d');
+        panels.forEach(panel => {
+            panel.addEventListener('click', () => {
+                panel.style.animation = 'panel-click 0.5s ease';
+                setTimeout(() => {
+                    panel.style.animation = 'panel-float 4s ease-in-out infinite';
+                }, 500);
+            });
+        });
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    window.componentsInteractive = new ComponentsInteractive();
+});
+</script>
+{% endblock %}

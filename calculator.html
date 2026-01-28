@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="calculator-container">
+    <div class="calculator-header">
+        <h1><i class="fas fa-calculator"></i> Умный калькулятор солнечной энергии</h1>
+        <p>Быстрый расчет основных параметров вашей солнечной электростанции</p>
+    </div>
+
+    <div class="calculator-layout">
+        <div class="input-section slide-in-left">
+            <form id="solarForm" class="solar-form">
+                <div class="form-section">
+                    <h3><i class="fas fa-solar-panel"></i> Солнечные панели</h3>
+                    <div class="form-group">
+                        <label for="panel_type">Тип панелей</label>
+                        <select id="panel_type" name="panel_type" class="form-select">
+                            <option value="mono">Монокристаллические (КПД 22%)</option>
+                            <option value="poly">Поликристаллические (КПД 18%)</option>
+                            <option value="thin_film">Тонкопленочные (КПД 15%)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="panel_power">Мощность одной панели (Вт)</label>
+                        <input type="range" id="panel_power" name="panel_power" min="100" max="700" value="450" class="form-range">
+                        <div class="range-value"><span id="panel_power_value">450</span> Вт</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="panel_count">Количество панелей</label>
+                        <input type="number" id="panel_count" name="panel_count" value="20" min="1" max="1000" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-map-marker-alt"></i> Расположение</h3>
+                    <div class="form-group">
+                        <label for="region">Регион</label>
+                        <select id="region" name="region" class="form-select">
+                            <option value="Москва">Москва</option>
+                            <option value="Сочи">Сочи</option>
+                            <option value="Краснодар">Краснодар</option>
+                            <option value="Ростов-на-Дону">Ростов-на-Дону</option>
+                            <option value="Волгоград">Волгоград</option>
+                            <option value="Екатеринбург">Екатеринбург</option>
+                            <option value="Новосибирск">Новосибирск</option>
+                            <option value="Владивосток">Владивосток</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="roof_angle">Угол наклона крыши (°)</label>
+                        <input type="range" id="roof_angle" name="roof_angle" min="0" max="90" value="35" class="form-range">
+                        <div class="range-value"><span id="roof_angle_value">35</span>°</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3><i class="fas fa-bolt"></i> Экономика</h3>
+                    <div class="form-group">
+                        <label for="electricity_price">Стоимость электроэнергии (руб/кВт·ч)</label>
+                        <input type="number" id="electricity_price" name="electricity_price" value="5.0" step="0.1" class="form-input">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-calculate pulse">
+                    <i class="fas fa-bolt"></i> Рассчитать
+                </button>
+            </form>
+        </div>
+
+        <div class="results-section">
+            <div id="loading" class="loading" style="display: none;">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Выполняем точные расчеты...</p>
+                </div>
+            </div>
+
+            <div id="results" class="results" style="display: none;">
+                <h3><i class="fas fa-chart-bar"></i> Результаты расчета</h3>
+                
+                <div class="results-tabs">
+                    <button class="tab-button active" data-tab="technical">Технические</button>
+                    <button class="tab-button" data-tab="economic">Экономические</button>
+                    <button class="tab-button" data-tab="environmental">Экологические</button>
+                </div>
+
+                <div id="technical-tab" class="tab-content active">
+                    <div class="results-grid">
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="result-value" id="total-power">0</div>
+                            <div class="result-label">Общая мощность</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <div class="result-value" id="annual-generation">0</div>
+                            <div class="result-label">Годовая выработка</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="result-value" id="system-efficiency">0%</div>
+                            <div class="result-label">КПД системы</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-vector-square"></i>
+                            </div>
+                            <div class="result-value" id="total-area">0</div>
+                            <div class="result-label">Площадь (м²)</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </div>
+
+                <div id="economic-tab" class="tab-content">
+                    <div class="results-grid">
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-ruble-sign"></i>
+                            </div>
+                            <div class="result-value" id="total-cost">0</div>
+                            <div class="result-label">Общая стоимость</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-piggy-bank"></i>
+                            </div>
+                            <div class="result-value" id="annual-savings">0</div>
+                            <div class="result-label">Годовая экономия</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="result-value" id="payback-years">0</div>
+                            <div class="result-label">Окупаемость (лет)</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <div class="result-value" id="roi-25years">0%</div>
+                            <div class="result-label">ROI за 25 лет</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="environmental-tab" class="tab-content">
+                    <div class="results-grid">
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                            <div class="result-value" id="co2-saved">0</div>
+                            <div class="result-label">CO2 сэкономлено (кг/год)</div>
+                        </div>
+                        <div class="result-card hover-lift">
+                            <div class="result-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <div class="result-value" id="trees-equivalent">0</div>
+                            <div class="result-label">Эквивалент деревьев</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="saveCalculation()">
+                        <i class="fas fa-save"></i> Сохранить расчет
+                    </button>
+                    <a href="{{ url_for('advanced_calculator') }}" class="btn btn-outline">
+                        <i class="fas fa-cogs"></i> Продвинутый расчет
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
+{% endblock %}
