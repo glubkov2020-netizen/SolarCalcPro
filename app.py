@@ -261,10 +261,23 @@ def api_calculate():
         
         conn = sqlite3.connect('data/solar_calculations.db')
         cursor = conn.cursor()
-        cursor.execute(
-            'INSERT INTO calculations (input_data, result_data) VALUES (?, ?)',
-            (json.dumps(data, ensure_ascii=False), json.dumps(result, ensure_ascii=False))
-        )
+        
+        # УБЕРИТЕ language если его нет в данных:
+        input_json = json.dumps(data, ensure_ascii=False)
+        result_json = json.dumps(result, ensure_ascii=False)
+        
+        # Если в data есть language, добавьте его, иначе пропустите
+        if 'language' in data:
+            cursor.execute(
+                'INSERT INTO calculations (input_data, result_data, language) VALUES (?, ?, ?)',
+                (input_json, result_json, data['language'])
+            )
+        else:
+            cursor.execute(
+                'INSERT INTO calculations (input_data, result_data) VALUES (?, ?)',
+                (input_json, result_json)
+            )
+        
         calculation_id = cursor.lastrowid
         conn.commit()
         conn.close()
