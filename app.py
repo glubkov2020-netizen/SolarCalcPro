@@ -18,25 +18,102 @@ from reportlab.pdfbase.ttfonts import TTFont
 app = Flask(__name__)
 app.secret_key = 'solar_calc_pro_2024'
 
-# ===== ИНИЦИАЛИЗАЦИЯ =====
+# ===== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ДЛЯ ПАМЯТИ =====
+# Используем для Vercel, где база данных readonly
+MEMORY_STORAGE = []  # Список для хранения расчетов в памяти
+CALCULATION_ID = 1   # Счетчик для ID
+
+# ===== ИНИЦИАЛИЗАЦИЯ БАЗЫ ДАННЫХ =====
 
 def init_db():
-    """Инициализация базы данных"""
-    if not os.path.exists('data'):
-        os.makedirs('data')
+    """Инициализация базы данных с проверкой доступности записи"""
+    print("🔄 Инициализация базы данных...")
     
-    conn = sqlite3.connect('data/solar_calculations.db')
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS calculations (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            input_data TEXT NOT NULL,
-            result_data TEXT NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    ''')
-    conn.commit()
-    conn.close()
+    # Пробуем разные пути
+    possible_paths = [
+        '/tmp/solar_calculations.db',  # Для Vercel/серверов (если есть /tmp)
+        'data/solar_calculations.db',  # Для локальной разработки
+    ]
+    
+    for db_path in possible_paths:
+        try:
+            if db_path != ':memory:':
+                # Создаем директорию если нужно
+                os.makedirs(os.path.dirname(db_path), exist_ok=True)
+            
+            print(f"📁 Пробуем путь: {db_path}")
+            
+            # Пробуем создать/открыть базу
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            
+            # Создаем таблицу
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS calculations (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    input_data TEXT NOT NULL,
+                    result_data TEXT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    language TEXT DEFAULT 'ru'
+                )
+            ''')
+            
+            # Проверяем наличие колонки language
+            cursor.execute("PRAGMA table_info(calculations)")
+            columns = [column[1] for column in cursor.fetchall()]
+            
+            if 'language' not in columns:
+                print("➕ Добавляем колонку 'language'...")
+                cursor.execute('ALTER TABLE calculations ADD COLUMN language TEXT DEFAULT "ru"')
+            
+            # Пробуем записать тестовую запись
+            cursor.execute(
+                'INSERT INTO calculations (input_data, result_data) VALUES (?, ?)',
+                ('{"test": 1}', '{"result": 1}')
+            )
+            conn.commit()
+            
+            # Удаляем тестовую запись
+            cursor.execute('DELETE FROM calculations WHERE input_data = ?', ('{"test": 1}',))
+            conn.commit()
+            conn.close()
+            
+            print(f"✅ База данных готова по пути: {db_path}")
+            return db_path  # Возвращаем успешный путь
+            
+        except Exception as e:
+            print(f"❌ Путь {db_path} недоступен: {e}")
+            continue
+    
+    print("⚠️  Все пути недоступны, используем хранение в памяти")
+    return ':memory:'  # Запасной вариант
+
+def get_db_connection():
+    """Получить соединение с базой данных"""
+    try:
+        if DB_PATH == ':memory:':
+            # Для in-memory базы создаем новое соединение
+            conn = sqlite3.connect(DB_PATH)
+            
+            # Инициализируем таблицу
+            cursor = conn.cursor()
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS calculations (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    input_data TEXT NOT NULL,
+                    result_data TEXT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    language TEXT DEFAULT 'ru'
+                )
+            ''')
+            conn.commit()
+            return conn
+        else:
+            # Для файловой базы
+            return sqlite3.connect(DB_PATH)
+    except Exception as e:
+        print(f"❌ Ошибка подключения к базе: {e}")
+        return None
 
 def register_russian_font():
     """Регистрация шрифтов для PDF"""
@@ -251,7 +328,10 @@ def about():
 
 @app.route('/api/calculate', methods=['POST'])
 def api_calculate():
+    """API для расчета солнечной электростанции"""
     try:
+        global MEMORY_STORAGE, CALCULATION_ID
+        
         data = request.get_json()
         if not data:
             return jsonify({'success': False, 'error': 'No data received'})
@@ -259,33 +339,49 @@ def api_calculate():
         calculator = AdvancedSolarCalculator()
         result = calculator.calculate_advanced(data)
         
-        conn = sqlite3.connect('data/solar_calculations.db')
-        cursor = conn.cursor()
+        # Пробуем сохранить в базу данных
+        saved_in_db = False
+        calculation_id = 0
         
-        # УБЕРИТЕ language если его нет в данных:
-        input_json = json.dumps(data, ensure_ascii=False)
-        result_json = json.dumps(result, ensure_ascii=False)
-        
-        # Если в data есть language, добавьте его, иначе пропустите
-        if 'language' in data:
-            cursor.execute(
-                'INSERT INTO calculations (input_data, result_data, language) VALUES (?, ?, ?)',
-                (input_json, result_json, data['language'])
-            )
-        else:
-            cursor.execute(
-                'INSERT INTO calculations (input_data, result_data) VALUES (?, ?)',
-                (input_json, result_json)
-            )
-        
-        calculation_id = cursor.lastrowid
-        conn.commit()
-        conn.close()
+        try:
+            conn = get_db_connection()
+            if conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    'INSERT INTO calculations (input_data, result_data, language) VALUES (?, ?, ?)',
+                    (json.dumps(data, ensure_ascii=False), 
+                     json.dumps(result, ensure_ascii=False), 
+                     data.get('language', 'ru'))
+                )
+                calculation_id = cursor.lastrowid
+                conn.commit()
+                conn.close()
+                saved_in_db = True
+                print(f"✅ Расчет сохранен в базу данных, ID: {calculation_id}")
+        except Exception as db_error:
+            print(f"⚠️ Не удалось сохранить в базу: {db_error}")
+            # Сохраняем в памяти как запасной вариант
+            calculation_id = CALCULATION_ID
+            MEMORY_STORAGE.append({
+                'id': calculation_id,
+                'input_data': data,
+                'result_data': result,
+                'language': data.get('language', 'ru'),
+                'created_at': datetime.now().isoformat()
+            })
+            CALCULATION_ID += 1
+            
+            # Ограничиваем размер памяти
+            if len(MEMORY_STORAGE) > 50:
+                MEMORY_STORAGE = MEMORY_STORAGE[-50:]
+            
+            print(f"✅ Расчет сохранен в памяти, ID: {calculation_id}")
         
         return jsonify({
             'success': True, 
             'data': result, 
-            'calculation_id': calculation_id
+            'calculation_id': calculation_id,
+            'saved_in_db': saved_in_db
         })
     except Exception as e:
         print(f"Calculation error: {str(e)}")
@@ -293,23 +389,50 @@ def api_calculate():
 
 @app.route('/api/calculations-history')
 def api_calculations_history():
+    """API для получения истории расчетов"""
     try:
-        conn = sqlite3.connect('data/solar_calculations.db')
-        cursor = conn.cursor()
-        cursor.execute('SELECT * FROM calculations ORDER BY created_at DESC LIMIT 10')
-        calculations = cursor.fetchall()
-        conn.close()
+        # Сначала пробуем получить из базы данных
+        results_from_db = []
+        try:
+            conn = get_db_connection()
+            if conn:
+                cursor = conn.cursor()
+                cursor.execute('SELECT * FROM calculations ORDER BY created_at DESC LIMIT 10')
+                calculations = cursor.fetchall()
+                conn.close()
+                
+                for calc in calculations:
+                    results_from_db.append({
+                        'id': calc[0],
+                        'input_data': json.loads(calc[1]),
+                        'result_data': json.loads(calc[2]),
+                        'created_at': calc[3],
+                        'language': calc[4] if len(calc) > 4 else 'ru',
+                        'source': 'database'
+                    })
+        except Exception as db_error:
+            print(f"⚠️ Не удалось загрузить из базы: {db_error}")
         
-        result = []
-        for calc in calculations:
-            result.append({
-                'id': calc[0],
-                'input_data': json.loads(calc[1]),
-                'result_data': json.loads(calc[2]),
-                'created_at': calc[3]
+        # Добавляем из памяти
+        results_from_memory = []
+        for calc in reversed(MEMORY_STORAGE[-10:]):
+            results_from_memory.append({
+                'id': calc['id'],
+                'input_data': calc['input_data'],
+                'result_data': calc['result_data'],
+                'created_at': calc['created_at'],
+                'language': calc.get('language', 'ru'),
+                'source': 'memory'
             })
         
-        return jsonify({'success': True, 'data': result})
+        # Объединяем результаты
+        all_results = results_from_db + results_from_memory
+        # Сортируем по дате (новые сверху)
+        all_results.sort(key=lambda x: x['created_at'], reverse=True)
+        # Ограничиваем 10 последними
+        all_results = all_results[:10]
+        
+        return jsonify({'success': True, 'data': all_results})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
 
@@ -319,18 +442,37 @@ def export_pdf(calculation_id):
     try:
         calculator = AdvancedSolarCalculator()
         
-        conn = sqlite3.connect('data/solar_calculations.db')
-        cursor = conn.cursor()
-        cursor.execute('SELECT * FROM calculations WHERE id = ?', (calculation_id,))
-        calculation = cursor.fetchone()
-        conn.close()
+        # Ищем расчет в базе данных
+        result_data = None
+        input_data = None
+        created_at = None
         
-        if not calculation:
+        try:
+            conn = get_db_connection()
+            if conn:
+                cursor = conn.cursor()
+                cursor.execute('SELECT * FROM calculations WHERE id = ?', (calculation_id,))
+                calculation = cursor.fetchone()
+                conn.close()
+                
+                if calculation:
+                    input_data = json.loads(calculation[1])
+                    result_data = json.loads(calculation[2])
+                    created_at = calculation[3]
+        except:
+            pass
+        
+        # Если не нашли в базе, ищем в памяти
+        if not result_data:
+            for calc in MEMORY_STORAGE:
+                if calc['id'] == calculation_id:
+                    input_data = calc['input_data']
+                    result_data = calc['result_data']
+                    created_at = calc['created_at']
+                    break
+        
+        if not result_data:
             return "Расчет не найден", 404
-        
-        input_data = json.loads(calculation[1])
-        result_data = json.loads(calculation[2])
-        created_at = calculation[3]
         
         # Заголовки
         title = 'SolarCalc Pro - Отчет по расчету солнечной электростанции'
@@ -572,8 +714,14 @@ def export_pdf(calculation_id):
         print(f"PDF export error: {str(e)}")
         return f"Ошибка при создании PDF: {str(e)}", 500
 
+# ===== ИНИЦИАЛИЗАЦИЯ БАЗЫ ДАННЫХ ПРИ СТАРТЕ =====
+
+# Инициализируем базу данных при старте приложения
+print("🚀 Запуск SolarCalc Pro...")
+DB_PATH = init_db()
+print(f"📍 Используемый путь к базе данных: {DB_PATH}")
+
 # ===== ЗАПУСК ПРИЛОЖЕНИЯ =====
 
 if __name__ == '__main__':
-    init_db()
     app.run(host='0.0.0.0', port=5000, debug=True)
