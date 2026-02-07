@@ -27,16 +27,29 @@ def init_db():
     
     conn = sqlite3.connect('data/solar_calculations.db')
     cursor = conn.cursor()
+    
+    # Создаем таблицу с ВСЕМИ нужными колонками
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS calculations (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             input_data TEXT NOT NULL,
             result_data TEXT NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            language TEXT DEFAULT 'ru'  -- ← ВОТ ЭТУ СТРОКУ ДОБАВИТЬ!
         )
     ''')
+    
+    # Проверяем и добавляем колонку если ее нет (для старых баз)
+    cursor.execute("PRAGMA table_info(calculations)")
+    columns = [column[1] for column in cursor.fetchall()]
+    
+    if 'language' not in columns:
+        print("🔧 Добавляем колонку 'language' в существующую таблицу...")
+        cursor.execute('ALTER TABLE calculations ADD COLUMN language TEXT DEFAULT "ru"')
+    
     conn.commit()
     conn.close()
+    print("✅ База данных инициализирована")
 
 def register_russian_font():
     """Регистрация шрифтов для PDF"""
