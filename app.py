@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, jsonify, send_file
+from flask import Flask, render_template, request, jsonify, send_file, session
 import json
 import math
 import sqlite3
@@ -18,22 +18,10 @@ from reportlab.pdfbase.ttfonts import TTFont
 app = Flask(__name__)
 app.secret_key = 'solar_calc_pro_2024'
 
-# Регистрируем русский шрифт
-def register_russian_font():
-    try:
-        # Попробуем использовать стандартный шрифт, поддерживающий кириллицу
-        pdfmetrics.registerFont(TTFont('DejaVuSans', 'DejaVuSans.ttf'))
-        return 'DejaVuSans'
-    except:
-        try:
-            # Альтернативный шрифт
-            pdfmetrics.registerFont(TTFont('Arial', 'arial.ttf'))
-            return 'Arial'
-        except:
-            # Используем стандартный шрифт (может не поддерживать кириллицу)
-            return 'Helvetica'
+# ===== ИНИЦИАЛИЗАЦИЯ =====
 
 def init_db():
+    """Инициализация базы данных"""
     if not os.path.exists('data'):
         os.makedirs('data')
     
@@ -49,6 +37,20 @@ def init_db():
     ''')
     conn.commit()
     conn.close()
+
+def register_russian_font():
+    """Регистрация шрифтов для PDF"""
+    try:
+        pdfmetrics.registerFont(TTFont('DejaVuSans', 'DejaVuSans.ttf'))
+        return 'DejaVuSans'
+    except:
+        try:
+            pdfmetrics.registerFont(TTFont('Arial', 'arial.ttf'))
+            return 'Arial'
+        except:
+            return 'Helvetica'
+
+# ===== КЛАСС КАЛЬКУЛЯТОРА =====
 
 class AdvancedSolarCalculator:
     def __init__(self):
@@ -193,7 +195,20 @@ class AdvancedSolarCalculator:
         
         return [round(annual_generation * factor / total_factor, 2) for factor in factors]
 
-# Маршруты приложения
+# ===== КОНТЕКСТНЫЙ ПРОЦЕССОР =====
+
+@app.context_processor
+def inject_global_variables():
+    """Добавляем глобальные переменные во все шаблоны"""
+    return {
+        # Базовые переменные для навигации
+        'current_page': request.endpoint if request.endpoint else 'index',
+        # Простая функция, если в шаблонах остались вызовы t()
+        't': lambda key: key
+    }
+
+# ===== МАРШРУТЫ =====
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -213,6 +228,14 @@ def components():
 @app.route('/history')
 def history():
     return render_template('history.html')
+
+@app.route('/blog')
+def blog():
+    return render_template('blog.html')
+
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
 
 @app.route('/advantages')
 def advantages():
@@ -281,6 +304,8 @@ def api_calculations_history():
 def export_pdf(calculation_id):
     """Экспорт расчета в PDF"""
     try:
+        calculator = AdvancedSolarCalculator()
+        
         conn = sqlite3.connect('data/solar_calculations.db')
         cursor = conn.cursor()
         cursor.execute('SELECT * FROM calculations WHERE id = ?', (calculation_id,))
@@ -294,10 +319,61 @@ def export_pdf(calculation_id):
         result_data = json.loads(calculation[2])
         created_at = calculation[3]
         
-        # Создаем PDF в памяти
-        buffer = io.BytesIO()
+        # Заголовки
+        title = 'SolarCalc Pro - Отчет по расчету солнечной электростанции'
+        sections = {
+            'parameters': '1. Входные параметры системы',
+            'technical': '2. Технические показатели',
+            'economic': '3. Экономические показатели',
+            'environmental': '4. Экологические показатели',
+            'conclusion': '5. Заключение'
+        }
+        labels = {
+            'parameter': 'Параметр',
+            'value': 'Значение',
+            'date': 'Дата расчета',
+            'total_power': 'Общая мощность',
+            'annual_generation': 'Годовая выработка',
+            'daily_generation': 'Суточная выработка',
+            'system_efficiency': 'КПД системы',
+            'area': 'Площадь панелей',
+            'autonomy': 'Автономность',
+            'equipment_cost': 'Стоимость оборудования',
+            'total_cost': 'Общая стоимость',
+            'annual_savings': 'Годовая экономия',
+            'payback': 'Срок окупаемости',
+            'roi': 'ROI за 25 лет',
+            'generation_25y': 'Выработка за 25 лет',
+            'co2_saved': 'CO₂ сэкономлено в год',
+            'trees': 'Эквивалент деревьев',
+            'co2_25y': 'CO₂ сэкономлено за 25 лет'
+        }
         
-        # Используем SimpleDocTemplate с поддержкой Unicode
+        # Имена типов оборудования
+        panel_names = {
+            'mono': 'Монокристаллические',
+            'poly': 'Поликристаллические',
+            'thin_film': 'Тонкопленочные'
+        }
+        
+        inverter_names = {
+            'string': 'Стринговый',
+            'micro': 'Микроинверторы',
+            'hybrid': 'Гибридный'
+        }
+        
+        battery_names = {
+            'lead_acid': 'Свинцово-кислотные',
+            'lifepo4': 'LiFePO4',
+            'li_ion': 'Li-Ion'
+        }
+        
+        panel_name = panel_names.get(input_data.get('panel_type', 'mono'), '')
+        inverter_name = inverter_names.get(input_data.get('inverter_type', 'string'), '')
+        battery_name = battery_names.get(input_data.get('battery_type', 'lifepo4'), '')
+        
+        # Создаем PDF
+        buffer = io.BytesIO()
         doc = SimpleDocTemplate(
             buffer, 
             pagesize=A4,
@@ -309,14 +385,10 @@ def export_pdf(calculation_id):
         )
         
         story = []
-        
-        # Получаем шрифт с поддержкой кириллицы
         font_name = register_russian_font()
-        
-        # Создаем стили с правильным шрифтом
         styles = getSampleStyleSheet()
         
-        # Стиль для заголовка
+        # Стили
         title_style = ParagraphStyle(
             'CustomTitle',
             parent=styles['Heading1'],
@@ -326,7 +398,6 @@ def export_pdf(calculation_id):
             textColor=colors.HexColor('#2563eb')
         )
         
-        # Стиль для подзаголовков
         heading_style = ParagraphStyle(
             'CustomHeading',
             parent=styles['Heading2'],
@@ -336,7 +407,6 @@ def export_pdf(calculation_id):
             textColor=colors.HexColor('#1f2937')
         )
         
-        # Стиль для обычного текста
         normal_style = ParagraphStyle(
             'CustomNormal',
             parent=styles['Normal'],
@@ -346,25 +416,22 @@ def export_pdf(calculation_id):
         )
         
         # Заголовок
-        story.append(Paragraph('SolarCalc Pro - Отчет по расчету солнечной электростанции', title_style))
-        story.append(Paragraph(f'Дата расчета: {created_at}', normal_style))
+        story.append(Paragraph(title, title_style))
+        story.append(Paragraph(f"{labels['date']}: {created_at}", normal_style))
         story.append(Spacer(1, 20))
         
-        # Раздел: Входные параметры
-        story.append(Paragraph('1. Входные параметры системы', heading_style))
+        # Входные параметры
+        story.append(Paragraph(sections['parameters'], heading_style))
         
         input_table_data = [
-            ['Параметр', 'Значение'],
-            ['Тип панелей', get_panel_type_name(input_data.get('panel_type', 'mono'))],
+            [labels['parameter'], labels['value']],
+            ['Тип панелей', panel_name],
             ['Мощность панели', f"{input_data.get('panel_power', 450)} Вт"],
             ['Количество панелей', str(input_data.get('panel_count', 10))],
-            ['Общая мощность', f"{result_data['technical']['total_power']} Вт"],
+            [labels['total_power'], f"{result_data['technical']['total_power']} Вт"],
             ['Регион', input_data.get('region', 'Москва')],
             ['Угол наклона', f"{input_data.get('roof_angle', 35)}°"],
-            ['Азимут', f"{input_data.get('azimuth', 0)}°"],
-            ['Тип инвертора', get_inverter_type_name(input_data.get('inverter_type', 'string'))],
-            ['Тип аккумуляторов', get_battery_type_name(input_data.get('battery_type', 'lifepo4'))],
-            ['Емкость аккумуляторов', f"{input_data.get('battery_capacity', 10)} кВт·ч"]
+            ['Азимут', f"{input_data.get('azimuth', 0)}°"]
         ]
         
         input_table = Table(input_table_data, colWidths=[3*inch, 3*inch])
@@ -382,18 +449,16 @@ def export_pdf(calculation_id):
         story.append(input_table)
         story.append(Spacer(1, 20))
         
-        # Раздел: Технические показатели
-        story.append(Paragraph('2. Технические показатели', heading_style))
-        
+        # Технические показатели
+        story.append(Paragraph(sections['technical'], heading_style))
         tech_data = result_data['technical']
         tech_table_data = [
-            ['Показатель', 'Значение'],
-            ['Общая мощность', f"{tech_data['total_power']} Вт"],
-            ['Годовая выработка', f"{tech_data['annual_generation']:,.0f} кВт·ч"],
-            ['Суточная выработка', f"{tech_data['daily_generation']} кВт·ч"],
-            ['КПД системы', f"{tech_data['system_efficiency']}%"],
-            ['Площадь панелей', f"{tech_data['total_area']} м²"],
-            ['Автономность', f"{tech_data.get('battery_backup_hours', 0)} часов"]
+            [labels['parameter'], labels['value']],
+            [labels['total_power'], f"{tech_data['total_power']} Вт"],
+            [labels['annual_generation'], f"{tech_data['annual_generation']:,.0f} кВт·ч"],
+            [labels['daily_generation'], f"{tech_data['daily_generation']} кВт·ч"],
+            [labels['system_efficiency'], f"{tech_data['system_efficiency']}%"],
+            [labels['area'], f"{tech_data['total_area']} м²"],
         ]
         
         tech_table = Table(tech_table_data, colWidths=[3*inch, 3*inch])
@@ -411,18 +476,18 @@ def export_pdf(calculation_id):
         story.append(tech_table)
         story.append(Spacer(1, 20))
         
-        # Раздел: Экономические показатели
-        story.append(Paragraph('3. Экономические показатели', heading_style))
-        
+        # Экономические показатели
+        story.append(Paragraph(sections['economic'], heading_style))
         econ_data = result_data['economic']
+        
         econ_table_data = [
-            ['Показатель', 'Значение'],
-            ['Стоимость оборудования', f"{econ_data['equipment_cost']:,.0f} руб"],
-            ['Общая стоимость', f"{econ_data['total_cost']:,.0f} руб"],
-            ['Годовая экономия', f"{econ_data['annual_savings']:,.0f} руб"],
-            ['Срок окупаемости', f"{econ_data['payback_years']} лет"],
-            ['ROI за 25 лет', f"{econ_data['roi_25years']}%"],
-            ['Выработка за 25 лет', f"{econ_data['total_25year_generation']:,.0f} кВт·ч"]
+            [labels['parameter'], labels['value']],
+            [labels['equipment_cost'], f"{econ_data['equipment_cost']:,.0f} руб"],
+            [labels['total_cost'], f"{econ_data['total_cost']:,.0f} руб"],
+            [labels['annual_savings'], f"{econ_data['annual_savings']:,.0f} руб"],
+            [labels['payback'], f"{econ_data['payback_years']} лет"],
+            [labels['roi'], f"{econ_data['roi_25years']}%"],
+            [labels['generation_25y'], f"{econ_data['total_25year_generation']:,.0f} кВт·ч"]
         ]
         
         econ_table = Table(econ_table_data, colWidths=[3*inch, 3*inch])
@@ -440,15 +505,15 @@ def export_pdf(calculation_id):
         story.append(econ_table)
         story.append(Spacer(1, 20))
         
-        # Раздел: Экологические показатели
-        story.append(Paragraph('4. Экологические показатели', heading_style))
-        
+        # Экологические показатели
+        story.append(Paragraph(sections['environmental'], heading_style))
         env_data = result_data['environmental']
+        
         env_table_data = [
-            ['Показатель', 'Значение'],
-            ['CO₂ сэкономлено в год', f"{env_data['co2_saved_annual']:,.0f} кг"],
-            ['Эквивалент деревьев', f"{env_data['trees_equivalent']:,.0f}"],
-            ['CO₂ сэкономлено за 25 лет', f"{env_data['co2_saved_25years']/1000:,.1f} тонн"]
+            [labels['parameter'], labels['value']],
+            [labels['co2_saved'], f"{env_data['co2_saved_annual']:,.0f} кг"],
+            [labels['trees'], f"{env_data['trees_equivalent']:,.0f}"],
+            [labels['co2_25y'], f"{env_data['co2_saved_25years']/1000:,.1f} тонн"]
         ]
         
         env_table = Table(env_table_data, colWidths=[3*inch, 3*inch])
@@ -467,23 +532,26 @@ def export_pdf(calculation_id):
         story.append(Spacer(1, 20))
         
         # Заключение
-        story.append(Paragraph('5. Заключение', heading_style))
-        conclusion_text = f"""
+        story.append(Paragraph(sections['conclusion'], heading_style))
+        
+        conclusion = f"""
         Солнечная электростанция мощностью {result_data['technical']['total_power']} Вт 
         обеспечит годовую выработку {result_data['technical']['annual_generation']:,.0f} кВт·ч 
         и окупится за {result_data['economic']['payback_years']} лет. 
         За 25 лет эксплуатации система сэкономит {result_data['environmental']['co2_saved_25years']/1000:,.1f} тонн CO₂.
         """
-        story.append(Paragraph(conclusion_text, normal_style))
+        
+        story.append(Paragraph(conclusion, normal_style))
         
         # Строим PDF
         doc.build(story)
         buffer.seek(0)
         
+        filename = f'solar_calculation_{calculation_id}.pdf'
         return send_file(
             buffer,
             as_attachment=True,
-            download_name=f'solar_calculation_{calculation_id}.pdf',
+            download_name=filename,
             mimetype='application/pdf'
         )
         
@@ -491,28 +559,8 @@ def export_pdf(calculation_id):
         print(f"PDF export error: {str(e)}")
         return f"Ошибка при создании PDF: {str(e)}", 500
 
-def get_panel_type_name(panel_type):
-    names = {
-        'mono': 'Монокристаллические',
-        'poly': 'Поликристаллические', 
-        'thin_film': 'Тонкопленочные'
-    }
-    return names.get(panel_type, 'Монокристаллические')
+# ===== ЗАПУСК ПРИЛОЖЕНИЯ =====
 
-def get_inverter_type_name(inverter_type):
-    names = {
-        'string': 'Стринговый',
-        'micro': 'Микроинверторы',
-        'hybrid': 'Гибридный'
-    }
-    return names.get(inverter_type, 'Стринговый')
-
-def get_battery_type_name(battery_type):
-    names = {
-        'lifepo4': 'LiFePO4',
-        'li_ion': 'Li-Ion',
-        'lead_acid': 'Свинцово-кислотные'
-    }
-    return names.get(battery_type, 'LiFePO4')
-
-init_db()
+if __name__ == '__main__':
+    init_db()
+    app.run(host='0.0.0.0', port=5000, debug=True)

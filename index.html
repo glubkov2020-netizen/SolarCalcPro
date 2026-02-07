@@ -1,97 +1,179 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Enhanced Hero Section with 3D Effects -->
-<section class="hero cosmic-bg">
+<!-- Cosmic Hero Section with Particle Effects -->
+<section class="hero cosmic-hero">
+    <!-- Animated Particle Background -->
+    <div class="particles-container" id="particles-js"></div>
+    
+    <!-- Floating Solar System Elements -->
+    <div class="floating-elements">
+        <div class="floating-element element-1">
+            <i class="fas fa-solar-panel"></i>
+        </div>
+        <div class="floating-element element-2">
+            <i class="fas fa-bolt"></i>
+        </div>
+        <div class="floating-element element-3">
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="floating-element element-4">
+            <i class="fas fa-leaf"></i>
+        </div>
+    </div>
+
     <div class="hero-content">
         <div class="hero-text">
-            <h1 class="typewriter slide-in-left">Профессиональный калькулятор солнечной энергии</h1>
-            <p class="hero-description slide-in-left delay-1">Точные расчеты для профессионалов. Учет всех параметров: от типа панелей до экономической окупаемости.</p>
+            <!-- Main Title with Gradient Text -->
+            <h1 class="hero-title">
+                <span class="gradient-text">SolarCalc Pro</span>
+                <span class="subtitle">Профессиональный калькулятор солнечной энергии</span>
+            </h1>
             
-            <!-- Enhanced Stats with Progress Bars -->
-            <div class="hero-stats">
-                <div class="stat stagger-item">
-                    <div class="stat-number counter" data-target="1247">0</div>
-                    <div class="stat-label">Выполнено расчетов</div>
+            <!-- Hero Description with Animated Typing Effect -->
+            <p class="hero-description">
+                Точные расчеты для профессионалов. Учет всех параметров: от типа панелей до экономической окупаемости.
+            </p>
+            
+            <!-- Enhanced Stats with Glowing Cards -->
+            <div class="hero-stats glow-cards">
+                <div class="stat-card stat-card-1">
+                    <div class="stat-icon">
+                        <i class="fas fa-calculator"></i>
+                        <div class="pulse-ring"></div>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number counter" data-target="1247">0</div>
+                        <div class="stat-label">Выполнено расчетов</div>
+                    </div>
                     <div class="stat-progress">
-                        <div class="progress-bar">
+                        <div class="progress-track">
                             <div class="progress-fill" style="width: 85%"></div>
+                            <div class="progress-sparkles"></div>
                         </div>
                     </div>
                 </div>
-                <div class="stat stagger-item">
-                    <div class="stat-number counter" data-target="2845">0</div>
-                    <div class="stat-label">МВт·ч рассчитано</div>
+                
+                <div class="stat-card stat-card-2">
+                    <div class="stat-icon">
+                        <i class="fas fa-bolt"></i>
+                        <div class="pulse-ring"></div>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number counter" data-target="2845">0</div>
+                        <div class="stat-label">МВт·ч рассчитано</div>
+                    </div>
                     <div class="stat-progress">
-                        <div class="progress-bar">
+                        <div class="progress-track">
                             <div class="progress-fill" style="width: 92%"></div>
+                            <div class="progress-sparkles"></div>
                         </div>
                     </div>
                 </div>
-                <div class="stat stagger-item">
-                    <div class="stat-number counter" data-target="98.7">0</div>
-                    <div class="stat-label">% Точность</div>
+                
+                <div class="stat-card stat-card-3">
+                    <div class="stat-icon">
+                        <i class="fas fa-percentage"></i>
+                        <div class="pulse-ring"></div>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number counter" data-target="98.7">0</div>
+                        <div class="stat-label">Точность расчетов</div>
+                    </div>
                     <div class="stat-progress">
-                        <div class="progress-bar">
+                        <div class="progress-track">
                             <div class="progress-fill" style="width: 98.7%"></div>
+                            <div class="progress-sparkles"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Enhanced Action Buttons -->
+            <!-- Enhanced Action Buttons with Hover Effects -->
             <div class="hero-buttons">
-                <a href="{{ url_for('calculator') }}" class="btn btn-primary pulse magnetic">
-                    <i class="fas fa-calculator"></i>
-                    <span>Быстрый расчет</span>
-                    <div class="btn-sparkle"></div>
+                <a href="{{ url_for('calculator') }}" class="btn btn-hero btn-primary">
+                    <span class="btn-content">
+                        <i class="fas fa-calculator"></i>
+                        <span>Быстрый расчет</span>
+                    </span>
+                    <div class="btn-glow"></div>
+                    <div class="btn-shine"></div>
                 </a>
-                <a href="{{ url_for('advanced_calculator') }}" class="btn btn-secondary magnetic">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Продвинутый анализ</span>
-                    <div class="btn-sparkle"></div>
+                
+                <a href="{{ url_for('advanced_calculator') }}" class="btn btn-hero btn-secondary">
+                    <span class="btn-content">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Продвинутый анализ</span>
+                    </span>
+                    <div class="btn-glow"></div>
+                    <div class="btn-shine"></div>
                 </a>
             </div>
 
-            <!-- Trust Indicators -->
-            <div class="trust-indicators slide-in-up delay-2">
-                <div class="trust-item">
-                    <i class="fas fa-shield-check"></i>
+            <!-- Trust Badges with Icons -->
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-shield-check"></i>
+                    </div>
                     <span>Гарантия точности</span>
                 </div>
-                <div class="trust-item">
-                    <i class="fas fa-lock"></i>
+                <div class="trust-badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
                     <span>Безопасность данных</span>
                 </div>
-                <div class="trust-item">
-                    <i class="fas fa-rocket"></i>
+                <div class="trust-badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
                     <span>Мгновенные расчеты</span>
                 </div>
             </div>
         </div>
         
-        <!-- Enhanced 3D Solar System -->
+        <!-- 3D Solar Visualization -->
         <div class="hero-visual">
-            <div class="solar-system-3d">
-                <div class="solar-orbit solar-orbit-1">
-                    <div class="planet planet-1"></div>
-                </div>
-                <div class="solar-orbit solar-orbit-2">
-                    <div class="planet planet-2"></div>
-                </div>
-                <div class="solar-orbit solar-orbit-3">
-                    <div class="planet planet-3"></div>
-                </div>
-                <div class="sun-3d">
+            <div class="solar-visual-3d">
+                <!-- Animated Sun -->
+                <div class="sun-animated">
                     <div class="sun-core"></div>
                     <div class="sun-corona"></div>
-                    <div class="sun-flare"></div>
+                    <div class="sun-flares">
+                        <div class="flare flare-1"></div>
+                        <div class="flare flare-2"></div>
+                        <div class="flare flare-3"></div>
+                    </div>
                 </div>
-                <div class="solar-panel-array-3d">
-                    <div class="panel-3d panel-3d-1"></div>
-                    <div class="panel-3d panel-3d-2"></div>
-                    <div class="panel-3d panel-3d-3"></div>
-                    <div class="panel-3d panel-3d-4"></div>
+                
+                <!-- Rotating Solar Panel Array -->
+                <div class="solar-array-3d">
+                    <div class="array-base"></div>
+                    <div class="panel-row">
+                        <div class="panel-cell">
+                            <div class="panel-glass"></div>
+                            <div class="panel-frame"></div>
+                            <div class="energy-spark"></div>
+                        </div>
+                        <div class="panel-cell">
+                            <div class="panel-glass"></div>
+                            <div class="panel-frame"></div>
+                            <div class="energy-spark"></div>
+                        </div>
+                        <div class="panel-cell">
+                            <div class="panel-glass"></div>
+                            <div class="panel-frame"></div>
+                            <div class="energy-spark"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Energy Flow Lines -->
+                <div class="energy-flow">
+                    <div class="flow-line line-1"></div>
+                    <div class="flow-line line-2"></div>
+                    <div class="flow-line line-3"></div>
                 </div>
             </div>
         </div>
@@ -100,143 +182,223 @@
     <!-- Scroll Indicator -->
     <div class="scroll-indicator">
         <div class="scroll-arrow">
-            <i class="fas fa-chevron-down"></i>
+            <svg width="24" height="24" viewBox="0 0 24 24">
+                <path d="M12 17.414l5.707-5.707-1.414-1.414L12 14.586l-4.293-4.293-1.414 1.414L12 17.414z" fill="currentColor"/>
+            </svg>
         </div>
-        <span>Листайте вниз</span>
+        <span class="scroll-text">Исследуйте возможности</span>
+        <div class="scroll-progress"></div>
     </div>
 </section>
 
-<!-- Enhanced Features Section -->
-<section class="features">
+<!-- Features Grid with Morphing Cards -->
+<section class="features-section">
     <div class="container">
-        <h2 class="section-title">Почему выбирают наш калькулятор?</h2>
-        <p class="section-subtitle">Современные технологии для точных расчетов солнечной энергетики</p>
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="title-highlight">Почему выбирают</span>
+                <span class="title-main">наш калькулятор?</span>
+            </h2>
+            <p class="section-subtitle">Современные технологии для точных расчетов солнечной энергетики</p>
+        </div>
         
         <div class="features-grid">
-            <div class="feature-card hover-3d">
-                <div class="feature-icon">
-                    <i class="fas fa-calculator"></i>
-                    <div class="icon-glow"></div>
-                </div>
-                <h3>Точные расчеты</h3>
-                <p>Учитываем более 15 параметров: тип панелей, инверторов, аккумуляторов, региональные особенности</p>
-                <div class="feature-badge">Точность 99%</div>
-                <div class="feature-hover-content">
-                    <ul>
-                        <li>Проверенные алгоритмы</li>
-                        <li>Реальная статистика</li>
-                        <li>Погодные корректировки</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="feature-card hover-3d">
-                <div class="feature-icon">
-                    <i class="fas fa-ruble-sign"></i>
-                    <div class="icon-glow"></div>
-                </div>
-                <h3>Экономический анализ</h3>
-                <p>Расчет окупаемости, ROI, NPV и полный финансовый анализ на 25 лет</p>
-                <div class="feature-badge">FinTech</div>
-                <div class="feature-hover-content">
-                    <ul>
-                        <li>Прогноз инфляции</li>
-                        <li>Анализ рисков</li>
-                        <li>Сравнение сценариев</li>
-                    </ul>
+            <!-- Feature 1 -->
+            <div class="feature-card feature-card-1">
+                <div class="feature-card-inner">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-calculator"></i>
+                            <div class="icon-orb"></div>
+                        </div>
+                        <h3>Точные расчеты</h3>
+                        <span class="feature-badge">Точность 99%</span>
+                    </div>
+                    <p>Учитываем более 15 параметров: тип панелей, инверторов, аккумуляторов, региональные особенности</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Проверенные алгоритмы</li>
+                            <li><i class="fas fa-check-circle"></i> Реальная статистика</li>
+                            <li><i class="fas fa-check-circle"></i> Погодные корректировки</li>
+                        </ul>
+                    </div>
+                    <div class="feature-glow"></div>
                 </div>
             </div>
 
-            <div class="feature-card hover-3d">
-                <div class="feature-icon">
-                    <i class="fas fa-chart-line"></i>
-                    <div class="icon-glow"></div>
-                </div>
-                <h3>Профессиональные отчеты</h3>
-                <p>Детальные графики, таблицы и рекомендации для профессионального использования</p>
-                <div class="feature-badge">Pro Grade</div>
-                <div class="feature-hover-content">
-                    <ul>
-                        <li>PDF экспорт</li>
-                        <li>Интерактивные графики</li>
-                        <li>Детальная аналитика</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Updated Feature Cards -->
-            <div class="feature-card hover-3d">
-                <div class="feature-icon">
-                    <i class="fas fa-sun"></i>
-                    <div class="icon-glow"></div>
-                </div>
-                <h3>Региональные данные</h3>
-                <p>Учет климатических особенностей каждого региона России для точных прогнозов</p>
-                <div class="feature-badge">Геоданные</div>
-                <div class="feature-hover-content">
-                    <ul>
-                        <li>Карты инсоляции</li>
-                        <li>Климатические зоны</li>
-                        <li>Сезонные корректировки</li>
-                    </ul>
+            <!-- Feature 2 -->
+            <div class="feature-card feature-card-2">
+                <div class="feature-card-inner">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-ruble-sign"></i>
+                            <div class="icon-orb"></div>
+                        </div>
+                        <h3>Экономический анализ</h3>
+                        <span class="feature-badge">FinTech</span>
+                    </div>
+                    <p>Расчет окупаемости, ROI, NPV и полный финансовый анализ на 25 лет</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Прогноз инфляции</li>
+                            <li><i class="fas fa-check-circle"></i> Анализ рисков</li>
+                            <li><i class="fas fa-check-circle"></i> Сравнение сценариев</li>
+                        </ul>
+                    </div>
+                    <div class="feature-glow"></div>
                 </div>
             </div>
 
-            <div class="feature-card hover-3d">
-                <div class="feature-icon">
-                    <i class="fas fa-battery-full"></i>
-                    <div class="icon-glow"></div>
-                </div>
-                <h3>Системы хранения</h3>
-                <p>Расчет оптимальной емкости аккумуляторов для автономной работы системы</p>
-                <div class="feature-badge">ESS</div>
-                <div class="feature-hover-content">
-                    <ul>
-                        <li>Типы аккумуляторов</li>
-                        <li>Расчет циклов</li>
-                        <li>Оптимизация емкости</li>
-                    </ul>
+            <!-- Feature 3 -->
+            <div class="feature-card feature-card-3">
+                <div class="feature-card-inner">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                            <div class="icon-orb"></div>
+                        </div>
+                        <h3>Профессиональные отчеты</h3>
+                        <span class="feature-badge">Pro Grade</span>
+                    </div>
+                    <p>Детальные графики, таблицы и рекомендации для профессионального использования</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> PDF экспорт</li>
+                            <li><i class="fas fa-check-circle"></i> Интерактивные графики</li>
+                            <li><i class="fas fa-check-circle"></i> Детальная аналитика</li>
+                        </ul>
+                    </div>
+                    <div class="feature-glow"></div>
                 </div>
             </div>
 
-            <div class="feature-card hover-3d">
-                <div class="feature-icon">
-                    <i class="fas fa-cloud-sun"></i>
-                    <div class="icon-glow"></div>
+            <!-- Feature 4 -->
+            <div class="feature-card feature-card-4">
+                <div class="feature-card-inner">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-sun"></i>
+                            <div class="icon-orb"></div>
+                        </div>
+                        <h3>Региональные данные</h3>
+                        <span class="feature-badge">Геоданные</span>
+                    </div>
+                    <p>Учет климатических особенностей каждого региона России для точных прогнозов</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Карты инсоляции</li>
+                            <li><i class="fas fa-check-circle"></i> Климатические зоны</li>
+                            <li><i class="fas fa-check-circle"></i> Сезонные корректировки</li>
+                        </ul>
+                    </div>
+                    <div class="feature-glow"></div>
                 </div>
-                <h3>Облачные вычисления</h3>
-                <p>Мощные серверы для сложных расчетов и хранения истории ваших проектов</p>
-                <div class="feature-badge">Cloud</div>
-                <div class="feature-hover-content">
-                    <ul>
-                        <li>Быстрые расчеты</li>
-                        <li>История проектов</li>
-                        <li>Резервные копии</li>
-                    </ul>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="feature-card feature-card-5">
+                <div class="feature-card-inner">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-battery-full"></i>
+                            <div class="icon-orb"></div>
+                        </div>
+                        <h3>Системы хранения</h3>
+                        <span class="feature-badge">ESS</span>
+                    </div>
+                    <p>Расчет оптимальной емкости аккумуляторов для автономной работы системы</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Типы аккумуляторов</li>
+                            <li><i class="fas fa-check-circle"></i> Расчет циклов</li>
+                            <li><i class="fas fa-check-circle"></i> Оптимизация емкости</li>
+                        </ul>
+                    </div>
+                    <div class="feature-glow"></div>
+                </div>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="feature-card feature-card-6">
+                <div class="feature-card-inner">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-cloud-sun"></i>
+                            <div class="icon-orb"></div>
+                        </div>
+                        <h3>Облачные вычисления</h3>
+                        <span class="feature-badge">Cloud</span>
+                    </div>
+                    <p>Мощные серверы для сложных расчетов и хранения истории ваших проектов</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Быстрые расчеты</li>
+                            <li><i class="fas fa-check-circle"></i> История проектов</li>
+                            <li><i class="fas fa-check-circle"></i> Резервные копии</li>
+                        </ul>
+                    </div>
+                    <div class="feature-glow"></div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Real-time Calculator Preview -->
-<section class="calculator-preview">
+<!-- Interactive Calculator Demo -->
+<section class="demo-section">
+    <div class="demo-background">
+        <div class="demo-wave wave-1"></div>
+        <div class="demo-wave wave-2"></div>
+        <div class="demo-wave wave-3"></div>
+    </div>
+    
     <div class="container">
-        <div class="preview-content">
-            <div class="preview-text">
-                <h2>Попробуйте прямо сейчас</h2>
-                <p>Быстрый расчет окупаемости без регистрации</p>
+        <div class="demo-header">
+            <h2>Попробуйте прямо сейчас</h2>
+            <p>Быстрый расчет окупаемости без регистрации</p>
+        </div>
+        
+        <div class="demo-content">
+            <!-- Calculator Interface -->
+            <div class="calculator-demo">
+                <div class="calculator-header">
+                    <div class="calculator-title">
+                        <i class="fas fa-bolt"></i>
+                        <span>Предварительный расчет</span>
+                    </div>
+                    <div class="calculator-mode">
+                        <span class="mode-active">Быстрый</span>
+                        <span>Детальный</span>
+                    </div>
+                </div>
                 
-                <div class="preview-calculator">
-                    <div class="preview-inputs">
-                        <div class="preview-input-group">
-                            <label>Мощность системы (кВт)</label>
-                            <input type="range" id="powerSlider" min="1" max="50" value="10" class="preview-slider">
-                            <span class="preview-value" id="powerValue">10 кВт</span>
+                <div class="calculator-body">
+                    <!-- Input Controls -->
+                    <div class="demo-controls">
+                        <div class="control-group">
+                            <label class="control-label">
+                                <i class="fas fa-solar-panel"></i>
+                                Мощность системы
+                            </label>
+                            <div class="control-input">
+                                <input type="range" id="powerSlider" class="demo-slider" min="1" max="50" value="10">
+                                <div class="slider-track">
+                                    <div class="slider-fill"></div>
+                                    <div class="slider-thumb"></div>
+                                </div>
+                                <div class="slider-value">
+                                    <span id="powerValue">10</span>
+                                    <span class="unit">кВт</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="preview-input-group">
-                            <label>Регион</label>
-                            <select id="regionSelect" class="preview-select">
+                        
+                        <div class="control-group">
+                            <label class="control-label">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Регион
+                            </label>
+                            <select id="regionSelect" class="demo-select">
                                 <option value="Москва">Москва</option>
                                 <option value="Сочи">Сочи</option>
                                 <option value="Краснодар">Краснодар</option>
@@ -244,135 +406,289 @@
                                 <option value="Екатеринбург">Екатеринбург</option>
                             </select>
                         </div>
-                        <div class="preview-input-group">
-                            <label>Тип панелей</label>
-                            <select id="panelSelect" class="preview-select">
-                                <option value="mono">Монокристаллические</option>
-                                <option value="poly">Поликристаллические</option>
-                                <option value="thin">Тонкопленочные</option>
-                            </select>
+                        
+                        <div class="control-group">
+                            <label class="control-label">
+                                <i class="fas fa-microchip"></i>
+                                Тип панелей
+                            </label>
+                            <div class="panel-selector">
+                                <button type="button" class="panel-option active" data-value="mono">
+                                    <i class="fas fa-sun"></i>
+                                    <span>Моно</span>
+                                </button>
+                                <button type="button" class="panel-option" data-value="poly">
+                                    <i class="fas fa-sun"></i>
+                                    <span>Поли</span>
+                                </button>
+                                <button type="button" class="panel-option" data-value="thin">
+                                    <i class="fas fa-sun"></i>
+                                    <span>Пленка</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="preview-results">
-                        <div class="preview-result">
-                            <span class="result-label">Окупаемость</span>
-                            <span class="result-value" id="paybackResult">5.2 года</span>
+                    <!-- Results Display -->
+                    <div class="demo-results">
+                        <div class="results-header">
+                            <h4>Результаты расчета</h4>
+                            <div class="results-updated">
+                                <i class="fas fa-sync-alt"></i>
+                                <span>Обновляется в реальном времени</span>
+                            </div>
                         </div>
-                        <div class="preview-result">
-                            <span class="result-label">Экономия в год</span>
-                            <span class="result-value" id="savingsResult">84,500 ₽</span>
-                        </div>
-                        <div class="preview-result">
-                            <span class="result-label">Выработка в день</span>
-                            <span class="result-value" id="generationResult">42 кВт·ч</span>
+                        
+                        <div class="results-grid">
+                            <div class="result-item highlight">
+                                <div class="result-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="result-content">
+                                    <div class="result-label">Окупаемость</div>
+                                    <div class="result-value" id="paybackResult">5.2 года</div>
+                                </div>
+                                <div class="result-trend trend-positive">
+                                    <i class="fas fa-arrow-down"></i>
+                                    <span>Выгодно</span>
+                                </div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-icon">
+                                    <i class="fas fa-piggy-bank"></i>
+                                </div>
+                                <div class="result-content">
+                                    <div class="result-label">Экономия в год</div>
+                                    <div class="result-value" id="savingsResult">84,500 ₽</div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-icon">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <div class="result-content">
+                                    <div class="result-label">Выработка в день</div>
+                                    <div class="result-value" id="generationResult">42 кВт·ч</div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-icon">
+                                    <i class="fas fa-tree"></i>
+                                </div>
+                                <div class="result-content">
+                                    <div class="result-label">CO₂ экономия</div>
+                                    <div class="result-value" id="co2Result">8.4 тонны</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="preview-visual">
-                <div class="preview-chart">
+            <!-- Visualization -->
+            <div class="demo-visual">
+                <div class="visual-header">
+                    <h4>График выработки</h4>
+                    <div class="visual-controls">
+                        <button type="button" class="visual-btn active">По месяцам</button>
+                        <button type="button" class="visual-btn">По годам</button>
+                    </div>
+                </div>
+                <div class="chart-container">
                     <canvas id="previewChart"></canvas>
                 </div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(90deg, #60a5fa, #a78bfa)"></div>
+                        <span>Выработка энергии</span>
+                    </div>
+                </div>
             </div>
+        </div>
+        
+        <div class="demo-footer">
+            <p>Это предварительный расчет. Для точных результатов используйте <a href="{{ url_for('calculator') }}">полный калькулятор</a></p>
         </div>
     </div>
 </section>
 
-<!-- Interactive Demo Section -->
-<section class="interactive-demo">
+<!-- Interactive Energy Flow Visualization -->
+<section class="energy-flow-section">
     <div class="container">
-        <h2>Интерактивная демонстрация</h2>
-        <p>Увидите как работает система в реальном времени</p>
+        <div class="energy-header">
+            <h2>Интерактивная демонстрация</h2>
+            <p>Увидите как работает система в реальном времени</p>
+        </div>
         
-        <div class="demo-container">
-            <div class="demo-controls">
-                <div class="demo-param">
-                    <label>Инсоляция</label>
-                    <input type="range" id="insolationSlider" class="demo-slider" min="800" max="1600" value="1200">
-                    <span class="demo-value" id="insolationValue">1200 кВт·ч/м²</span>
-                </div>
-                <div class="demo-param">
-                    <label>Угол наклона</label>
-                    <input type="range" id="angleSlider" class="demo-slider" min="0" max="90" value="35">
-                    <span class="demo-value" id="angleValue">35°</span>
-                </div>
-                <div class="demo-param">
-                    <label>Мощность панели</label>
-                    <input type="range" id="panelPowerSlider" class="demo-slider" min="100" max="500" value="350">
-                    <span class="demo-value" id="panelPowerValue">350 Вт</span>
-                </div>
-            </div>
-            
-            <div class="demo-visualization">
-                <div class="solar-demo">
-                    <div class="sun-demo"></div>
-                    <div class="panel-demo">
-                        <div class="panel-surface"></div>
-                        <div class="energy-flow"></div>
+        <div class="energy-visualization">
+            <!-- Sun Controls -->
+            <div class="energy-controls">
+                <div class="energy-param">
+                    <div class="param-label">
+                        <i class="fas fa-sun"></i>
+                        <span>Инсоляция</span>
                     </div>
-                    <div class="power-output">
-                        <div class="output-value" id="outputValue">4.2 кВт·ч/день</div>
-                        <div class="output-bar">
-                            <div class="output-fill" id="outputFill"></div>
+                    <div class="param-control">
+                        <input type="range" id="insolationSlider" class="energy-slider" min="800" max="1600" value="1200">
+                        <div class="slider-info">
+                            <span id="insolationValue">1200</span>
+                            <span class="unit">кВт·ч/м²</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="energy-param">
+                    <div class="param-label">
+                        <i class="fas fa-angle-up"></i>
+                        <span>Угол наклона</span>
+                    </div>
+                    <div class="param-control">
+                        <input type="range" id="angleSlider" class="energy-slider" min="0" max="90" value="35">
+                        <div class="slider-info">
+                            <span id="angleValue">35</span>
+                            <span class="unit">°</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="energy-param">
+                    <div class="param-label">
+                        <i class="fas fa-bolt"></i>
+                        <span>Мощность панели</span>
+                    </div>
+                    <div class="param-control">
+                        <input type="range" id="panelPowerSlider" class="energy-slider" min="100" max="500" value="350">
+                        <div class="slider-info">
+                            <span id="panelPowerValue">350</span>
+                            <span class="unit">Вт</span>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <!-- Solar Scene -->
+            <div class="energy-scene">
+                <div class="scene-sun">
+                    <div class="sun-disc"></div>
+                    <div class="sun-rays">
+                        <div class="ray ray-1"></div>
+                        <div class="ray ray-2"></div>
+                        <div class="ray ray-3"></div>
+                        <div class="ray ray-4"></div>
+                    </div>
+                </div>
+                
+                <div class="scene-panel">
+                    <div class="panel-base">
+                        <div class="panel-surface" id="panelSurface">
+                            <div class="surface-grid"></div>
+                            <div class="surface-glow"></div>
+                        </div>
+                        <div class="panel-frame"></div>
+                    </div>
+                    <div class="panel-mount"></div>
+                </div>
+                
+                <div class="energy-meter">
+                    <div class="meter-header">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Выработка энергии</span>
+                    </div>
+                    <div class="meter-value" id="outputValue">4.2 кВт·ч/день</div>
+                    <div class="meter-bar">
+                        <div class="bar-fill" id="outputFill"></div>
+                        <div class="bar-marks">
+                            <div class="mark"></div>
+                            <div class="mark"></div>
+                            <div class="mark"></div>
+                            <div class="mark"></div>
+                            <div class="mark"></div>
+                        </div>
+                    </div>
+                    <div class="meter-footer">
+                        <span>0</span>
+                        <span>10 кВт·ч/день</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Enhanced CTA Section -->
-<section class="cta-section enhanced-cta">
-    <div class="cta-background">
-        <div class="cta-particle"></div>
-        <div class="cta-particle"></div>
-        <div class="cta-particle"></div>
+<!-- Final CTA Section with Glowing Effects -->
+<section class="final-cta">
+    <div class="cta-orbs">
+        <div class="cta-orb orb-1"></div>
+        <div class="cta-orb orb-2"></div>
+        <div class="cta-orb orb-3"></div>
     </div>
     
     <div class="container">
         <div class="cta-content">
-            <h2>Готовы начать расчет?</h2>
-            <p>Получите точный расчет вашей солнечной электростанции за 2 минуты</p>
+            <div class="cta-badge">
+                <i class="fas fa-star"></i>
+                <span>Premium инструмент</span>
+            </div>
             
-            <div class="cta-features">
-                <div class="cta-feature">
-                    <i class="fas fa-bolt"></i>
+            <h2>Готовы начать расчет?</h2>
+            <p class="cta-description">Получите точный расчет вашей солнечной электростанции за 2 минуты</p>
+            
+            <!-- Features Row -->
+            <div class="cta-features-row">
+                <div class="cta-feature-item">
+                    <div class="feature-circle">
+                        <i class="fas fa-bolt"></i>
+                    </div>
                     <span>Мгновенный расчет</span>
                 </div>
-                <div class="cta-feature">
-                    <i class="fas fa-chart-line"></i>
+                <div class="cta-feature-item">
+                    <div class="feature-circle">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
                     <span>Детальная аналитика</span>
                 </div>
-                <div class="cta-feature">
-                    <i class="fas fa-download"></i>
+                <div class="cta-feature-item">
+                    <div class="feature-circle">
+                        <i class="fas fa-download"></i>
+                    </div>
                     <span>PDF отчет</span>
+                </div>
+                <div class="cta-feature-item">
+                    <div class="feature-circle">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <span>Гарантия точности</span>
                 </div>
             </div>
             
-            <div class="cta-buttons">
-                <a href="{{ url_for('calculator') }}" class="btn btn-large btn-primary glow-on-hover">
-                    <i class="fas fa-play"></i>
-                    Начать сейчас
-                    <div class="btn-shine"></div>
+            <!-- Action Buttons -->
+            <div class="cta-actions">
+                <a href="{{ url_for('calculator') }}" class="btn cta-btn-primary">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Начать сейчас</span>
+                    <div class="btn-ripple"></div>
                 </a>
-                <a href="{{ url_for('components') }}" class="btn btn-large btn-outline">
+                <a href="{{ url_for('components') }}" class="btn cta-btn-secondary">
                     <i class="fas fa-cogs"></i>
-                    Компоненты систем
+                    <span>Компоненты систем</span>
                 </a>
             </div>
             
+            <!-- Stats -->
             <div class="cta-stats">
                 <div class="cta-stat">
                     <div class="stat-number">2,847+</div>
                     <div class="stat-label">Успешных расчетов</div>
                 </div>
+                <div class="divider"></div>
                 <div class="cta-stat">
                     <div class="stat-number">98.7%</div>
                     <div class="stat-label">Точность прогнозов</div>
                 </div>
+                <div class="divider"></div>
                 <div class="cta-stat">
                     <div class="stat-number">24/7</div>
                     <div class="stat-label">Поддержка</div>
@@ -393,19 +709,19 @@
             <div class="contact-buttons">
                 <a href="mailto:glubkov2020@gmail.com" class="contact-btn email">
                     <i class="fas fa-envelope"></i>
-                    Email
+                    <span>Email</span>
                 </a>
                 <a href="https://t.me/gleblub1" class="contact-btn telegram">
                     <i class="fab fa-telegram"></i>
-                    Telegram
+                    <span>Telegram</span>
                 </a>
                 <a href="https://vk.com" class="contact-btn vk">
                     <i class="fab fa-vk"></i>
-                    VK
+                    <span>VK</span>
                 </a>
                 <a href="tel:+79050694929" class="contact-btn phone">
                     <i class="fas fa-phone"></i>
-                    Позвонить
+                    <span>Позвонить</span>
                 </a>
             </div>
         </div>
@@ -415,38 +731,40 @@
 
 {% block scripts %}
 <script>
-// Enhanced Counter Animation
-class EnhancedCounter {
+// Main Solar Calculator Demo
+class SolarCalculatorDemo {
     constructor() {
-        this.observers = [];
+        this.currentChart = null;
         this.init();
     }
 
     init() {
-        this.createIntersectionObserver();
-        this.initPreviewCalculator();
-        this.initInteractiveDemo();
+        this.initStatsCounter();
+        this.initCalculatorDemo();
+        this.initEnergyDemo();
+        this.initScrollProgress();
+        this.initFloatingElements();
+        this.initSolarVisualization();
     }
 
-    createIntersectionObserver() {
+    initStatsCounter() {
+        const counters = document.querySelectorAll('.counter');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    this.animateValue(entry.target);
+                    this.animateCounter(entry.target);
                     observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.5 });
 
-        document.querySelectorAll('.counter').forEach(counter => {
-            observer.observe(counter);
-        });
+        counters.forEach(counter => observer.observe(counter));
     }
 
-    animateValue(element) {
-        const target = parseInt(element.getAttribute('data-target'));
+    animateCounter(element) {
+        const target = parseFloat(element.getAttribute('data-target'));
         const duration = 2000;
-        const start = parseInt(element.innerText) || 0;
+        const start = 0;
         const startTime = performance.now();
 
         const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
@@ -456,78 +774,73 @@ class EnhancedCounter {
             const progress = Math.min(elapsed / duration, 1);
             const easeProgress = easeOutQuart(progress);
             
-            const current = Math.floor(start + (target - start) * easeProgress);
-            element.innerText = current.toLocaleString();
+            const current = start + (target - start) * easeProgress;
+            element.textContent = target % 1 !== 0 ? current.toFixed(1) : Math.floor(current);
             
             if (progress < 1) {
                 requestAnimationFrame(update);
             } else {
-                element.innerText = target.toLocaleString();
-                // Add completion effect
-                element.style.transform = 'scale(1.1)';
-                setTimeout(() => {
-                    element.style.transform = 'scale(1)';
-                }, 200);
+                element.textContent = target % 1 !== 0 ? target.toFixed(1) : target;
             }
         };
 
         requestAnimationFrame(update);
     }
 
-    initPreviewCalculator() {
+    initCalculatorDemo() {
+        // Power slider
         const powerSlider = document.getElementById('powerSlider');
-        const regionSelect = document.getElementById('regionSelect');
-        const panelSelect = document.getElementById('panelSelect');
+        const powerValue = document.getElementById('powerValue');
+        const sliderFill = document.querySelector('.slider-fill');
+        const sliderThumb = document.querySelector('.slider-thumb');
 
-        // Update values on input
         powerSlider.addEventListener('input', (e) => {
             const value = e.target.value;
-            document.getElementById('powerValue').textContent = `${value} кВт`;
-            this.updatePreviewResults();
+            const percentage = (value / 50) * 100;
+            
+            powerValue.textContent = value;
+            sliderFill.style.width = `${percentage}%`;
+            sliderThumb.style.left = `${percentage}%`;
+            
+            this.updateCalculatorResults();
         });
 
+        // Region select
+        const regionSelect = document.getElementById('regionSelect');
         regionSelect.addEventListener('change', () => {
-            this.updatePreviewResults();
+            this.updateCalculatorResults();
         });
 
-        panelSelect.addEventListener('change', () => {
-            this.updatePreviewResults();
+        // Panel options
+        const panelOptions = document.querySelectorAll('.panel-option');
+        panelOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                panelOptions.forEach(opt => opt.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                this.updateCalculatorResults();
+            });
+        });
+
+        // Visual controls
+        const visualButtons = document.querySelectorAll('.visual-btn');
+        visualButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                visualButtons.forEach(btn => btn.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+                // Здесь можно добавить переключение между графиками
+            });
         });
 
         // Initial calculation
-        this.updatePreviewResults();
+        this.updateCalculatorResults();
     }
 
-    updatePreviewResults() {
+    updateCalculatorResults() {
         const power = parseInt(document.getElementById('powerSlider').value);
         const region = document.getElementById('regionSelect').value;
-        const panelType = document.getElementById('panelSelect').value;
+        const panelType = document.querySelector('.panel-option.active').dataset.value;
 
-        const results = this.calculatePreviewResults(power, region, panelType);
-        
-        // Update results with animation
-        const paybackElement = document.getElementById('paybackResult');
-        const savingsElement = document.getElementById('savingsResult');
-        const generationElement = document.getElementById('generationResult');
-
-        paybackElement.textContent = results.payback;
-        savingsElement.textContent = results.savings;
-        generationElement.textContent = results.generation;
-
-        // Add animation
-        [paybackElement, savingsElement, generationElement].forEach(element => {
-            element.style.animation = 'pulse 0.6s ease';
-            setTimeout(() => {
-                element.style.animation = '';
-            }, 600);
-        });
-
-        // Update chart
-        this.updatePreviewChart(results.monthlyData);
-    }
-
-    calculatePreviewResults(power, region, panelType) {
-        // Region coefficients
+        // Региональные коэффициенты
         const regionCoefficients = {
             'Москва': 3.5,
             'Сочи': 4.2,
@@ -536,7 +849,7 @@ class EnhancedCounter {
             'Екатеринбург': 3.2
         };
 
-        // Panel efficiency
+        // Эффективность панелей
         const panelEfficiency = {
             'mono': 0.22,
             'poly': 0.18,
@@ -546,167 +859,246 @@ class EnhancedCounter {
         const regionCoeff = regionCoefficients[region] || 3.5;
         const efficiency = panelEfficiency[panelType] || 0.18;
 
-        // Calculate annual generation
+        // Расчеты
         const annualGeneration = power * regionCoeff * 365 * efficiency;
-        
-        // Calculate financials
-        const electricityPrice = 5.0; // руб/кВт·ч
+        const electricityPrice = 5.0;
         const annualSavings = annualGeneration * electricityPrice;
-        const systemCost = power * 60000; // 60,000 руб/кВт
+        const systemCost = power * 60000;
         const paybackYears = (systemCost / annualSavings).toFixed(1);
-        
-        // Daily generation
-        const dailyGeneration = (annualGeneration / 365).toFixed(0);
+        const dailyGeneration = Math.round(annualGeneration / 365);
+        const co2Saved = (annualGeneration * 0.5 / 1000).toFixed(1);
 
-        // Monthly data for chart
+        // Месячные данные для графика
         const monthlyFactors = [0.2, 0.3, 0.8, 1.2, 1.5, 1.6, 1.5, 1.3, 0.9, 0.5, 0.2, 0.1];
         const totalFactor = monthlyFactors.reduce((a, b) => a + b, 0);
         const monthlyData = monthlyFactors.map(factor => 
             Math.round(annualGeneration * factor / totalFactor)
         );
 
-        return {
-            payback: `${paybackYears} года`,
-            savings: `${Math.round(annualSavings).toLocaleString()} ₽`,
-            generation: `${dailyGeneration} кВт·ч`,
-            monthlyData: monthlyData
-        };
+        // Обновление UI
+        this.updateResultElement('paybackResult', `${paybackYears} года`);
+        this.updateResultElement('savingsResult', `${Math.round(annualSavings).toLocaleString()} ₽`);
+        this.updateResultElement('generationResult', `${dailyGeneration} кВт·ч`);
+        this.updateResultElement('co2Result', `${co2Saved} тонны`);
+
+        // Обновление графика
+        this.updateChart(monthlyData);
     }
 
-    updatePreviewChart(monthlyData) {
-        const ctx = document.getElementById('previewChart').getContext('2d');
-        
-        // Destroy existing chart if it exists
-        if (window.previewChartInstance) {
-            window.previewChartInstance.destroy();
+    updateResultElement(elementId, value) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.style.transform = 'scale(0.95)';
+            element.style.opacity = '0.6';
+            
+            setTimeout(() => {
+                element.textContent = value;
+                element.style.transform = 'scale(1.05)';
+                element.style.opacity = '1';
+                
+                setTimeout(() => {
+                    element.style.transform = 'scale(1)';
+                }, 150);
+            }, 150);
+        }
+    }
+
+    updateChart(monthlyData) {
+        const ctx = document.getElementById('previewChart');
+        if (!ctx) return;
+
+        if (this.currentChart) {
+            this.currentChart.destroy();
         }
 
-        window.previewChartInstance = new Chart(ctx, {
+        const chartCtx = ctx.getContext('2d');
+        
+        // Создание градиента
+        const gradient = chartCtx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(96, 165, 250, 0.8)');
+        gradient.addColorStop(1, 'rgba(96, 165, 250, 0.1)');
+
+        this.currentChart = new Chart(chartCtx, {
             type: 'line',
             data: {
                 labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
                 datasets: [{
                     label: 'Выработка энергии',
                     data: monthlyData,
-                    borderColor: '#f59e0b',
-                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                    borderColor: '#60a5fa',
+                    backgroundColor: gradient,
                     borderWidth: 3,
                     fill: true,
-                    tension: 0.4
+                    tension: 0.4,
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderColor: '#60a5fa',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                        titleColor: '#ffffff',
+                        bodyColor: '#d1d5db',
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        borderWidth: 1,
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: false,
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.parsed.y} кВт·ч`;
+                            }
+                        }
                     }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
+                            color: 'rgba(255, 255, 255, 0.05)'
+                        },
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.6)'
                         }
                     },
                     x: {
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
+                            color: 'rgba(255, 255, 255, 0.05)'
+                        },
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.6)'
                         }
                     }
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeOutQuart'
                 }
             }
         });
     }
 
-    initInteractiveDemo() {
-        const insolationSlider = document.getElementById('insolationSlider');
-        const angleSlider = document.getElementById('angleSlider');
-        const panelPowerSlider = document.getElementById('panelPowerSlider');
+    initEnergyDemo() {
+        const sliders = [
+            { id: 'insolationSlider', valueId: 'insolationValue', unit: 'кВт·ч/м²' },
+            { id: 'angleSlider', valueId: 'angleValue', unit: '°' },
+            { id: 'panelPowerSlider', valueId: 'panelPowerValue', unit: 'Вт' }
+        ];
 
-        [insolationSlider, angleSlider, panelPowerSlider].forEach(slider => {
-            slider.addEventListener('input', (e) => {
-                const value = e.target.value;
-                const valueDisplay = e.target.nextElementSibling;
-                
-                // Update value display
-                if (e.target.id === 'insolationSlider') {
-                    valueDisplay.textContent = `${value} кВт·ч/м²`;
-                } else if (e.target.id === 'angleSlider') {
-                    valueDisplay.textContent = `${value}°`;
-                } else {
-                    valueDisplay.textContent = `${value} Вт`;
-                }
+        sliders.forEach(slider => {
+            const sliderElement = document.getElementById(slider.id);
+            const valueElement = document.getElementById(slider.valueId);
 
-                this.updateDemoVisualization();
-            });
+            if (sliderElement && valueElement) {
+                sliderElement.addEventListener('input', (e) => {
+                    const value = e.target.value;
+                    valueElement.textContent = value;
+                    this.updateEnergyVisualization();
+                });
+            }
         });
 
-        // Initial update
-        this.updateDemoVisualization();
+        // Инициализация
+        this.updateEnergyVisualization();
     }
 
-    updateDemoVisualization() {
-        const insolation = parseInt(document.getElementById('insolationSlider').value);
-        const angle = parseInt(document.getElementById('angleSlider').value);
-        const power = parseInt(document.getElementById('panelPowerSlider').value);
+    updateEnergyVisualization() {
+        const insolation = parseInt(document.getElementById('insolationSlider').value) || 1200;
+        const angle = parseInt(document.getElementById('angleSlider').value) || 35;
+        const power = parseInt(document.getElementById('panelPowerSlider').value) || 350;
 
-        // Calculate simulated power output
-        const efficiency = 0.18; // 18% panel efficiency
+        // Расчет выработки
+        const efficiency = 0.18;
         const angleRadians = angle * Math.PI / 180;
-        const angleEfficiency = Math.max(0.3, Math.sin(angleRadians)); // Minimum 30% efficiency
+        const angleEfficiency = Math.max(0.3, Math.sin(angleRadians));
         const baseOutput = (insolation * power * efficiency * angleEfficiency) / 1000;
-        const dailyOutput = (baseOutput * 5.5).toFixed(1); // 5.5 hours of effective sunlight
+        const dailyOutput = (baseOutput * 5.5).toFixed(1);
 
-        // Update visualization
+        // Обновление UI
         const outputValue = document.getElementById('outputValue');
         const outputFill = document.getElementById('outputFill');
-        
-        outputValue.textContent = `${dailyOutput} кВт·ч/день`;
-        const fillPercentage = Math.min((dailyOutput / 10) * 100, 100);
-        outputFill.style.width = `${fillPercentage}%`;
+        const panelSurface = document.getElementById('panelSurface');
 
-        // Update panel angle visually
-        const panelDemo = document.querySelector('.panel-demo');
-        panelDemo.style.transform = `rotate(${angle}deg)`;
+        if (outputValue) outputValue.textContent = `${dailyOutput} кВт·ч/день`;
+        if (outputFill) {
+            const fillPercentage = Math.min((dailyOutput / 10) * 100, 100);
+            outputFill.style.width = `${fillPercentage}%`;
+        }
 
-        // Add animation
-        outputValue.style.animation = 'pulse 0.6s ease';
-        setTimeout(() => {
-            outputValue.style.animation = '';
-        }, 600);
-    }
-}
+        if (panelSurface) {
+            panelSurface.style.transform = `rotate(${angle}deg)`;
+            
+            // Эффект интенсивности солнца
+            const intensity = insolation / 1600;
+            panelSurface.style.filter = `brightness(${0.8 + intensity * 0.4})`;
+        }
 
-// 3D Solar System Animation
-class SolarSystem3D {
-    constructor() {
-        this.init();
-    }
-
-    init() {
-        this.animateOrbits();
-        this.animateSun();
-        this.animatePanels();
+        // Анимация обновления
+        if (outputValue) {
+            outputValue.style.animation = 'none';
+            setTimeout(() => {
+                outputValue.style.animation = 'pulse 0.6s ease';
+            }, 10);
+        }
     }
 
-    animateOrbits() {
-        const orbits = document.querySelectorAll('.solar-orbit');
-        orbits.forEach((orbit, index) => {
-            const speed = 20 + (index * 10); // Different speeds for each orbit
-            orbit.style.animation = `rotate-3d ${speed}s linear infinite`;
+    initScrollProgress() {
+        const scrollProgress = document.querySelector('.scroll-progress');
+        if (!scrollProgress) return;
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            scrollProgress.style.width = `${Math.min(scrollPercent, 100)}%`;
         });
     }
 
-    animateSun() {
-        const sun = document.querySelector('.sun-3d');
-        sun.style.animation = 'pulse-glow 4s ease-in-out infinite, rotate-3d 30s linear infinite';
+    initFloatingElements() {
+        const elements = document.querySelectorAll('.floating-element');
+        elements.forEach((element, index) => {
+            // Уже есть CSS анимация, добавляем только дополнительные эффекты
+            element.addEventListener('mouseenter', () => {
+                element.style.transform = 'scale(1.2)';
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                element.style.transform = 'scale(1)';
+            });
+        });
     }
 
-    animatePanels() {
-        const panels = document.querySelectorAll('.panel-3d');
-        panels.forEach((panel, index) => {
-            panel.style.animation = `panel-float 6s ease-in-out ${index * 0.5}s infinite`;
+    initSolarVisualization() {
+        // Анимация солнечных лучей
+        const sunCore = document.querySelector('.sun-core');
+        if (sunCore) {
+            setInterval(() => {
+                sunCore.style.transform = sunCore.style.transform === 'scale(1.1)' ? 'scale(1)' : 'scale(1.1)';
+            }, 2000);
+        }
+
+        // Анимация искр энергии
+        const energySparks = document.querySelectorAll('.energy-spark');
+        energySparks.forEach((spark, index) => {
+            setInterval(() => {
+                spark.style.opacity = spark.style.opacity === '0' ? '1' : '0';
+            }, 1000 + index * 500);
+        });
+
+        // Анимация линий энергии
+        const flowLines = document.querySelectorAll('.flow-line');
+        flowLines.forEach((line, index) => {
+            line.style.animationDelay = `${index}s`;
         });
     }
 }
@@ -714,7 +1106,7 @@ class SolarSystem3D {
 // Magnetic Button Effect
 class MagneticButtons {
     constructor() {
-        this.buttons = document.querySelectorAll('.magnetic');
+        this.buttons = document.querySelectorAll('.btn-hero, .contact-btn, .cta-btn-primary, .cta-btn-secondary');
         this.init();
     }
 
@@ -746,449 +1138,1925 @@ class MagneticButtons {
     }
 }
 
+// Feature Card Hover Effects
+class FeatureCards {
+    constructor() {
+        this.cards = document.querySelectorAll('.feature-card');
+        this.init();
+    }
+
+    init() {
+        this.cards.forEach(card => {
+            card.addEventListener('mouseenter', this.handleMouseEnter.bind(this));
+            card.addEventListener('mouseleave', this.handleMouseLeave.bind(this));
+        });
+    }
+
+    handleMouseEnter(e) {
+        const card = e.currentTarget;
+        const glow = card.querySelector('.feature-glow');
+        const iconOrb = card.querySelector('.icon-orb');
+        
+        if (glow) glow.style.opacity = '1';
+        if (iconOrb) iconOrb.style.opacity = '1';
+    }
+
+    handleMouseLeave(e) {
+        const card = e.currentTarget;
+        const glow = card.querySelector('.feature-glow');
+        const iconOrb = card.querySelector('.icon-orb');
+        
+        if (glow) glow.style.opacity = '0';
+        if (iconOrb) iconOrb.style.opacity = '0';
+    }
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Enhanced counters
-    window.enhancedCounter = new EnhancedCounter();
-    
-    // 3D Solar System
-    window.solarSystem3D = new SolarSystem3D();
+    // Main calculator demo
+    window.solarCalculator = new SolarCalculatorDemo();
     
     // Magnetic buttons
     window.magneticButtons = new MagneticButtons();
+    
+    // Feature cards
+    window.featureCards = new FeatureCards();
+    
+    // Add CSS animation for pulse
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    `;
+    document.head.appendChild(style);
 });
 </script>
 
 <style>
-/* Enhanced 3D Styles */
-.solar-system-3d {
+/* ===== CSS Variables ===== */
+:root {
+    /* Gradients */
+    --gradient-sun: linear-gradient(135deg, #ffd700, #ff8c00);
+    --gradient-energy: linear-gradient(90deg, #60a5fa, #a78bfa);
+    --gradient-success: linear-gradient(135deg, #10b981, #059669);
+    --gradient-warning: linear-gradient(135deg, #f59e0b, #d97706);
+    --gradient-cosmic: linear-gradient(135deg, #1e1b4b, #312e81);
+    
+    /* Colors */
+    --primary-color: #60a5fa;
+    --secondary-color: #a78bfa;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    
+    /* Backgrounds */
+    --bg-dark: #0f172a;
+    --bg-darker: #0a1122;
+    --bg-light: rgba(255, 255, 255, 0.05);
+    --bg-lighter: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Global Styles ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: var(--bg-dark);
+    color: white;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== Hero Section ===== */
+.cosmic-hero {
     position: relative;
-    width: 400px;
-    height: 400px;
+    min-height: 100vh;
+    background: var(--gradient-cosmic);
+    overflow: hidden;
+    padding: 100px 20px 60px;
+    display: flex;
+    align-items: center;
+}
+
+.particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.floating-elements {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.floating-element {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: var(--bg-light);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    animation: float 15s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    33% {
+        transform: translateY(-30px) rotate(120deg);
+    }
+    66% {
+        transform: translateY(15px) rotate(240deg);
+    }
+}
+
+.element-1 {
+    top: 20%;
+    left: 10%;
+    color: #60a5fa;
+    animation-delay: 0s;
+}
+
+.element-2 {
+    top: 60%;
+    right: 15%;
+    color: #34d399;
+    animation-delay: 3s;
+}
+
+.element-3 {
+    bottom: 30%;
+    left: 20%;
+    color: #f87171;
+    animation-delay: 6s;
+}
+
+.element-4 {
+    top: 40%;
+    right: 25%;
+    color: #fbbf24;
+    animation-delay: 9s;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.hero-text {
+    padding-right: 40px;
+}
+
+.hero-title {
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+}
+
+.hero-description {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+/* Stats Cards */
+.glow-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 40px 0;
+}
+
+.stat-card {
+    background: var(--bg-light);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(96, 165, 250, 0.2);
+    border-color: rgba(96, 165, 250, 0.3);
+}
+
+.stat-card-2:hover {
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.stat-card-3:hover {
+    box-shadow: 0 20px 40px rgba(245, 158, 11, 0.2);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.stat-icon {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+.pulse-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+.stat-number {
+    font-size: 40px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.progress-track {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    margin-top: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    position: relative;
+    transition: width 1s ease;
+}
+
+.stat-card-1 .progress-fill {
+    background: var(--gradient-energy);
+}
+
+.stat-card-2 .progress-fill {
+    background: var(--gradient-success);
+}
+
+.stat-card-3 .progress-fill {
+    background: var(--gradient-warning);
+}
+
+.progress-sparkles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: sparkle-shimmer 2s infinite;
+}
+
+@keyframes sparkle-shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Hero Buttons */
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.btn-hero {
+    position: relative;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--gradient-energy);
+    color: white;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-hero:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.btn-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-hero:hover .btn-glow {
+    opacity: 1;
+}
+
+.btn-shine {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+    transform: rotate(30deg);
+    animation: btn-shine 3s infinite;
+}
+
+@keyframes btn-shine {
+    0% { transform: translateX(-100%) rotate(30deg); }
+    100% { transform: translateX(100%) rotate(30deg); }
+}
+
+.trust-badges {
+    display: flex;
+    gap: 32px;
+    justify-content: flex-start;
+}
+
+.trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.badge-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(16, 185, 129, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #10b981;
+}
+
+/* Solar Visualization */
+.hero-visual {
+    position: relative;
+    height: 500px;
+}
+
+.solar-visual-3d {
+    position: relative;
+    width: 100%;
+    height: 100%;
     transform-style: preserve-3d;
     perspective: 1000px;
 }
 
-.solar-orbit {
+.sun-animated {
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transform-style: preserve-3d;
-}
-
-.solar-orbit-1 {
-    width: 200px;
-    height: 200px;
-    margin-left: -100px;
-    margin-top: -100px;
-}
-
-.solar-orbit-2 {
-    width: 300px;
-    height: 300px;
-    margin-left: -150px;
-    margin-top: -150px;
-}
-
-.solar-orbit-3 {
-    width: 400px;
-    height: 400px;
-    margin-left: -200px;
-    margin-top: -200px;
-}
-
-.planet {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    top: -10px;
-    left: 50%;
-    margin-left: -10px;
-}
-
-.planet-1 { background: #60a5fa; }
-.planet-2 { background: #34d399; }
-.planet-3 { background: #f87171; }
-
-.sun-3d {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 80px;
-    height: 80px;
-    margin-left: -40px;
-    margin-top: -40px;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
     transform-style: preserve-3d;
 }
 
 .sun-core {
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, #ffd700, #ff8c00);
+    background: var(--gradient-sun);
     border-radius: 50%;
-    box-shadow: 0 0 50px #ffa500;
+    box-shadow: 0 0 60px rgba(255, 165, 0, 0.6);
+    animation: sun-pulse 4s ease-in-out infinite;
+}
+
+@keyframes sun-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
 }
 
 .sun-corona {
     position: absolute;
-    top: -20px;
-    left: -20px;
-    right: -20px;
-    bottom: -20px;
-    background: radial-gradient(circle, rgba(255,215,0,0.4) 0%, transparent 70%);
+    top: -30px;
+    left: -30px;
+    right: -30px;
+    bottom: -30px;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
     border-radius: 50%;
-    animation: pulse-glow 3s ease-in-out infinite;
+    animation: corona-expand 6s ease-in-out infinite;
 }
 
-.sun-flare {
+@keyframes corona-expand {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+.sun-flares {
     position: absolute;
-    top: -40px;
-    left: -40px;
-    right: -40px;
-    bottom: -40px;
-    background: conic-gradient(from 0deg, transparent, rgba(255,165,0,0.2), transparent);
-    border-radius: 50%;
-    animation: rotate-3d 20s linear infinite;
+    top: -60px;
+    left: -60px;
+    right: -60px;
+    bottom: -60px;
 }
 
-.solar-panel-array-3d {
+.flare {
+    position: absolute;
+    background: rgba(255, 165, 0, 0.3);
+    border-radius: 50%;
+    animation: flare-rotate 20s linear infinite;
+}
+
+.flare-1 {
+    width: 40px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.flare-2 {
+    width: 40px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(120deg);
+}
+
+.flare-3 {
+    width: 40px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(240deg);
+}
+
+@keyframes flare-rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.solar-array-3d {
     position: absolute;
     bottom: 50px;
     left: 50%;
-    transform: translateX(-50%) rotateX(60deg);
+    transform: translateX(-50%) rotateX(45deg);
     transform-style: preserve-3d;
-    display: flex;
-    gap: 10px;
 }
 
-.panel-3d {
-    width: 60px;
-    height: 80px;
-    background: linear-gradient(45deg, #374151, #4b5563);
-    transform: rotateX(25deg);
+.array-base {
+    width: 300px;
+    height: 20px;
+    background: linear-gradient(45deg, #4b5563, #6b7280);
+    border-radius: 10px;
+    transform: translateZ(20px);
+}
+
+.panel-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    transform-style: preserve-3d;
+}
+
+.panel-cell {
+    width: 80px;
+    height: 100px;
     position: relative;
+    transform-style: preserve-3d;
+    animation: panel-float 6s ease-in-out infinite;
+}
+
+.panel-cell:nth-child(2) {
+    animation-delay: 2s;
+}
+
+.panel-cell:nth-child(3) {
+    animation-delay: 4s;
+}
+
+@keyframes panel-float {
+    0%, 100% { transform: translateY(0) rotateX(25deg); }
+    50% { transform: translateY(-15px) rotateX(25deg); }
+}
+
+.panel-glass {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(56, 189, 248, 0.3), rgba(168, 85, 247, 0.3));
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
     overflow: hidden;
 }
 
-.panel-3d::before {
+.panel-glass::before {
     content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: left 0.6s;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: glass-shine 3s infinite;
 }
 
-.panel-3d:hover::before {
-    left: 100%;
+@keyframes glass-shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
 }
 
-/* Enhanced Animations */
-@keyframes rotate-3d {
-    0% { transform: rotateY(0deg) rotateX(10deg); }
-    100% { transform: rotateY(360deg) rotateX(10deg); }
+.panel-frame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
-@keyframes panel-float {
-    0%, 100% { transform: rotateX(25deg) translateY(0); }
-    50% { transform: rotateX(25deg) translateY(-10px); }
+.energy-spark {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #fbbf24;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: energy-spark 2s infinite;
+    box-shadow: 0 0 20px #fbbf24;
 }
 
-/* Trust Indicators */
-.trust-indicators {
+@keyframes energy-spark {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-50%, -100%) scale(0.5);
+        opacity: 0;
+    }
+}
+
+.energy-flow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    transform: translate(-50%, -50%);
+}
+
+.flow-line {
+    position: absolute;
+    width: 2px;
+    height: 150px;
+    background: linear-gradient(to bottom, transparent, #60a5fa, transparent);
+    top: 0;
+    left: 50%;
+    transform-origin: bottom center;
+    animation: energy-flow 3s linear infinite;
+}
+
+.line-1 { animation-delay: 0s; }
+.line-2 { transform: rotate(120deg); animation-delay: 1s; }
+.line-3 { transform: rotate(240deg); animation-delay: 2s; }
+
+@keyframes energy-flow {
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+    50% {
+        height: 150px;
+        opacity: 1;
+    }
+    100% {
+        height: 0;
+        opacity: 0;
+        transform: rotate(360deg);
+    }
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 4;
+}
+
+.scroll-arrow {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 8px;
+    animation: bounce-arrow 2s infinite;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+@keyframes bounce-arrow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+}
+
+.scroll-text {
+    display: block;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.scroll-progress {
+    width: 200px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 1px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.scroll-progress::before {
+    content: '';
+    display: block;
+    width: 30%;
+    height: 100%;
+    background: var(--gradient-energy);
+    animation: progress-load 2s ease-in-out infinite;
+}
+
+@keyframes progress-load {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(400%); }
+}
+
+/* Features Section */
+.features-section {
+    padding: 100px 20px;
+    background: linear-gradient(180deg, #1e293b, #0f172a);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.title-highlight {
+    display: block;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #60a5fa;
+    margin-bottom: 8px;
+}
+
+.title-main {
+    font-size: 48px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+}
+
+.section-subtitle {
+    font-size: 20px;
+    color: #94a3b8;
+    margin-top: 16px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    perspective: 1000px;
+    height: 100%;
+}
+
+.feature-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 32px;
+    transition: all 0.4s ease;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.feature-card:hover .feature-card-inner {
+    transform: translateY(-10px) rotateX(5deg);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(96, 165, 250, 0.3);
+}
+
+.feature-header {
     display: flex;
-    gap: 2rem;
-    margin-top: 2rem;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 2;
 }
 
-.trust-item {
+.feature-icon {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(168, 85, 247, 0.2));
+    border-radius: 15px;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--gray-color);
+    justify-content: center;
+    font-size: 24px;
+    color: #60a5fa;
 }
 
-.trust-item i {
-    color: var(--success-color);
-}
-
-/* Progress bars for stats */
-.stat-progress {
-    margin-top: 0.5rem;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 4px;
-    background: var(--glass-border);
-    border-radius: 2px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: var(--gradient-primary);
-    border-radius: 2px;
-    transition: width 1s ease;
-}
-
-/* Button sparkle effects */
-.btn-sparkle {
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%);
-    border-radius: inherit;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.btn:hover .btn-sparkle {
-    opacity: 1;
-    animation: sparkle-shine 1.5s ease;
-}
-
-@keyframes sparkle-shine {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-/* Enhanced feature cards */
-.feature-card {
-    position: relative;
-    overflow: visible;
-}
-
-.feature-badge {
-    position: absolute;
-    top: -10px;
-    right: 20px;
-    background: var(--gradient-primary);
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.feature-hover-content {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: var(--glass-light);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 0 0 20px 20px;
-    padding: 1.5rem;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    pointer-events: none;
-}
-
-.feature-card:hover .feature-hover-content {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: all;
-}
-
-.icon-glow {
+.icon-orb {
     position: absolute;
     top: 50%;
     left: 50%;
     width: 80px;
     height: 80px;
-    margin-left: -40px;
-    margin-top: -40px;
-    background: radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%);
     border-radius: 50%;
+    transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
-.feature-card:hover .icon-glow {
+.feature-card:hover .icon-orb {
     opacity: 1;
 }
 
-/* Interactive demo styles */
-.solar-demo {
+.feature-header h3 {
+    flex: 1;
+    margin: 0 16px;
+    font-size: 24px;
+    color: white;
+}
+
+.feature-badge {
+    padding: 4px 12px;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    color: white;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.feature-card p {
+    color: #94a3b8;
+    margin-bottom: 24px;
+    line-height: 1.6;
     position: relative;
-    width: 300px;
-    height: 300px;
-    margin: 0 auto;
+    z-index: 2;
 }
 
-.sun-demo {
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 60px;
-    background: radial-gradient(circle, #ffd700, #ff8c00);
-    border-radius: 50%;
-    box-shadow: 0 0 30px #ffa500;
-    animation: sun-demo-pulse 4s ease-in-out infinite;
+.feature-details {
+    position: relative;
+    z-index: 2;
 }
 
-.panel-demo {
+.feature-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-details li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #cbd5e1;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.feature-details li i {
+    color: #10b981;
+    font-size: 14px;
+}
+
+.feature-glow {
     position: absolute;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 80px;
-    background: linear-gradient(45deg, #2d3748, #4a5568);
-    border-radius: 8px;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.feature-card:hover .feature-glow {
+    opacity: 1;
+}
+
+/* Demo Section */
+.demo-section {
+    position: relative;
+    padding: 100px 20px;
+    background: linear-gradient(180deg, #1e293b, #0f172a);
     overflow: hidden;
-    transition: transform 0.5s ease;
 }
 
-.panel-surface {
+.demo-background {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
-    animation: surface-shine 3s ease-in-out infinite;
+    opacity: 0.3;
 }
 
-.energy-flow {
+.demo-wave {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 0;
-    background: linear-gradient(to top, rgba(245, 158, 11, 0.8), transparent);
-    animation: energy-flow 2s ease-in-out infinite;
+    height: 100px;
+    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.1), transparent);
+    animation: wave-animation 20s linear infinite;
 }
 
-.power-output {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+.wave-1 {
+    animation-delay: 0s;
+    height: 80px;
+    opacity: 0.5;
+}
+
+.wave-2 {
+    animation-delay: 5s;
+    height: 100px;
+    opacity: 0.3;
+}
+
+.wave-3 {
+    animation-delay: 10s;
+    height: 60px;
+    opacity: 0.2;
+}
+
+@keyframes wave-animation {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.demo-header {
     text-align: center;
+    margin-bottom: 48px;
+    position: relative;
+    z-index: 2;
 }
 
-.output-bar {
-    width: 200px;
-    height: 8px;
-    background: var(--glass-border);
-    border-radius: 4px;
-    margin-top: 0.5rem;
+.demo-header h2 {
+    font-size: 40px;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.demo-header p {
+    color: #94a3b8;
+    font-size: 20px;
+}
+
+.demo-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    position: relative;
+    z-index: 2;
+}
+
+.calculator-demo {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.calculator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    background: rgba(15, 23, 42, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.calculator-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+}
+
+.calculator-title i {
+    color: #fbbf24;
+}
+
+.calculator-mode {
+    display: flex;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px;
+    border-radius: 10px;
+}
+
+.calculator-mode span {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #94a3b8;
+}
+
+.mode-active {
+    background: rgba(96, 165, 250, 0.2);
+    color: #60a5fa !important;
+}
+
+.calculator-body {
+    padding: 32px;
+}
+
+.demo-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 32px;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.control-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #cbd5e1;
+    font-size: 16px;
+}
+
+.control-label i {
+    color: #60a5fa;
+}
+
+.control-input {
+    position: relative;
+    height: 40px;
+}
+
+.demo-slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.slider-track {
+    position: absolute;
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    top: 50%;
+    transform: translateY(-50%);
     overflow: hidden;
 }
 
-.output-fill {
+.slider-fill {
+    position: absolute;
     height: 100%;
-    background: var(--gradient-warning);
-    border-radius: 4px;
+    background: linear-gradient(90deg, #60a5fa, #a78bfa);
+    border-radius: 3px;
+    width: 20%;
+    transition: width 0.3s ease;
+}
+
+.slider-thumb {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+    left: 20%;
+    transition: left 0.3s ease;
+}
+
+.slider-value {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+}
+
+.unit {
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.demo-select {
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.demo-select:focus {
+    outline: none;
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+}
+
+.panel-selector {
+    display: flex;
+    gap: 8px;
+}
+
+.panel-option {
+    flex: 1;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.panel-option.active {
+    background: rgba(96, 165, 250, 0.2);
+    border-color: #60a5fa;
+    color: white;
+}
+
+.panel-option i {
+    font-size: 24px;
+}
+
+.demo-results {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 15px;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.results-header h4 {
+    font-size: 20px;
+    color: white;
+    margin: 0;
+}
+
+.results-updated {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.results-updated i {
+    color: #10b981;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.result-item.highlight {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(168, 85, 247, 0.1));
+    border-color: rgba(96, 165, 250, 0.2);
+}
+
+.result-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.result-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(96, 165, 250, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #60a5fa;
+}
+
+.result-content {
+    flex: 1;
+}
+
+.result-label {
+    font-size: 14px;
+    color: #94a3b8;
+    margin-bottom: 4px;
+}
+
+.result-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+}
+
+.trend-positive {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: #10b981;
+    padding: 4px 12px;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: 20px;
+}
+
+.demo-visual {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+}
+
+.visual-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.visual-header h4 {
+    font-size: 20px;
+    color: white;
+    margin: 0;
+}
+
+.visual-controls {
+    display: flex;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px;
+    border-radius: 10px;
+}
+
+.visual-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #94a3b8;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.visual-btn.active {
+    background: rgba(96, 165, 250, 0.2);
+    color: #60a5fa;
+}
+
+.chart-container {
+    height: 300px;
+    position: relative;
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 24px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+.demo-footer {
+    text-align: center;
+    margin-top: 48px;
+    color: #94a3b8;
+    position: relative;
+    z-index: 2;
+}
+
+.demo-footer a {
+    color: #60a5fa;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.demo-footer a:hover {
+    color: #3b82f6;
+}
+
+/* Energy Flow Section */
+.energy-flow-section {
+    padding: 100px 20px;
+    background: linear-gradient(180deg, #0f172a, #1e293b);
+}
+
+.energy-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.energy-header h2 {
+    font-size: 40px;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.energy-header p {
+    color: #94a3b8;
+    font-size: 20px;
+}
+
+.energy-visualization {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.energy-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.energy-param {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.param-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #cbd5e1;
+    font-size: 18px;
+}
+
+.param-label i {
+    color: #fbbf24;
+    font-size: 20px;
+}
+
+.param-control {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.energy-slider {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.energy-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
+.slider-info {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+}
+
+.slider-info .unit {
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.energy-scene {
+    position: relative;
+    height: 400px;
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.scene-sun {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.sun-disc {
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-sun);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(255, 165, 0, 0.6);
+    animation: sun-spin 20s linear infinite;
+}
+
+@keyframes sun-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.sun-rays {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+}
+
+.ray {
+    position: absolute;
+    background: rgba(255, 215, 0, 0.3);
+    border-radius: 5px;
+}
+
+.ray-1 {
+    width: 4px;
+    height: 140px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ray-2 {
+    width: 4px;
+    height: 140px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.ray-3 {
+    width: 4px;
+    height: 140px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.ray-4 {
+    width: 4px;
+    height: 140px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.scene-panel {
+    position: relative;
+    width: 200px;
+    height: 120px;
+}
+
+.panel-base {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: rotateX(25deg);
+}
+
+.panel-surface {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(56, 189, 248, 0.3), rgba(168, 85, 247, 0.3));
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.surface-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border-radius: 10px;
+}
+
+.surface-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: surface-glow-animation 3s infinite;
+}
+
+@keyframes surface-glow-animation {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.panel-frame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.panel-mount {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 20px;
+    background: linear-gradient(to top, #4b5563, #6b7280);
+    border-radius: 5px 5px 0 0;
+}
+
+.energy-meter {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.meter-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #cbd5e1;
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.meter-header i {
+    color: #fbbf24;
+}
+
+.meter-value {
+    font-size: 32px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+}
+
+.meter-bar {
+    width: 100%;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #fbbf24, #f59e0b);
+    border-radius: 6px;
     transition: width 1s ease;
     width: 42%;
 }
 
-@keyframes sun-demo-pulse {
-    0%, 100% { transform: translateX(-50%) scale(1); }
-    50% { transform: translateX(-50%) scale(1.1); }
+.bar-marks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 3px;
 }
 
-@keyframes surface-shine {
-    0%, 100% { transform: translateX(-100%); }
-    50% { transform: translateX(100%); }
+.mark {
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
 }
 
-@keyframes energy-flow {
-    0%, 100% { height: 0; opacity: 0; }
-    50% { height: 100%; opacity: 1; }
+.meter-footer {
+    display: flex;
+    justify-content: space-between;
+    color: #94a3b8;
+    font-size: 14px;
 }
 
-/* CTA enhancements */
-.enhanced-cta {
+/* Final CTA */
+.final-cta {
+    position: relative;
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #1e1b4b, #312e81);
+    overflow: hidden;
+}
+
+.cta-orbs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.cta-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.3;
+}
+
+.orb-1 {
+    top: 20%;
+    left: 10%;
+    width: 200px;
+    height: 200px;
+    background: #60a5fa;
+    animation: orb-float 20s infinite ease-in-out;
+}
+
+.orb-2 {
+    top: 60%;
+    right: 15%;
+    width: 300px;
+    height: 300px;
+    background: #a78bfa;
+    animation: orb-float 25s infinite ease-in-out reverse;
+}
+
+.orb-3 {
+    bottom: 20%;
+    left: 20%;
+    width: 150px;
+    height: 150px;
+    background: #f472b6;
+    animation: orb-float 15s infinite ease-in-out;
+}
+
+@keyframes orb-float {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    33% {
+        transform: translateY(-30px) scale(1.1);
+    }
+    66% {
+        transform: translateY(15px) scale(0.9);
+    }
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.cta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 20px;
+    border-radius: 50px;
+    color: white;
+    font-size: 14px;
+    margin-bottom: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cta-badge i {
+    color: #fbbf24;
+}
+
+.cta-content h2 {
+    font-size: 48px;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.cta-description {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 48px;
+}
+
+.cta-features-row {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+}
+
+.cta-feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.feature-circle {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.cta-feature-item:hover .feature-circle {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.cta-feature-item span {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+}
+
+.cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.cta-btn-primary,
+.cta-btn-secondary {
+    padding: 20px 40px;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.cta-btn-primary {
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    color: white;
     position: relative;
     overflow: hidden;
 }
 
-.cta-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
+.cta-btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px rgba(96, 165, 250, 0.3);
 }
 
-.cta-particle {
+.btn-ripple {
     position: absolute;
-    background: rgba(255, 255, 255, 0.1);
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 50%;
-    animation: cta-float 6s ease-in-out infinite;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
 }
 
-.cta-particle:nth-child(1) {
-    top: 20%;
-    left: 10%;
-    width: 40px;
-    height: 40px;
-    animation-delay: 0s;
+.cta-btn-primary:hover .btn-ripple {
+    width: 300px;
+    height: 300px;
 }
 
-.cta-particle:nth-child(2) {
-    top: 60%;
-    right: 15%;
-    width: 60px;
-    height: 60px;
-    animation-delay: 2s;
+.cta-btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.cta-particle:nth-child(3) {
-    bottom: 30%;
-    left: 20%;
-    width: 30px;
-    height: 30px;
-    animation-delay: 4s;
-}
-
-@keyframes cta-float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    33% { transform: translateY(-20px) rotate(120deg); }
-    66% { transform: translateY(10px) rotate(240deg); }
-}
-
-.cta-features {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    margin: 2rem 0;
-}
-
-.cta-feature {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.1rem;
-}
-
-.cta-feature i {
-    color: var(--secondary-color);
-    font-size: 1.3rem;
+.cta-btn-secondary:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .cta-stats {
     display: flex;
     justify-content: center;
-    gap: 4rem;
-    margin-top: 3rem;
+    align-items: center;
+    gap: 48px;
+    margin-top: 48px;
+    flex-wrap: wrap;
 }
 
 .cta-stat {
@@ -1196,150 +3064,202 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .cta-stat .stat-number {
-    font-size: 2.5rem;
+    font-size: 40px;
     font-weight: 800;
-    color: var(--secondary-color);
+    color: white;
     display: block;
+    margin-bottom: 4px;
 }
 
 .cta-stat .stat-label {
-    font-size: 0.9rem;
-    opacity: 0.8;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
 }
 
-/* Contact section */
+.divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Contact Section */
 .contact-section {
-    background: var(--glass-light);
-    backdrop-filter: blur(20px);
-    border-top: 1px solid var(--glass-border);
-    padding: 4rem 0;
+    padding: 80px 20px;
+    background: linear-gradient(180deg, #312e81, #1e1b4b);
 }
 
 .contact-content {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 3rem;
+    gap: 48px;
 }
 
 .contact-text h3 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: var(--primary-color);
+    font-size: 32px;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.contact-text p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
 }
 
 .contact-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 16px;
     flex-wrap: wrap;
 }
 
 .contact-btn {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 1.5rem;
+    gap: 12px;
+    padding: 16px 24px;
     border-radius: 12px;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
-    border: 2px solid transparent;
+    color: white;
 }
 
 .contact-btn.email {
-    background: var(--gradient-primary);
-    color: white;
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
 }
 
 .contact-btn.telegram {
-    background: #0088cc;
-    color: white;
+    background: linear-gradient(135deg, #0088cc, #006699);
 }
 
 .contact-btn.vk {
-    background: #4a76a8;
-    color: white;
+    background: linear-gradient(135deg, #4a76a8, #3a6490);
 }
 
 .contact-btn.phone {
-    background: var(--gradient-success);
-    color: white;
+    background: linear-gradient(135deg, #10b981, #059669);
 }
 
 .contact-btn:hover {
     transform: translateY(-3px);
-    box-shadow: var(--shadow-medium);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Scroll indicator */
-.scroll-indicator {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    color: rgba(255, 255, 255, 0.8);
-    animation: bounce 2s ease-in-out infinite;
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+    }
+    
+    .hero-text {
+        padding-right: 0;
+    }
+    
+    .trust-badges {
+        justify-content: center;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .demo-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .energy-visualization {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
 }
 
-.scroll-arrow {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Responsive design */
 @media (max-width: 768px) {
-    .solar-system-3d {
-        width: 300px;
-        height: 300px;
+    .hero-title {
+        font-size: 48px;
     }
     
-    .solar-orbit-1 {
-        width: 150px;
-        height: 150px;
-        margin-left: -75px;
-        margin-top: -75px;
+    .subtitle {
+        font-size: 20px;
     }
     
-    .solar-orbit-2 {
-        width: 200px;
-        height: 200px;
-        margin-left: -100px;
-        margin-top: -100px;
+    .glow-cards {
+        grid-template-columns: 1fr;
     }
     
-    .solar-orbit-3 {
-        width: 250px;
-        height: 250px;
-        margin-left: -125px;
-        margin-top: -125px;
-    }
-    
-    .trust-indicators {
+    .hero-buttons {
         flex-direction: column;
-        gap: 1rem;
     }
     
-    .cta-features {
+    .trust-badges {
         flex-direction: column;
-        gap: 1rem;
+        align-items: center;
+        gap: 16px;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cta-features-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+    }
+    
+    .cta-actions {
+        flex-direction: column;
+        align-items: center;
     }
     
     .cta-stats {
         flex-direction: column;
-        gap: 2rem;
+        gap: 32px;
+    }
+    
+    .divider {
+        width: 100px;
+        height: 1px;
     }
     
     .contact-content {
         flex-direction: column;
         text-align: center;
+        gap: 32px;
     }
     
     .contact-buttons {
         justify-content: center;
     }
     
-    .preview-content {
+    .solar-visual-3d {
+        height: 300px;
+    }
+    
+    .solar-array-3d {
+        transform: translateX(-50%) rotateX(45deg) scale(0.8);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 36px;
+    }
+    
+    .title-main {
+        font-size: 36px;
+    }
+    
+    .calculator-header {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+    
+    .results-grid {
         grid-template-columns: 1fr;
     }
 }

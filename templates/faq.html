@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}Частые вопросы (FAQ) | SolarCalc Pro{% endblock %}
+
+{% block content %}
+<div class="faq-container">
+    <div class="card">
+        <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--primary-color);">
+            <i class="fas fa-question-circle" style="margin-right: 0.5rem;"></i>
+            Частые вопросы о солнечной энергии
+        </h2>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem; color: var(--dark-light);">
+            Ответы на самые популярные вопросы от наших пользователей. 
+            Если не нашли ответ — пишите в Telegram!
+        </p>
+        
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>1. Сколько солнечных панелей нужно для дома?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Количество панелей зависит от:</p>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li>Ежемесячного потребления электроэнергии (кВт·ч)</li>
+                        <li>Географического расположения (инсоляция в вашем регионе)</li>
+                        <li>Площади и ориентации крыши</li>
+                        <li>Мощности выбранных панелей (обычно 300-450 Вт)</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem;">Используйте наш <a href="{{ url_for('calculator') }}" style="color: var(--primary-color);">калькулятор</a> для точного расчета.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>2. Работают ли солнечные панели зимой?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Да, работают! Современные солнечные панели эффективно работают даже при отрицательных температурах и в пасмурную погоду. Зимой:</p>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li>Панели эффективнее работают на холоде (меньшие тепловые потери)</li>
+                        <li>Снег может улучшить производительность за счет отражения света</li>
+                        <li>Важна правильная установка (угол наклона для зимнего солнца)</li>
+                        <li>Производительность зимой составляет 20-40% от летней</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>3. Какой срок окупаемости солнечной системы?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Срок окупаемости зависит от нескольких факторов:</p>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li><strong>Тарифы на электроэнергию:</strong> чем выше тариф, тем быстрее окупаемость</li>
+                        <li><strong>Размер системы:</strong> большие системы дороже, но окупаются быстрее</li>
+                        <li><strong>Регион:</strong> в южных регионах окупаемость быстрее</li>
+                        <li><strong>Стимулирующие программы:</strong> наличие субсидий или "зеленых" тарифов</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem;">В среднем по России: 5-8 лет для частных домов, 3-6 лет для бизнеса.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>4. Нужно ли разрешение на установку солнечных панелей?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Для автономных систем (не подключенных к общей сети) разрешение не требуется. Для сетевых систем:</p>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li>Нужно согласование с местной сетевой компанией</li>
+                        <li>Требуется техническое присоединение к сетям</li>
+                        <li>Возможна установка двунаправленного счетчика</li>
+                        <li>В некоторых регионах действуют упрощенные процедуры</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem;">Рекомендуем проконсультироваться с местными властями.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>5. Как обслуживать солнечные панели?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Солнечные панели требуют минимального обслуживания:</p>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li><strong>Очистка:</strong> 1-2 раза в год от пыли, листьев, снега</li>
+                        <li><strong>Осмотр:</strong> проверка креплений, отсутствие повреждений</li>
+                        <li><strong>Мониторинг:</strong> отслеживание производительности через приложение</li>
+                        <li><strong>Инвертор:</strong> проверка работы, чистка от пыли</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem;">Большинство систем имеют гарантию 25 лет на панели и 5-10 лет на инверторы.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>6. Что выгоднее: аккумуляторы или сетевая система?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Зависит от ваших потребностей и региона:</p>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li><strong>Сетевая система:</strong> дешевле, проще в установке, можно продавать излишки в сеть</li>
+                        <li><strong>Аккумуляторы:</strong> автономность, защита от отключений, но дороже</li>
+                        <li><strong>Гибридная система:</strong> оптимальный вариант - и экономия, и резерв</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem;">Используйте <a href="{{ url_for('comparison') }}" style="color: var(--primary-color);">сравнение систем</a> для выбора оптимального варианта.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>7. Можно ли установить солнечные панели в квартире?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>В многоквартирном доме есть ограничения, но варианты есть:</p>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li><strong>Балконные системы:</strong> компактные панели на балконе или лоджии</li>
+                        <li><strong>Общедомовая система:</strong> установка на крыше многоквартирного дома</li>
+                        <li><strong>Аренда крыши:</strong> в некоторых городах можно арендовать место на крыше</li>
+                        <li><strong>Солнечные коллекторы:</strong> для нагрева воды</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem;">Требуется согласование с управляющей компанией и соседями.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>8. Какой срок службы солнечных панелей?</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Современные солнечные панели служат очень долго:</p>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li><strong>Гарантия на мощность:</strong> 25-30 лет (80-85% от начальной мощности)</li>
+                        <li><strong>Фактический срок службы:</strong> 30-40 лет и более</li>
+                        <li><strong>Инверторы:</strong> 10-15 лет (после этого может потребоваться замена)</li>
+                        <li><strong>Аккумуляторы:</strong> 5-15 лет в зависимости от типа</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem;">Качественные панели теряют всего 0.5-0.8% мощности в год.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="faq-contact" style="margin-top: 3rem; padding: 2rem; background: var(--hover-bg); border-radius: var(--radius-md); text-align: center;">
+            <h3 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--primary-color);">
+                <i class="fas fa-comments" style="margin-right: 0.5rem;"></i>
+                Остались вопросы?
+            </h3>
+            <p style="margin-bottom: 1.5rem; color: var(--text-color);">
+                Пишите мне в Telegram — отвечу лично на любые вопросы по солнечной энергии!
+            </p>
+            <a href="https://t.me/gleblub1" 
+               target="_blank" 
+               class="telegram-btn" 
+               style="display: inline-flex; padding: 0.875rem 1.5rem;">
+                <i class="fab fa-telegram"></i>
+                Задать вопрос в Telegram
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

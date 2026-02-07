@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Блог проекта | SolarCalc Pro{% endblock %}
+
+{% block content %}
+<div class="blog-container">
+    <div class="card">
+        <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--primary-color);">
+            <i class="fas fa-newspaper" style="margin-right: 0.5rem;"></i>
+            Блог SolarCalc Pro
+        </h2>
+        
+        <div class="telegram-channel">
+            <i class="fab fa-telegram" style="font-size: 3rem; color: #0088cc; margin-bottom: 1rem;"></i>
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-color);">
+                Присоединяйтесь к нашему Telegram-каналу!
+            </h3>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--text-color); line-height: 1.6;">
+                📢 <strong>SolarCalc Pro Community</strong> — это место, где мы:
+            </p>
+            <ul style="text-align: left; display: inline-block; margin-bottom: 1.5rem;">
+                <li style="margin-bottom: 0.5rem;">🎯 Делимся новостями о проекте</li>
+                <li style="margin-bottom: 0.5rem;">📊 Публикуем обновления калькулятора</li>
+                <li style="margin-bottom: 0.5rem;">💡 Даем советы по солнечной энергетике</li>
+                <li style="margin-bottom: 0.5rem;">🤝 Отвечаем на ваши вопросы</li>
+                <li style="margin-bottom: 0.5rem;">🔔 Анонсируем новые функции</li>
+            </ul>
+            
+            <a href="https://t.me/+Efh-8ln-K7cxMjI6" 
+               target="_blank" 
+               class="telegram-btn" 
+               style="display: inline-flex; padding: 1rem 2rem; font-size: 1.1rem; margin-top: 1rem;">
+                <i class="fab fa-telegram"></i>
+                Присоединиться к обсуждению
+            </a>
+            
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--dark-light);">
+                Канал открыт для всех! Задавайте вопросы, делитесь опытом, предлагайте улучшения.
+            </p>
+        </div>
+        
+        <div class="blog-posts" style="margin-top: 3rem;">
+            <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--primary-color);">
+                Последние публикации
+            </h3>
+            
+            <div class="blog-post">
+                <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--text-color);">
+                    <i class="fas fa-bolt" style="color: var(--warning-color); margin-right: 0.5rem;"></i>
+                    Как работает новый продвинутый калькулятор PRO
+                </h4>
+                <p style="color: var(--dark-light); margin-bottom: 1rem; line-height: 1.6;">
+                    Мы полностью переработали алгоритмы расчетов. Теперь учитываются даже такие параметры как 
+                    угол наклона крыши, затененность в разное время суток и сезонные колебания инсоляции.
+                </p>
+                <div style="font-size: 0.9rem; color: var(--primary-color);">
+                    <i class="far fa-calendar" style="margin-right: 0.5rem;"></i>
+                    15 декабря 2024
+                </div>
+            </div>
+            
+            <div class="blog-post">
+                <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--text-color);">
+                    <i class="fas fa-solar-panel" style="color: var(--secondary-color); margin-right: 0.5rem;"></i>
+                    Топ-5 мифов о солнечной энергии в России
+                </h4>
+                <p style="color: var(--dark-light); margin-bottom: 1rem; line-height: 1.6;">
+                    Разбираем популярные заблуждения: работает ли солнце зимой, насколько дорого обслуживание, 
+                    и правда ли что в северных регионах это неэффективно.
+                </p>
+                <div style="font-size: 0.9rem; color: var(--primary-color);">
+                    <i class="far fa-calendar" style="margin-right: 0.5rem;"></i>
+                    10 декабря 2024
+                </div>
+            </div>
+            
+            <div class="blog-post">
+                <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--text-color);">
+                    <i class="fas fa-chart-line" style="color: var(--accent-color); margin-right: 0.5rem;"></i>
+                    История успеха: как семья из Подмосковья сэкономила 150 тыс. руб за год
+                </h4>
+                <p style="color: var(--dark-light); margin-bottom: 1rem; line-height: 1.6;">
+                    Реальный кейс наших пользователей. Расчеты, фактические показатели и цифры окупаемости 
+                    домашней солнечной электростанции.
+                </p>
+                <div style="font-size: 0.9rem; color: var(--primary-color);">
+                    <i class="far fa-calendar" style="margin-right: 0.5rem;"></i>
+                    5 декабря 2024
+                </div>
+            </div>
+        </div>
+        
+        <div class="contact-telegram" style="margin-top: 3rem; text-align: center;">
+            <p style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-color);">
+                Есть вопросы или предложения? Пишите мне напрямую:
+            </p>
+            <a href="https://t.me/gleblub1" 
+               target="_blank" 
+               class="telegram-btn" 
+               style="display: inline-flex; padding: 1rem 2rem; font-size: 1.1rem;">
+                <i class="fab fa-telegram"></i>
+                @gleblub1
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -2,144 +2,1032 @@
 <html lang="ru" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>{% block title %}SolarCalc Pro - Профессиональный калькулятор солнечной энергии{% endblock %}</title>
     <meta name="description" content="Самый точный калькулятор солнечной энергии в России. Профессиональные расчеты для домов и предприятий.">
     <meta name="keywords" content="солнечная энергия, калькулятор, солнечные панели, расчет, экономия">
     
-    <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#2563eb">
+    <!-- PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="SolarCalc Pro">
-    
-    <!-- Preload Critical Resources -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/logo.svg') }}">
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
     
     <!-- Stylesheets -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
     
     <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-light: #60a5fa;
+            --secondary-color: #10b981;
+            --secondary-dark: #059669;
+            --accent-color: #8b5cf6;
+            --dark-color: #1e293b;
+            --dark-light: #475569;
+            --light-color: #f8fafc;
+            --light-dark: #e2e8f0;
+            
+            /* Day Theme Variables */
+            --day-bg: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --day-card: rgba(255, 255, 255, 0.98);
+            --day-border: rgba(0, 0, 0, 0.08);
+            --day-text: #1e293b;
+            --day-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            
+            /* Night Theme Variables */
+            --night-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --night-card: rgba(30, 41, 59, 0.98);
+            --night-border: rgba(255, 255, 255, 0.1);
+            --night-text: #f1f5f9;
+            --night-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            
+            --sidebar-width: 280px;
+            --sidebar-collapsed: 70px;
+            --header-height: 70px;
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+            
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --blur-sm: blur(4px);
+            --blur-md: blur(12px);
+            --blur-lg: blur(20px);
+        }
+        
+        /* Day Theme */
+        [data-theme="light"] {
+            --bg-gradient: var(--day-bg);
+            --card-bg: var(--day-card);
+            --border-color: var(--day-border);
+            --text-color: var(--day-text);
+            --shadow: var(--day-shadow);
+            --sidebar-bg: rgba(255, 255, 255, 0.98);
+            --hover-bg: rgba(59, 130, 246, 0.1);
+            --muted-color: #64748b;
+        }
+        
+        /* Night Theme */
+        [data-theme="dark"] {
+            --bg-gradient: var(--night-bg);
+            --card-bg: var(--night-card);
+            --border-color: var(--night-border);
+            --text-color: var(--night-text);
+            --shadow: var(--night-shadow);
+            --sidebar-bg: rgba(15, 23, 42, 0.98);
+            --hover-bg: rgba(59, 130, 246, 0.2);
+            --muted-color: #94a3b8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-weight: 400;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background var(--transition-normal), color var(--transition-normal);
+        }
+        
+        body.theme-transition {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Контейнер */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Сайдбар */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            backdrop-filter: var(--blur-lg);
+            -webkit-backdrop-filter: var(--blur-lg);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            z-index: 1000;
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            will-change: transform;
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: var(--radius-full);
+        }
+        
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed);
+            padding: 2rem 0.75rem;
+        }
+        
+        /* Логотип */
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .sidebar-header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            border-radius: var(--radius-full);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 800;
+            font-size: 1.3rem;
+            transition: all var(--transition-fast);
+        }
+        
+        .logo:hover {
+            transform: translateY(-1px);
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        .logo-text {
+            transition: all var(--transition-normal);
+            letter-spacing: -0.5px;
+        }
+        
+        .sidebar.collapsed .logo {
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .sidebar.collapsed .logo-text {
+            opacity: 0;
+            transform: translateX(-20px);
+            width: 0;
+            overflow: hidden;
+            position: absolute;
+        }
+        
+        /* Навигация */
+        .sidebar-nav {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: inherit;
+            transition: all var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+        }
+        
+        .nav-item:hover {
+            background: var(--hover-bg);
+            transform: translateX(4px);
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            box-shadow: var(--shadow);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 24px;
+            background: var(--secondary-color);
+            border-radius: var(--radius-full);
+        }
+        
+        .nav-icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .nav-text {
+            transition: all var(--transition-normal);
+            font-weight: 500;
+            white-space: nowrap;
+            flex: 1;
+        }
+        
+        .sidebar.collapsed .nav-text {
+            opacity: 0;
+            transform: translateX(-10px);
+            width: 0;
+            overflow: hidden;
+            position: absolute;
+        }
+        
+        /* PRO badge для продвинутого калькулятора */
+        .pro-badge {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: var(--radius-full);
+            margin-left: auto;
+        }
+        
+        /* Кнопка сворачивания */
+        .sidebar-toggle {
+            position: fixed;
+            top: 1.5rem;
+            left: calc(var(--sidebar-width) - 12px);
+            width: 24px;
+            height: 24px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all var(--transition-normal);
+            z-index: 1001;
+            transform-origin: center;
+        }
+        
+        .sidebar-toggle:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+            box-shadow: var(--shadow);
+        }
+        
+        .sidebar-toggle i {
+            transition: transform var(--transition-normal);
+        }
+        
+        .sidebar.collapsed ~ .sidebar-toggle {
+            left: calc(var(--sidebar-collapsed) - 12px);
+        }
+        
+        .sidebar.collapsed .sidebar-toggle i {
+            transform: rotate(180deg);
+        }
+        
+        /* Кнопка Telegram */
+        .telegram-btn {
+            width: 100%;
+            padding: 0.875rem;
+            background: linear-gradient(135deg, #0088cc, #24a1de);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            text-decoration: none;
+        }
+        
+        .telegram-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+            background: linear-gradient(135deg, #0077b5, #1e90ff);
+        }
+        
+        /* Основной контент */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            min-height: 100vh;
+            transition: margin-left var(--transition-normal);
+            position: relative;
+        }
+        
+        .sidebar.collapsed ~ .main-content {
+            margin-left: var(--sidebar-collapsed);
+        }
+        
+        /* Панель поиска */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .search-box {
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 3rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            font-size: 0.95rem;
+            transition: all var(--transition-fast);
+            backdrop-filter: var(--blur-md);
+            color: var(--text-color);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+        }
+        
+        /* Карточки */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: var(--blur-md);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        /* FAQ стили */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all var(--transition-normal);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-color);
+            transition: background-color var(--transition-fast);
+        }
+        
+        .faq-question:hover {
+            background: var(--hover-bg);
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all var(--transition-normal);
+            color: var(--text-color);
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+        
+        .faq-icon {
+            transition: transform var(--transition-normal);
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Блог стили */
+        .blog-post {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all var(--transition-normal);
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .telegram-channel {
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.1), rgba(36, 161, 222, 0.1));
+            border: 2px solid #0088cc;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        /* Кнопка "Наверх" */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-normal);
+            z-index: 900;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: var(--shadow);
+        }
+        
+        /* Анимации */
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.5));
+            }
+            to {
+                filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.8));
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Прогресс-бар */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: var(--sidebar-width);
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform-origin: 0%;
+            z-index: 999;
+            transition: left var(--transition-normal);
+        }
+        
+        .sidebar.collapsed ~ .reading-progress {
+            left: var(--sidebar-collapsed);
+        }
+        
+        /* Результаты поиска */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-top: 0.5rem;
+            box-shadow: var(--shadow);
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .search-result-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color var(--transition-fast);
+        }
+        
+        .search-result-item:hover {
+            background: var(--hover-bg);
+        }
+        
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+            
+            .sidebar-toggle {
+                display: none;
+            }
+            
+            .reading-progress {
+                left: 0;
+            }
+            
+            .mobile-nav-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                width: 56px;
+                height: 56px;
+                background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+                color: white;
+                border: none;
+                border-radius: var(--radius-full);
+                z-index: 1002;
+                box-shadow: var(--shadow);
+                cursor: pointer;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .card, .blog-post {
+                padding: 1.5rem;
+            }
+            
+            .footer {
+                padding: 2rem 1rem;
+            }
+        }
+        
+        /* Тема переключатель стиль */
+        .theme-switcher-btn {
+            width: 100%;
+            padding: 0.875rem;
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        .theme-switcher-btn:hover {
+            background: var(--hover-bg);
+            transform: translateY(-1px);
+        }
+        
+        /* Футер улучшения */
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Улучшение видимости текста */
+        .page-subtitle {
+            color: var(--muted-color);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        /* Улучшение контрастности для доступности */
+        .nav-item.active {
+            color: white !important;
+        }
+        
+        /* Улучшение видимости прогресс-бара */
+        .reading-progress {
+            height: 4px;
+        }
+    </style>
 </head>
-<body class="theme-transition">
-    <!-- Loading Spinner -->
-    <div id="loading-spinner" class="loading-spinner">
-        <div class="spinner-logo">
-            <i class="fas fa-sun spinning"></i>
-            <span>SolarCalc Pro</span>
-        </div>
-        <div class="spinner-progress">
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
+<body>
+    <!-- Прогресс чтения -->
+    <div class="reading-progress" id="readingProgress"></div>
+    
+    <!-- Контейнер приложения -->
+    <div class="app-container">
+        
+        <!-- Сайдбар -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="{{ url_for('index') }}" class="logo">
+                    <i class="fas fa-sun logo-icon"></i>
+                    <span class="logo-text">SolarCalc Pro</span>
+                </a>
             </div>
-        </div>
-    </div>
-
-    <!-- Floating Animation Elements -->
-    <div class="floating-elements">
-        <div class="floating-icon solar-panel"><i class="fas fa-solar-panel"></i></div>
-        <div class="floating-icon sun"><i class="fas fa-sun"></i></div>
-        <div class="floating-icon battery"><i class="fas fa-battery-full"></i></div>
-    </div>
-
-    <!-- Enhanced Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="{{ url_for('index') }}" class="nav-logo hover-lift">
-                <i class="fas fa-sun spinning"></i>
-                <span>SolarCalc Pro</span>
+            
+            <!-- Основная навигация -->
+            <nav class="sidebar-nav">
+                <a href="{{ url_for('index') }}" 
+                   class="nav-item {% if request.endpoint == 'index' %}active{% endif %}">
+                    <i class="fas fa-home nav-icon"></i>
+                    <span class="nav-text">Главная</span>
+                </a>
+                
+                <a href="{{ url_for('calculator') }}" 
+                   class="nav-item {% if request.endpoint == 'calculator' %}active{% endif %}">
+                    <i class="fas fa-calculator nav-icon"></i>
+                    <span class="nav-text">Калькулятор</span>
+                </a>
+                
+                <a href="{{ url_for('advanced_calculator') }}" 
+                   class="nav-item {% if request.endpoint == 'advanced_calculator' %}active{% endif %}">
+                    <i class="fas fa-chart-line nav-icon"></i>
+                    <span class="nav-text">Продвинутый PRO</span>
+                    <span class="pro-badge">PRO</span>
+                </a>
+                
+                <a href="{{ url_for('components') }}" 
+                   class="nav-item {% if request.endpoint == 'components' %}active{% endif %}">
+                    <i class="fas fa-cogs nav-icon"></i>
+                    <span class="nav-text">Компоненты</span>
+                </a>
+                
+                <a href="{{ url_for('history') }}" 
+                   class="nav-item {% if request.endpoint == 'history' %}active{% endif %}">
+                    <i class="fas fa-history nav-icon"></i>
+                    <span class="nav-text">История</span>
+                </a>
+                
+                <a href="{{ url_for('advantages') }}" 
+                   class="nav-item {% if request.endpoint == 'advantages' %}active{% endif %}">
+                    <i class="fas fa-star nav-icon"></i>
+                    <span class="nav-text">Преимущества</span>
+                </a>
+                
+                <a href="{{ url_for('comparison') }}" 
+                   class="nav-item {% if request.endpoint == 'comparison' %}active{% endif %}">
+                    <i class="fas fa-balance-scale nav-icon"></i>
+                    <span class="nav-text">Сравнение</span>
+                </a>
+                
+                <a href="{{ url_for('blog') }}" 
+                   class="nav-item {% if request.endpoint == 'blog' %}active{% endif %}">
+                    <i class="fas fa-newspaper nav-icon"></i>
+                    <span class="nav-text">Блог</span>
+                </a>
+                
+                <a href="{{ url_for('faq') }}" 
+                   class="nav-item {% if request.endpoint == 'faq' %}active{% endif %}">
+                    <i class="fas fa-question-circle nav-icon"></i>
+                    <span class="nav-text">FAQ</span>
+                </a>
+                
+                <a href="{{ url_for('about') }}" 
+                   class="nav-item {% if request.endpoint == 'about' %}active{% endif %}">
+                    <i class="fas fa-info-circle nav-icon"></i>
+                    <span class="nav-text">О нас</span>
+                </a>
+            </nav>
+            
+            <!-- Telegram кнопка -->
+            <a href="https://t.me/gleblub1" target="_blank" class="telegram-btn">
+                <i class="fab fa-telegram"></i>
+                <span class="nav-text">Telegram канал</span>
             </a>
-            <div class="nav-menu">
-                <a href="{{ url_for('index') }}" class="nav-link"><i class="fas fa-home"></i> Главная</a>
-                <a href="{{ url_for('calculator') }}" class="nav-link"><i class="fas fa-calculator"></i> Калькулятор</a>
-                <a href="{{ url_for('advanced_calculator') }}" class="nav-link"><i class="fas fa-chart-line"></i> Продвинутый</a>
-                <a href="{{ url_for('components') }}" class="nav-link"><i class="fas fa-cogs"></i> Компоненты</a>
-                <a href="{{ url_for('history') }}" class="nav-link"><i class="fas fa-history"></i> История</a>
-                <a href="{{ url_for('advantages') }}" class="nav-link"><i class="fas fa-star"></i> Преимущества</a>
-                <a href="{{ url_for('comparison') }}" class="nav-link"><i class="fas fa-balance-scale"></i> Сравнение</a>
-                <a href="{{ url_for('about') }}" class="nav-link"><i class="fas fa-info-circle"></i> О нас</a>
-                <button class="theme-toggle" aria-label="Переключить тему">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
-            <button class="mobile-menu-toggle" aria-label="Открыть меню">
-                <i class="fas fa-bars"></i>
+            
+            <!-- Переключение темы -->
+            <button class="theme-switcher-btn" id="themeToggle">
+                <i class="fas fa-moon"></i>
+                <span class="nav-text">Ночной режим</span>
             </button>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        {% block content %}{% endblock %}
-    </main>
-
-    <!-- Enhanced Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3><i class="fas fa-sun spinning-slow"></i> SolarCalc Pro</h3>
-                <p>Самый точный калькулятор солнечной энергии в России</p>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
-                    <a href="#" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </aside>
+        
+        <!-- Кнопка сворачивания сайдбара -->
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <!-- Кнопка мобильного меню -->
+        <button class="mobile-nav-toggle" id="mobileNavToggle" style="display: none;">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Основной контент -->
+        <main class="main-content">
+            <!-- Верхняя панель -->
+            <div class="top-bar">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Поиск по сайту... (Ctrl+K)">
+                    <div class="search-results" id="searchResults"></div>
                 </div>
             </div>
-            <div class="footer-section">
-                <h3>Контакты</h3>
-                <p><i class="fas fa-phone"></i> 8-905-069-49-29</p>
-                <p><i class="fas fa-envelope"></i> glubkov2020@gmail.com</p>
-                <p><i class="fas fa-map-marker-alt"></i> Россия</p>
+            
+            <!-- Заголовок страницы -->
+            <div class="content-header card">
+                <h1 class="page-title" style="font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 800;">
+                    {% if request.endpoint == 'index' %}
+                        <span style="background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                            SolarCalc Pro
+                        </span>
+                    {% elif request.endpoint == 'calculator' %}
+                        <i class="fas fa-calculator" style="margin-right: 0.5rem;"></i>
+                        Калькулятор солнечной энергии
+                    {% elif request.endpoint == 'advanced_calculator' %}
+                        <i class="fas fa-chart-line" style="margin-right: 0.5rem;"></i>
+                        Продвинутый расчет <span class="pro-badge" style="font-size: 1rem; padding: 0.3rem 0.8rem; vertical-align: middle;">PRO</span>
+                    {% elif request.endpoint == 'components' %}
+                        <i class="fas fa-cogs" style="margin-right: 0.5rem;"></i>
+                        Компоненты систем
+                    {% elif request.endpoint == 'history' %}
+                        <i class="fas fa-history" style="margin-right: 0.5rem;"></i>
+                        История расчетов
+                    {% elif request.endpoint == 'advantages' %}
+                        <i class="fas fa-star" style="margin-right: 0.5rem;"></i>
+                        Преимущества солнечной энергии
+                    {% elif request.endpoint == 'comparison' %}
+                        <i class="fas fa-balance-scale" style="margin-right: 0.5rem;"></i>
+                        Сравнение систем
+                    {% elif request.endpoint == 'blog' %}
+                        <i class="fas fa-newspaper" style="margin-right: 0.5rem;"></i>
+                        Блог проекта
+                    {% elif request.endpoint == 'faq' %}
+                        <i class="fas fa-question-circle" style="margin-right: 0.5rem;"></i>
+                        Частые вопросы (FAQ)
+                    {% elif request.endpoint == 'about' %}
+                        <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>
+                        О проекте
+                    {% else %}
+                        SolarCalc Pro
+                    {% endif %}
+                </h1>
+                
+                <p class="page-subtitle">
+                    {% if request.endpoint == 'index' %}
+                        Профессиональный расчет солнечных электростанций с точностью до 99%
+                    {% elif request.endpoint == 'calculator' %}
+                        Рассчитайте экономию и окупаемость солнечной системы за 5 минут
+                    {% elif request.endpoint == 'advanced_calculator' %}
+                        Детальный расчет с учетом всех климатических и технических параметров
+                    {% elif request.endpoint == 'components' %}
+                        Подробные характеристики и сравнение комплектующих
+                    {% elif request.endpoint == 'history' %}
+                        Все ваши расчеты в одном месте
+                    {% elif request.endpoint == 'advantages' %}
+                        Почему солнечная энергия — это выгодно и современно
+                    {% elif request.endpoint == 'comparison' %}
+                        Сравнение разных систем и их эффективности
+                    {% elif request.endpoint == 'blog' %}
+                        Новости, обновления и полезные материалы о солнечной энергии
+                    {% elif request.endpoint == 'faq' %}
+                        Ответы на самые частые вопросы о солнечной энергии
+                    {% elif request.endpoint == 'about' %}
+                        О самой точной системе расчетов в России
+                    {% else %}
+                        Самый точный калькулятор солнечной энергии
+                    {% endif %}
+                </p>
             </div>
-            <div class="footer-section">
-                <h3>Наши преимущества</h3>
-                <ul>
-                    <li>✅ Точные расчеты</li>
-                    <li>✅ Профессиональный подход</li>
-                    <li>✅ Поддержка 24/7</li>
-                    <li>✅ Бесплатные консультации</li>
-                </ul>
+            
+            <!-- Контент страницы -->
+            <div class="content-wrapper">
+                {% block content %}{% endblock %}
             </div>
-            <div class="footer-section">
-                <h3>Быстрые ссылки</h3>
-                <ul>
-                    <li><a href="{{ url_for('calculator') }}">Базовый калькулятор</a></li>
-                    <li><a href="{{ url_for('advanced_calculator') }}">Продвинутый расчет</a></li>
-                    <li><a href="{{ url_for('components') }}">Компоненты систем</a></li>
-                    <li><a href="{{ url_for('about') }}">О проекте</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 SolarCalc Pro. Все права защищены. Разработано специально для профессиональных расчетов.</p>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+            
+            <!-- Основной футер -->
+            <footer class="footer card" style="margin-top: 3rem;">
+                <div class="footer-content">
+                    <div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; font-size: 1.3rem;">
+                            <i class="fas fa-sun" style="margin-right: 0.75rem;"></i>
+                            SolarCalc Pro
+                        </h3>
+                        <p style="color: var(--muted-color); line-height: 1.7; font-size: 1rem;">
+                            Лидер в области профессиональных расчетов солнечных электростанций. 
+                            Более 10 000 успешных проектов по всей России.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; font-size: 1.3rem;">
+                            <i class="fas fa-headset" style="margin-right: 0.75rem;"></i>
+                            Контакты
+                        </h3>
+                        <div style="color: var(--muted-color); line-height: 2;">
+                            <p><i class="fas fa-phone" style="margin-right: 0.5rem;"></i> 8-905-069-49-29</p>
+                            <p><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i> glubkov2020@gmail.com</p>
+                            <p><i class="fab fa-telegram" style="margin-right: 0.5rem;"></i> @gleblub1</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; font-size: 1.3rem;">
+                            <i class="fas fa-chart-line" style="margin-right: 0.75rem;"></i>
+                            Статистика
+                        </h3>
+                        <div style="color: var(--muted-color); line-height: 1.8;">
+                            <p><i class="fas fa-check-circle" style="color: var(--secondary-color); margin-right: 0.5rem;"></i> 99.3% точность расчетов</p>
+                            <p><i class="fas fa-bolt" style="color: #f59e0b; margin-right: 0.5rem;"></i> 10 000+ проектов</p>
+                            <p><i class="fas fa-coins" style="color: #10b981; margin-right: 0.5rem;"></i> 2.5 млрд руб экономии</p>
+                            <p><i class="fas fa-map-marker-alt" style="color: var(--accent-color); margin-right: 0.5rem;"></i> 500+ городов</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); text-align: center;">
+                    <p style="color: var(--muted-color); font-size: 0.9rem;">
+                        &copy; 2024 SolarCalc Pro. Все права защищены.<br>
+                        Разработано для экологичного будущего.
+                    </p>
+                </div>
+            </footer>
+        </main>
+    </div>
+    
+    <!-- Кнопка "Наверх" -->
+    <button class="back-to-top" id="backToTop">
         <i class="fas fa-chevron-up"></i>
     </button>
-
-    <!-- Scripts -->
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
     
-    <!-- Enhanced Theme Toggle Script -->
     <script>
-        // Theme toggle functionality
-        const themeToggle = document.querySelector('.theme-toggle');
-        const currentTheme = localStorage.getItem('theme') || 'light';
+        // Данные для поиска
+        const searchData = {
+            'калькулятор': { url: "{{ url_for('calculator') }}", title: 'Базовый калькулятор', desc: 'Рассчитайте экономию от солнечных панелей' },
+            'продвинутый': { url: "{{ url_for('advanced_calculator') }}", title: 'Продвинутый расчет PRO', desc: 'Детальный расчет с учетом всех параметров' },
+            'компоненты': { url: "{{ url_for('components') }}", title: 'Компоненты систем', desc: 'Солнечные панели, инверторы, аккумуляторы' },
+            'история': { url: "{{ url_for('history') }}", title: 'История расчетов', desc: 'Ваши предыдущие расчеты' },
+            'преимущества': { url: "{{ url_for('advantages') }}", title: 'Преимущества', desc: 'Почему солнечная энергия выгодна' },
+            'сравнение': { url: "{{ url_for('comparison') }}", title: 'Сравнение систем', desc: 'Сравнение разных типов солнечных систем' },
+            'блог': { url: "{{ url_for('blog') }}", title: 'Блог проекта', desc: 'Новости и полезные материалы' },
+            'faq': { url: "{{ url_for('faq') }}", title: 'Частые вопросы', desc: 'Ответы на популярные вопросы' },
+            'солнечные панели': { url: "{{ url_for('components') }}", title: 'Солнечные панели', desc: 'Виды и характеристики солнечных панелей' },
+            'экономия': { url: "{{ url_for('calculator') }}", title: 'Расчет экономии', desc: 'Рассчитайте сколько вы сэкономите' },
+            'окупаемость': { url: "{{ url_for('calculator') }}", title: 'Окупаемость', desc: 'Расчет срока окупаемости системы' },
+            'тарифы': { url: "{{ url_for('calculator') }}", title: 'Тарифы на электроэнергию', desc: 'Учет тарифов при расчетах' },
+            'инвертор': { url: "{{ url_for('components') }}", title: 'Инверторы', desc: 'Типы и характеристики инверторов' },
+            'аккумуляторы': { url: "{{ url_for('components') }}", title: 'Аккумуляторы', desc: 'Хранение солнечной энергии' },
+            'монтаж': { url: "{{ url_for('advantages') }}", title: 'Монтаж системы', desc: 'Процесс установки солнечных панелей' },
+            'гарантия': { url: "{{ url_for('faq') }}", title: 'Гарантия', desc: 'Сроки гарантии на оборудование' },
+            'обслуживание': { url: "{{ url_for('faq') }}", title: 'Обслуживание', desc: 'Как обслуживать солнечную систему' }
+        };
         
-        // Set initial theme
+        // Сайдбар
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const mobileNavToggle = document.getElementById('mobileNavToggle');
+        
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+        });
+        
+        // Переключение темы с улучшенной анимацией
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', currentTheme);
         updateThemeIcon(currentTheme);
         
@@ -147,35 +1035,108 @@
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             
-            // Add transition class
+            // Добавляем класс для плавного перехода
             document.body.classList.add('theme-transition');
             
-            // Switch theme
+            // Меняем тему
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
             
-            // Remove transition class after animation
+            // Убираем класс после анимации
             setTimeout(() => {
                 document.body.classList.remove('theme-transition');
-            }, 500);
+            }, 300);
         });
         
         function updateThemeIcon(theme) {
             const icon = themeToggle.querySelector('i');
-            icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+            const text = themeToggle.querySelector('.nav-text');
+            if (theme === 'light') {
+                icon.className = 'fas fa-moon';
+                text.textContent = 'Ночной режим';
+            } else {
+                icon.className = 'fas fa-sun';
+                text.textContent = 'Дневной режим';
+            }
         }
         
-        // Back to top functionality
-        const backToTop = document.getElementById('back-to-top');
+        // Поиск по сайту
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
         
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTop.style.opacity = '1';
-                backToTop.style.visibility = 'visible';
+        searchInput.addEventListener('input', debounce(function(e) {
+            const query = e.target.value.toLowerCase().trim();
+            searchResults.innerHTML = '';
+            
+            if (query.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+            
+            const results = [];
+            for (const [key, data] of Object.entries(searchData)) {
+                if (key.includes(query) || data.title.toLowerCase().includes(query) || data.desc.toLowerCase().includes(query)) {
+                    results.push(data);
+                }
+            }
+            
+            if (results.length > 0) {
+                results.forEach(result => {
+                    const item = document.createElement('div');
+                    item.className = 'search-result-item';
+                    item.innerHTML = `
+                        <div style="font-weight: 600; color: var(--primary-color); margin-bottom: 0.25rem;">
+                            ${result.title}
+                        </div>
+                        <div style="font-size: 0.9rem; color: var(--muted-color);">
+                            ${result.desc}
+                        </div>
+                    `;
+                    item.addEventListener('click', () => {
+                        window.location.href = result.url;
+                    });
+                    searchResults.appendChild(item);
+                });
+                searchResults.style.display = 'block';
             } else {
-                backToTop.style.opacity = '0';
-                backToTop.style.visibility = 'hidden';
+                const noResults = document.createElement('div');
+                noResults.className = 'search-result-item';
+                noResults.style.padding = '2rem 1rem';
+                noResults.style.textAlign = 'center';
+                noResults.style.color = 'var(--muted-color)';
+                noResults.textContent = 'Ничего не найдено. Попробуйте другой запрос.';
+                searchResults.appendChild(noResults);
+                searchResults.style.display = 'block';
+            }
+        }, 300));
+        
+        // Закрытие результатов поиска при клике вне
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+        
+        // Прогресс чтения
+        const readingProgress = document.getElementById('readingProgress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = scrollTop / docHeight;
+            
+            if (readingProgress) {
+                readingProgress.style.transform = `scaleX(${scrollPercent})`;
+            }
+        });
+        
+        // Кнопка "Наверх"
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
             }
         });
         
@@ -186,114 +1147,127 @@
             });
         });
         
-        // Enhanced loading spinner
-        const loadingSpinner = document.getElementById('loading-spinner');
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                loadingSpinner.style.opacity = '0';
-                setTimeout(() => {
-                    loadingSpinner.style.display = 'none';
-                }, 500);
-            }, 1000);
+        // Мобильная навигация
+        function handleResize() {
+            if (window.innerWidth <= 1024) {
+                mobileNavToggle.style.display = 'flex';
+                sidebarToggle.style.display = 'none';
+            } else {
+                mobileNavToggle.style.display = 'none';
+                sidebarToggle.style.display = 'flex';
+            }
+        }
+        
+        mobileNavToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
         });
         
-        // Add enhanced styles
-        const enhancedStyles = document.createElement('style');
-        enhancedStyles.textContent = `
-            .back-to-top {
-                position: fixed;
-                bottom: 30px;
-                right: 30px;
-                background: var(--primary-color);
-                color: white;
-                width: 50px;
-                height: 50px;
-                border: none;
-                border-radius: 50%;
-                cursor: pointer;
-                opacity: 0;
-                visibility: hidden;
-                transition: all var(--transition-normal);
-                z-index: 1000;
-                box-shadow: var(--shadow-medium);
-                backdrop-filter: blur(10px);
-                border: 1px solid var(--glass-border);
+        // Закрытие сайдбара при клике вне его на мобильных
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1024 && 
+                !sidebar.contains(e.target) && 
+                !mobileNavToggle.contains(e.target)) {
+                sidebar.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Сохранение состояния сайдбара
+        const savedSidebarState = localStorage.getItem('sidebarCollapsed');
+        if (savedSidebarState === 'true') {
+            sidebar.classList.add('collapsed');
+        }
+        
+        // Анимация загрузки
+        window.addEventListener('load', () => {
+            // Анимация элементов навигации
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach((item, index) => {
+                item.style.animationDelay = `${index * 50}ms`;
+                item.style.animation = 'slideIn 0.3s ease forwards';
+                item.style.opacity = '0';
+            });
+            
+            // Плавное появление контента
+            const content = document.querySelector('.content-wrapper');
+            if (content) {
+                content.style.opacity = '0';
+                content.style.transform = 'translateY(20px)';
+                content.style.transition = 'all 0.5s ease';
+                
+                setTimeout(() => {
+                    content.style.opacity = '1';
+                    content.style.transform = 'translateY(0)';
+                }, 300);
+            }
+        });
+        
+        // Дебаунс функция
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        // Инициализация при загрузке
+        handleResize();
+        window.addEventListener('resize', debounce(handleResize, 250));
+        
+        // FAQ функциональность (для страницы FAQ)
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    // Закрываем другие открытые вопросы
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    // Открываем/закрываем текущий вопрос
+                    item.classList.toggle('active');
+                });
+            });
+        });
+        
+        // Клавиатурные сокращения
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+K для фокуса на поиск
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                searchInput.focus();
+                searchInput.select();
             }
             
-            .back-to-top:hover {
-                background: var(--secondary-color);
-                transform: translateY(-3px) scale(1.1);
-                box-shadow: var(--shadow-large);
-            }
-            
-            .back-to-top:active {
-                transform: translateY(-1px);
-            }
-            
-            .loading-spinner {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: var(--light-color);
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                z-index: 9999;
-                transition: opacity 0.5s ease;
-            }
-            
-            .spinner-logo {
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-                font-size: 2rem;
-                font-weight: 700;
-                color: var(--primary-color);
-                margin-bottom: 2rem;
-            }
-            
-            .spinner-progress {
-                width: 200px;
-                height: 4px;
-                background: var(--glass-light);
-                border-radius: 2px;
-                overflow: hidden;
-                border: 1px solid var(--glass-border);
-            }
-            
-            .progress-bar {
-                width: 100%;
-                height: 100%;
-                position: relative;
-            }
-            
-            .progress-fill {
-                position: absolute;
-                height: 100%;
-                background: var(--gradient-primary);
-                animation: loading 2s ease-in-out infinite;
-                border-radius: 2px;
-            }
-            
-            @keyframes loading {
-                0% { width: 0%; left: 0%; }
-                50% { width: 100%; left: 0%; }
-                100% { width: 0%; left: 100%; }
-            }
-            
-            @media (max-width: 768px) {
-                .back-to-top {
-                    bottom: 20px;
-                    right: 20px;
-                    width: 45px;
-                    height: 45px;
+            // Esc для закрытия поиска
+            if (e.key === 'Escape') {
+                if (searchResults.style.display === 'block') {
+                    searchResults.style.display = 'none';
+                    searchInput.blur();
+                } else if (window.innerWidth <= 1024 && sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                    document.body.style.overflow = '';
                 }
             }
-        `;
-        document.head.appendChild(enhancedStyles);
+            
+            // Ctrl+B для сворачивания сайдбара
+            if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
+                e.preventDefault();
+                sidebar.classList.toggle('collapsed');
+                localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+            }
+        });
+        
+        // Обновление иконки темы при загрузке
+        updateThemeIcon(currentTheme);
     </script>
     
     {% block scripts %}{% endblock %}
