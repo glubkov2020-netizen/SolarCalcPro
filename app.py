@@ -22,35 +22,37 @@ app.secret_key = 'solar_calc_pro_2024'
 
 def init_db():
     """Инициализация базы данных"""
-    if not os.path.exists('data'):
-        os.makedirs('data')
+    # Проверяем возможность записи
+    test_file = 'data/test_write.txt'
+    try:
+        os.makedirs('data', exist_ok=True)
+        with open(test_file, 'w') as f:
+            f.write('test')
+        os.remove(test_file)
+        print("✅ Права на запись есть")
+        db_path = 'data/solar_calculations.db'
+    except Exception as e:
+        print(f"⚠️  Нет прав на запись: {e}")
+        print("📝 Используем in-memory базу")
+        db_path = ':memory:'
     
-    conn = sqlite3.connect('data/solar_calculations.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
-    # Создаем таблицу с ВСЕМИ нужными колонками
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS calculations (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             input_data TEXT NOT NULL,
             result_data TEXT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            language TEXT DEFAULT 'ru'  -- ← ВОТ ЭТУ СТРОКУ ДОБАВИТЬ!
+            language TEXT DEFAULT 'ru'
         )
     ''')
     
-    # Проверяем и добавляем колонку если ее нет (для старых баз)
-    cursor.execute("PRAGMA table_info(calculations)")
-    columns = [column[1] for column in cursor.fetchall()]
-    
-    if 'language' not in columns:
-        print("🔧 Добавляем колонку 'language' в существующую таблицу...")
-        cursor.execute('ALTER TABLE calculations ADD COLUMN language TEXT DEFAULT "ru"')
-    
     conn.commit()
     conn.close()
-    print("✅ База данных инициализирована")
-
+    print(f"✅ База данных инициализирована по пути: {db_path}")
+    
 def register_russian_font():
     """Регистрация шрифтов для PDF"""
     try:
