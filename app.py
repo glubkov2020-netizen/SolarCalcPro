@@ -264,9 +264,15 @@ def comparison():
 def about():
     return render_template('about.html')
 
+# Глобальная переменная для временного хранения
+memory_storage = []
+calculation_counter = 1
+
 @app.route('/api/calculate', methods=['POST'])
 def api_calculate():
     try:
+        global memory_storage, calculation_counter
+        
         data = request.get_json()
         if not data:
             return jsonify({'success': False, 'error': 'No data received'})
@@ -274,28 +280,22 @@ def api_calculate():
         calculator = AdvancedSolarCalculator()
         result = calculator.calculate_advanced(data)
         
-        conn = sqlite3.connect('data/solar_calculations.db')
-        cursor = conn.cursor()
+        # Сохраняем в памяти вместо базы данных
+        calculation = {
+            'id': calculation_counter,
+            'input_data': data,
+            'result_data': result,
+            'language': data.get('language', 'ru'),
+            'created_at': datetime.now().isoformat()
+        }
         
-        # УБЕРИТЕ language если его нет в данных:
-        input_json = json.dumps(data, ensure_ascii=False)
-        result_json = json.dumps(result, ensure_ascii=False)
+        memory_storage.append(calculation)
+        calculation_id = calculation_counter
+        calculation_counter += 1
         
-        # Если в data есть language, добавьте его, иначе пропустите
-        if 'language' in data:
-            cursor.execute(
-                'INSERT INTO calculations (input_data, result_data, language) VALUES (?, ?, ?)',
-                (input_json, result_json, data['language'])
-            )
-        else:
-            cursor.execute(
-                'INSERT INTO calculations (input_data, result_data) VALUES (?, ?)',
-                (input_json, result_json)
-            )
-        
-        calculation_id = cursor.lastrowid
-        conn.commit()
-        conn.close()
+        # Ограничиваем размер хранилища
+        if len(memory_storage) > 50:
+            memory_storage = memory_storage[-50:]
         
         return jsonify({
             'success': True, 
@@ -306,6 +306,12 @@ def api_calculate():
         print(f"Calculation error: {str(e)}")
         return jsonify({'success': False, 'error': str(e)})
 
+@app.route('/api/calculations-history')
+
+def api_calculations_history():
+    # Возвращаем из памяти
+    return jsonify({'success': True, 'data': memory_storage[-10:]})
+    
 @app.route('/api/calculations-history')
 def api_calculations_history():
     try:
